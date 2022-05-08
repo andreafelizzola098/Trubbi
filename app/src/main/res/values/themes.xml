@@ -2,8 +2,8 @@
     <!-- Base application theme. Theme.MaterialComponents.DayNight.DarkActionBar-->Theme.Material3.DayNight.NoActionBar
     <style name="Theme.Trubbi" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/trubbiColor</item>
-        <item name="colorPrimaryVariant">@color/trubbiColor</item>
+        <item name="colorPrimary">@color/fondoDrawer</item>
+        <item name="colorPrimaryVariant">@color/fondoDrawer</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

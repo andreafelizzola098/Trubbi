@@ -28,6 +28,6 @@
         android:text="Categorias"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:backgroundTint="@color/trubbiColor"
+        android:backgroundTint="@color/fondoDrawer"
         android:textSize="16dp" />
 </LinearLayout>
