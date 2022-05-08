@@ -7,4 +7,20 @@
     <string name="open_nav_drawer">Open</string>
     <string name="close_nav_drawer">Close</string>
 
+    <!-- Events names  -->
+    <string-array name="event_array">
+        <item>Evento 1</item>
+        <item>Evento 2</item>
+        <item>Evento 3</item>
+        <item>Evento 4</item>
+        <item>Evento 5</item>
+        <item>Evento 6</item>
+        <item>Evento 7</item>
+        <item>Evento 8</item>
+        <item>Evento 9</item>
+        <item>Evento 10</item>
+        <item>Evento 11</item>
+        <item>Evento 12</item>
+    </string-array>
+
 </resources>
