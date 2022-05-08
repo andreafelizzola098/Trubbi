@@ -41,12 +41,12 @@ class MainFragment : Fragment() {
         super.onStart()
 
         for (i in 1..5){
-            events.add(Event("Evento.$i", "21-12-22", "12hs","Leer más...", "Vte. López"))
-            events.add(Event("Evento.$i", "21-12-22", "12hs","Leer más...", "Vte. López"))
-            events.add(Event("Evento.$i", "21-12-22", "12hs","Leer más...", "Vte. López"))
-            events.add(Event("Evento.$i", "21-12-22", "12hs","Leer más...", "Vte. López"))
-            events.add(Event("Evento.$i", "21-12-22", "12hs","Leer más...", "Vte. López"))
-            events.add(Event("Evento.$i", "21-12-22", "12hs","Leer más...", "Vte. López"))
+            events.add(Event("Evento.$i", "21-12-22", "12hs","Este evento es para toda la famiilia y niños. Se dara en el Río de Vte. ... Leer más...", "Vte. López"))
+            events.add(Event("Evento.$i", "21-12-22", "12hs","Titeres y comida tradicional argentina, casera, en el Río de Vte. desde ... Leer más...", "Vte. López"))
+            events.add(Event("Evento.$i", "21-12-22", "12hs","Divertirte! Show gratuito de los Palmeras en la Costanera de Vte. López ... Leer más...", "Vte. López"))
+            events.add(Event("Evento.$i", "21-12-22", "12hs","Cine al aire libre y gratuito, comidas y más para pasar con tu familia u... Leer más...", "Vte. López"))
+            events.add(Event("Evento.$i", "21-12-22", "12hs","Feria artesanal, con show de malabares y una sorpresa para toda la famil... Leer más...", "Vte. López"))
+            events.add(Event("Evento.$i", "21-12-22", "12hs","Torneo de Voley, inscripción abierta, hasta agotar cupos (150), material... Leer más...", "Vte. López"))
         }
         recyclerView.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
