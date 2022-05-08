@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
 import com.example.trubbi.adapters.EventListAdapter
 import com.example.trubbi.entities.Event
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import java.text.FieldPosition
 
@@ -23,6 +24,8 @@ class MainFragment : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var extendedFab : Button
+
+    val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Múica", "Otros", "Cercanos", "Gratuitos")
 
     //override fun onCreate(savedInstanceState: Bundle?) {
     //    super.onCreate(savedInstanceState)
@@ -61,7 +64,16 @@ class MainFragment : Fragment() {
 
         extendedFab.setOnClickListener {
             // Respond to Extended FAB click
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(resources.getString(R.string.dialogs_title))
+                .setItems(items_categories) { dialog, which ->
+                    // Respond to item chosen
+                    
+                }
+                .show()
         }
+
+
     }
 
     fun onItemClick(position: Int):Boolean{
