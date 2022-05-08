@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +22,7 @@ class MainFragment : Fragment() {
     var events : MutableList<Event> = ArrayList<Event>()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
+    private lateinit var extendedFab : Button
 
     //override fun onCreate(savedInstanceState: Bundle?) {
     //    super.onCreate(savedInstanceState)
@@ -33,7 +35,7 @@ class MainFragment : Fragment() {
         // Inflate the layout for this fragment
         main_view = inflater.inflate(R.layout.fragment_main, container, false)
         recyclerView = main_view.findViewById(R.id.recycler_view)
-
+        extendedFab = main_view.findViewById(R.id.extended_fab)
         return main_view
     }
 
@@ -56,6 +58,10 @@ class MainFragment : Fragment() {
             x -> onItemClick(x)
         }
         recyclerView.adapter = eventListAdapter
+
+        extendedFab.setOnClickListener {
+            // Respond to Extended FAB click
+        }
     }
 
     fun onItemClick(position: Int):Boolean{
