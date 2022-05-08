@@ -7,6 +7,7 @@
     <string name="open_nav_drawer">Open</string>
     <string name="close_nav_drawer">Close</string>
     <string name="dialogs_title">Categorías</string>
+    <string name="CLIENT_ID">109698972778-j68omrh6upvlrnus6a8bhlda4r1dksd0.apps.googleusercontent.com</string>
     <!-- Events names  -->
     <string-array name="event_array">
         <item>Evento 1</item>

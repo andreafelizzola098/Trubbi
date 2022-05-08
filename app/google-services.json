@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "109698972778",
+    "project_id": "trubbi",
+    "storage_bucket": "trubbi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109698972778:android:4453d366db435b32bc9e13",
+        "android_client_info": {
+          "package_name": "com.example.trubbi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "109698972778-8uu3remajc1f7uiv19s5ogcbt822bphv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.trubbi",
+            "certificate_hash": "fd0430d6b853c0c7ef73b1b1c200ba6d0c11321f"
+          }
+        },
+        {
+          "client_id": "109698972778-j68omrh6upvlrnus6a8bhlda4r1dksd0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQZr1BudrugKJ8ZgcTFB3uOV-wr0NSi88"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "109698972778-j68omrh6upvlrnus6a8bhlda4r1dksd0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
