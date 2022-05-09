@@ -17,15 +17,15 @@
                 android:title="Favoritos"
                 android:checkable="true"/>
             <item
-                android:id="@+id/interestsFragment2"
-                android:checkable="true"
-                android:icon="@drawable/ic_interests"
-                android:title="Intereses" />
-            <item
                 android:id="@+id/historyFragment"
                 android:icon="@drawable/ic_history"
                 android:title="Historial"
                 android:checkable="true"/>
+            <item
+                android:id="@+id/interestsFragment2"
+                android:checkable="true"
+                android:icon="@drawable/ic_interests"
+                android:title="Mis Intereses" />
             <item
                 android:id="@+id/settingsFragment2"
                 android:icon="@drawable/ic_settings"
