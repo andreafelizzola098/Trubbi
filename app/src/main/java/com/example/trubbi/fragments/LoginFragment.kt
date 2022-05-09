@@ -113,6 +113,7 @@ class LoginFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         firebaseAuth = Firebase.auth
         googleSignInClient = GoogleSignIn.getClient(requireContext(), getGSO())
+        googleSignInClient.signOut()
         btnGoogle.setOnClickListener { signIn() }
     }
 
