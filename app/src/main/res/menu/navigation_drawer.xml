@@ -24,7 +24,7 @@
             <item
                 android:id="@+id/interestsFragment2"
                 android:checkable="true"
-                android:icon="@drawable/ic_interests"
+                android:icon="@drawable/ic_check_circle"
                 android:title="Mis Intereses" />
             <item
                 android:id="@+id/settingsFragment2"
