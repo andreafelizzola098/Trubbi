@@ -24,4 +24,14 @@
         <item>Evento 12</item>
     </string-array>
 
+    <!-- categories names -->
+    <string name="category_01">Familia y niños</string>
+    <string name="category_02">Deportes</string>
+    <string name="category_03">Arte y Cultura</string>
+    <string name="category_04">Música</string>
+    <string name="category_05">Ferias y Conferencias</string>
+    <string name="category_06">Artes Escénicas</string>
+    <string name="category07">Otros eventos de interés</string>
+
+
 </resources>

@@ -25,4 +25,8 @@
         android:name="com.example.trubbi.fragments.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/interestsFragment2"
+        android:name="com.example.trubbi.fragments.InterestsFragment"
+        android:label="InterestsFragment" />
 </navigation>
