@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -65,10 +66,10 @@ class LoginFragment : Fragment() {
         }
 
         btnLogin.setOnClickListener {
-            val email: EditText = v.findViewById(R.id.emailLogin)
-            val password: EditText = v.findViewById(R.id.passLogin)
+            val email : TextInputLayout = v.findViewById(R.id.emailLogin)
+            val password: TextInputLayout = v.findViewById(R.id.passLogin)
 
-            logUser(email.text.toString(), password.text.toString())
+            logUser(email.editText?.text.toString(), password.editText?.text.toString())
         }
 
     }
