@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "109698972778-5cuo0j6q2mmrqc6g9nk894b28hvsi5qg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.trubbi",
+            "certificate_hash": "1e7dd7fb2824a379081fa0d506c5e40ad8a524d0"
+          }
+        },
+        {
           "client_id": "109698972778-8uu3remajc1f7uiv19s5ogcbt822bphv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
