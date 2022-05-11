@@ -7,7 +7,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.trubbi.R
 import com.google.android.material.navigation.NavigationView
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var navigationView: NavigationView
     lateinit var toogle: ActionBarDrawerToggle //Boton hamburguesa
     private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration // SETTINGS HAMBURGUER
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +46,18 @@ class MainActivity : AppCompatActivity() {
             R.string.open_nav_drawer,
             R.string.close_nav_drawer
         )
+
+        //APPBAR SETTINGS
+        appBarConfiguration = AppBarConfiguration(
+            topLevelDestinationIds = setOf(),
+            fallbackOnNavigateUpListener = ::onSupportNavigateUp
+        )
+
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        //MANTENGO LA HAMBURGUER EN LA TOOLBAR
+        navController.addOnDestinationChangedListener { _, _, _ ->
+                      supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
+        }
 
         drawerLayout.addDrawerListener(toogle)
         toogle.syncState()
