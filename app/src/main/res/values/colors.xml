@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="fondoDrawer">#9A90E8</color>
     <color name="trubbiColor">#5a49e3</color>
+    <color name="light_grey">#a9b1b7</color>
+    <color name="dark_blue">#2b1a46</color>
 </resources>
