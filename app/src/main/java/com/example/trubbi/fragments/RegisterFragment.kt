@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.example.trubbi.R
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -49,10 +50,12 @@ class RegisterFragment : Fragment() {
         }
 
         btnRegister.setOnClickListener {
-            val emailEditText : EditText = v.findViewById(R.id.emailRegister)
-            val passwordEditText : EditText = v.findViewById(R.id.passRegister1)
 
-            createUser(emailEditText.text.toString(), passwordEditText.text.toString())
+            val email : TextInputLayout = v.findViewById(R.id.emailRegister)
+            val password: TextInputLayout = v.findViewById(R.id.passRegister1)
+
+            createUser(email.editText?.text.toString(), password.editText?.text.toString())
+
         }
     }
 
