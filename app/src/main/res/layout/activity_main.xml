@@ -30,7 +30,7 @@
                 android:layout_height="?attr/actionBarSize">
 
             <Button
-                app:icon="@drawable/ic_search_btn"
+                app:icon="@drawable/ic_search"
                 android:text="Buscar..."
                 android:textColor="@color/light_grey"
                 app:iconTint="@color/fondoDrawer"

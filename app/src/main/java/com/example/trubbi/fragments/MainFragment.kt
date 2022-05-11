@@ -18,14 +18,14 @@ import java.text.FieldPosition
 
 class MainFragment : Fragment() {
 
-    lateinit var main_view : View
-    lateinit var recyclerView: RecyclerView
-    var events : MutableList<Event> = ArrayList<Event>()
+    private lateinit var main_view : View
+    private lateinit var recyclerView: RecyclerView
+    private var events : MutableList<Event> = ArrayList<Event>()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var extendedFab : Button
 
-    val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Múica", "Otros", "Cercanos", "Gratuitos")
+    private val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Múica", "Otros", "Cercanos", "Gratuitos")
 
     //override fun onCreate(savedInstanceState: Bundle?) {
     //    super.onCreate(savedInstanceState)
