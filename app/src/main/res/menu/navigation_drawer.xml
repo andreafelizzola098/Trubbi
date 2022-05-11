@@ -22,8 +22,17 @@
                 android:title="Historial"
                 android:checkable="true"/>
             <item
+                android:id="@+id/interestsFragment2"
+                android:checkable="true"
+                android:icon="@drawable/ic_check_circle"
+                android:title="Mis Intereses" />
+            <item
                 android:id="@+id/settingsFragment2"
                 android:icon="@drawable/ic_settings"
                 android:title="Configuración"
+                android:checkable="true"/>
+            <item
+                android:icon="@drawable/ic_key"
+                android:title="Cerrar sesión"
                 android:checkable="true"/>
 </menu>
