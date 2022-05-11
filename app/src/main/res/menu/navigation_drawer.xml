@@ -31,4 +31,8 @@
                 android:icon="@drawable/ic_settings"
                 android:title="Configuración"
                 android:checkable="true"/>
+            <item
+                android:icon="@drawable/ic_key"
+                android:title="Cerrar sesión"
+                android:checkable="true"/>
 </menu>
