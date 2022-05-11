@@ -2,6 +2,7 @@ package com.example.trubbi.holders
 
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -43,12 +44,12 @@ class EventHolder (v:View) : RecyclerView.ViewHolder(v){
         return view.findViewById(R.id.card_view)
     }
 
-    //fun getImageView() : ImageView{
-    //    return view.findViewById(R.id.img_item)
-    //}
+    fun getImageView() : ImageView{
+        return view.findViewById(R.id.img_item)
+    }
 
-    //fun getButton() : Button {
-    //    return view.findViewById(R.id.button_card)
-    //}
+    fun getButton() : ImageButton {
+        return view.findViewById(R.id.button_card)
+    }
 
 }
