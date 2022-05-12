@@ -4,6 +4,24 @@ import com.example.trubbi.entities.EventData
 
 class EventsProvider {
     companion object {
+        val favEventsDataList = listOf<EventData>(
+            EventData(
+                "Favorito 1",
+                "21-12-22",
+                "12hs",
+                "Este evento es para toda la famiilia y niños ... Leer más...",
+                "Vte. López",
+                "https://picsum.photos/150?random=8"
+            ),
+            EventData(
+                "Favorito 2",
+                "21-12-22",
+                "12hs",
+                "Titeres y comida tradicional argentina, case ... Leer más...",
+                "Vte. López",
+                "https://picsum.photos/150?random=3"
+            )
+        )
         val eventDataList = listOf<EventData>(
             EventData(
                 "Evento.1",
