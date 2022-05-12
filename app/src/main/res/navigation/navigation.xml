@@ -29,4 +29,9 @@
         android:id="@+id/interestsFragment2"
         android:name="com.example.trubbi.fragments.InterestsFragment"
         android:label="InterestsFragment" />
+    <fragment
+        android:id="@+id/histFavSchedFragment"
+        android:name="com.example.trubbi.fragments.HistFavSchedFragment"
+        android:label="HistFavSchedFragment" />
+
 </navigation>

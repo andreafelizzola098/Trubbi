@@ -64,14 +64,6 @@ class MainActivity : AppCompatActivity() {
         drawerLayout.addDrawerListener(toogle)
         toogle.syncState()
 
-        //INICIALIZACION DE LA RECYCLER (ver cómo hacerla desde el mismo fragment)
-        initRecyclerView()
-
-    }
-    private fun initRecyclerView() {
-        val recyclerView = findViewById<RecyclerView>(R.id.multiDataRecycler)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = ItemCategoryAdapter(CategoryProvider.ItemDataList)
     }
 
     //Navegación por ID: en el menu drawer el id es = al nombre del fragmento que figura en el navigation

@@ -8,8 +8,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
+import com.example.trubbi.adapters.EventDataAdapter
+import com.example.trubbi.providers.EventsProvider
 
 class HistFavSchedFragment : Fragment() {
+
+    private lateinit var thisView:View
+    private lateinit var recycler:RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -19,9 +25,19 @@ class HistFavSchedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
-        return inflater.inflate(R.layout.fragment_hist_fav_sched, container, false)
+        thisView = inflater.inflate(R.layout.fragment_hist_fav_sched, container, false)
+        recycler = thisView.findViewById(R.id.multiDataRecycler)
+        initRecyclerView()
+        return thisView
     }
+
+    private fun initRecyclerView(){
+        val recyclerView = thisView.findViewById<RecyclerView>(R.id.multiDataRecycler)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = EventDataAdapter(EventsProvider.eventDataList)
+    }
+
+
 
 
 
