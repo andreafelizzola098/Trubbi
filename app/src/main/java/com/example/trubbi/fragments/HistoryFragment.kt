@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +14,7 @@ import com.example.trubbi.adapters.EventDataAdapter
 import com.example.trubbi.classes.HistFavSchedFragmentViewModel
 import com.example.trubbi.providers.EventsProvider
 
-class HistFavSchedFragment : Fragment(),LifecycleOwner {
+class HistoryFragment : Fragment(),LifecycleOwner {
 
     private lateinit var thisView:View
     private lateinit var recycler:RecyclerView
@@ -33,20 +32,18 @@ class HistFavSchedFragment : Fragment(),LifecycleOwner {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        thisView = inflater.inflate(R.layout.fragment_hist_fav_sched, container, false)
-        recycler = thisView.findViewById(R.id.multiDataRecycler)
+        thisView = inflater.inflate(R.layout.fragment_history, container, false)
+        recycler = thisView.findViewById(R.id.historyRecycler)
         initRecyclerView()
         return thisView
     }
 
     private fun initRecyclerView(){
-        val recyclerView = thisView.findViewById<RecyclerView>(R.id.multiDataRecycler)
+        val recyclerView = thisView.findViewById<RecyclerView>(R.id.historyRecycler)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        if(viewModel.number == 0){
-            recyclerView.adapter = EventDataAdapter(EventsProvider.eventDataList)
-        }else{
-            recyclerView.adapter = EventDataAdapter(EventsProvider.favEventsDataList)
-        }
+
+        recyclerView.adapter = EventDataAdapter(EventsProvider.historyDataList)
+
     }
 
 

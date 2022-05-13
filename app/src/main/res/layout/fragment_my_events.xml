@@ -2,17 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout3"
+    android:id="@+id/frameLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HistFavSchedFragment">
+    android:orientation="vertical"
+    android:layout_marginTop="60dp"
+    tools:context=".fragments.MyEventsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/multiDataRecycler"
+        android:id="@+id/myEventsRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="4dp"
+        android:background="#FFCCB1"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/extended_fab"
         app:layout_constraintEnd_toEndOf="parent"

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
 import com.example.trubbi.entities.Event
 import com.example.trubbi.entities.EventData
+import com.squareup.picasso.Picasso
 
 class EventDataViewHolder(view:View):RecyclerView.ViewHolder (view){
 
@@ -23,6 +24,7 @@ class EventDataViewHolder(view:View):RecyclerView.ViewHolder (view){
         eventTime.text = event.time
         eventDetail.text = event.detail
         eventAddress.text = event.address
+        Picasso.get().load(event.urlImage).into(eventImg)
 
     }
 }
