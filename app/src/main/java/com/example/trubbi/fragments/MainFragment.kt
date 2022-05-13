@@ -25,7 +25,7 @@ class MainFragment : Fragment() {
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var extendedFab : Button
 
-    val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Múica", "Otros", "Cercanos", "Gratuitos")
+    val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Múica", "Otros", "Cercanos")
 
     //override fun onCreate(savedInstanceState: Bundle?) {
     //    super.onCreate(savedInstanceState)
@@ -68,6 +68,17 @@ class MainFragment : Fragment() {
                 .setTitle(resources.getString(R.string.dialogs_title))
                 .setItems(items_categories) { dialog, which ->
                     // Respond to item chosen
+                    when(which){
+                        0-> onItemClick(0)
+                        1-> onItemClick(1)
+                        2-> onItemClick(2)
+                        3-> onItemClick(3)
+                        4-> onItemClick(4)
+                        5-> onItemClick(5)
+                        6-> onItemClick(6)
+                        7-> onItemClick(7)
+                        8-> onItemClick(8)
+                    }
                     
                 }
                 .show()

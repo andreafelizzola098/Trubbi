@@ -23,7 +23,7 @@ class CategoriesFragment : Fragment() {
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var extendedFabCategory : Button
 
-    val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Múica", "Otros", "Cercanos", "Gratuitos")
+    val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Múica", "Otros", "Cercanos")
 
 
     //override fun onCreate(savedInstanceState: Bundle?) {
