@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/trubbi_sinfondo" />
+        app:srcCompat="@mipmap/trubbi_blue" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailLogin"
