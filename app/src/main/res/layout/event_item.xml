@@ -38,8 +38,8 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/img_item"
-                android:layout_width="111dp"
-                android:layout_height="111dp"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
                 android:foregroundGravity="center_vertical"
                 app:shapeAppearanceOverlay="@style/roundedImage"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -52,7 +52,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="15dp"
                 android:orientation="vertical"
@@ -136,8 +136,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:background="@drawable/button_round"
-                android:backgroundTint="@color/fondoDrawer"
+                android:backgroundTint="@android:color/transparent"
+                app:tint="@color/fondoDrawer"
                 android:textSize="10sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
                 android:visibility="visible"
                 android:src="@drawable/icmoney"
                 app:layout_constraintBottom_toBottomOf="parent"
