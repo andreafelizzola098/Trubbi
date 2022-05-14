@@ -39,7 +39,7 @@ class FavoritesFragment : Fragment() {
         for (i in 1..5) {
             events.add(
                 Event(
-                    "Evento.$i",
+                    "Favorito.$i",
                     "21-12-22",
                     "12hs",
                     "Este evento es para toda la famiilia y niños ... Leer más...",
@@ -49,7 +49,7 @@ class FavoritesFragment : Fragment() {
             )
             events.add(
                 Event(
-                    "Evento.$i",
+                    "Favorito.$i",
                     "21-12-22",
                     "12hs",
                     "Titeres y comida tradicional argentina, case ... Leer más...",
@@ -59,7 +59,7 @@ class FavoritesFragment : Fragment() {
             )
             events.add(
                 Event(
-                    "Evento.$i",
+                    "Favorito.$i",
                     "21-12-22",
                     "12hs",
                     "Divertirte! Show gratuito de los Palmeras en ... Leer más...",
@@ -69,7 +69,7 @@ class FavoritesFragment : Fragment() {
             )
             events.add(
                 Event(
-                    "Evento.$i",
+                    "Favorito.$i",
                     "21-12-22",
                     "12hs",
                     "Cine al aire libre y gratuito, comidas y más ... Leer más...",
@@ -79,7 +79,7 @@ class FavoritesFragment : Fragment() {
             )
             events.add(
                 Event(
-                    "Evento.$i",
+                    "Favorito.$i",
                     "21-12-22",
                     "12hs",
                     "Feria artesanal, con show de malabares y una ... Leer más...",
@@ -89,7 +89,7 @@ class FavoritesFragment : Fragment() {
             )
             events.add(
                 Event(
-                    "Evento.$i",
+                    "Favorito.$i",
                     "21-12-22",
                     "12hs",
                     "Torneo de Voley, inscripción abierta, hasta  ... Leer más...",
