@@ -30,6 +30,14 @@
           }
         },
         {
+          "client_id": "109698972778-8ue6u8h2ulddt6gmm7uf60hqacvejnq7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.trubbi",
+            "certificate_hash": "e693136080579be033714a4ee6b908a7c76f3f02"
+          }
+        },
+        {
           "client_id": "109698972778-8uu3remajc1f7uiv19s5ogcbt822bphv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
