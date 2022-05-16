@@ -29,4 +29,14 @@
         android:id="@+id/interestsFragment2"
         android:name="com.example.trubbi.fragments.InterestsFragment"
         android:label="InterestsFragment" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.trubbi.fragments.HistoryFragment"
+        android:label="HistoryFragment" />
+    <fragment
+        android:id="@+id/myEventsFragment"
+        android:name="com.example.trubbi.fragments.MyEventsFragment"
+        android:label="fragment_my_events"
+        tools:layout="@layout/fragment_my_events" />
+
 </navigation>
