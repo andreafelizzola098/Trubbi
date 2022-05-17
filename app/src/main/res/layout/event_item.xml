@@ -136,8 +136,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:background="@drawable/button_round"
-                android:backgroundTint="@android:color/transparent"
-                app:tint="@color/fondoDrawer"
+                android:backgroundTint="@color/fondoDrawer"
+                app:tint="@color/white"
                 android:textSize="10sp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
@@ -149,6 +149,46 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
+
+            <ImageButton
+                android:id="@+id/schedule_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/button_round"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/ic_schedule"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                app:tint="@color/fondoDrawer" />
+
+            <ImageButton
+                android:id="@+id/fav_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/button_round"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/ic_favorite_fill"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                app:tint="@color/fondoDrawer" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
