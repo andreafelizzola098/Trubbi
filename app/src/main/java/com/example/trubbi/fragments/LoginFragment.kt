@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.lang.IllegalArgumentException
 
 
 class LoginFragment : Fragment() {
@@ -43,13 +44,9 @@ class LoginFragment : Fragment() {
     ): View {
 
         v = inflater.inflate(R.layout.fragment_login, container, false)
-
         txtRegister = v.findViewById(R.id.txtRegister)
-
         btnLogin = v.findViewById(R.id.btnLogin)
-
         btnGoogle = v.findViewById(R.id.btnGoogle)
-
         firebaseAuth = Firebase.auth
 
         return v
@@ -66,10 +63,17 @@ class LoginFragment : Fragment() {
         }
 
         btnLogin.setOnClickListener {
-            val email : TextInputLayout = v.findViewById(R.id.emailLogin)
-            val password: TextInputLayout = v.findViewById(R.id.passLogin)
+            try{
+                val email : TextInputLayout = v.findViewById(R.id.emailLogin)
+                val password: TextInputLayout = v.findViewById(R.id.passLogin)
 
-            logUser(email.editText?.text.toString(), password.editText?.text.toString())
+                logUser(email.editText?.text.toString(), password.editText?.text.toString())
+            } catch(e: IllegalArgumentException) {
+                Toast.makeText(
+                    context, "All fields must be completed",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
     }
@@ -90,7 +94,7 @@ class LoginFragment : Fragment() {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
                         Toast.makeText(
-                            context, "Authentication failed",
+                            context, "Authentication failed, wrong email or password",
                             Toast.LENGTH_SHORT
                         ).show()
                         updateUI(null)
