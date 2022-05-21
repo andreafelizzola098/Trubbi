@@ -54,6 +54,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fechaDetails"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
             android:layout_width="302dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -66,13 +67,16 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:layout_constraintVertical_bias="0.406">
+            app:layout_constraintVertical_bias="0.406"
+            app:boxStrokeColor="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:inputType="none"
-                android:textIsSelectable="true" />
+                android:text=" 21 de agosto - 21:30hs"
+                android:textIsSelectable="true"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -96,6 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:inputType="none"
+                android:text="Zufriategui 1234"
                 android:textIsSelectable="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,10 +114,10 @@
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.511"
+            app:layout_constraintHorizontal_bias="0.622"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView5"
-            app:layout_constraintVertical_bias="0.981" />
+            app:layout_constraintVertical_bias="0.977" />
 
         <TextView
             android:id="@+id/textView8"
