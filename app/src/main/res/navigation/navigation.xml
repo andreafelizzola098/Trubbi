@@ -41,6 +41,10 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.example.trubbi.fragments.DetailsFragment"
-        android:label="DetailsFragment" />
+        android:label="DetailsFragment" >
+        <argument
+            android:name="picture"
+            app:argType="reference" />
+    </fragment>
 
 </navigation>

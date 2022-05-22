@@ -24,6 +24,11 @@ class MainFragment : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var extendedFab : Button
+    private var listener: ((item: Event) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (item: Event) -> Unit) {
+        this.listener = listener
+    }
 
     val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Múica", "Otros", "Cercanos")
 

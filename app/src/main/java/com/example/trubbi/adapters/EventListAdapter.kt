@@ -2,6 +2,9 @@ package com.example.trubbi.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
 import com.example.trubbi.entities.Event
@@ -32,6 +35,9 @@ class EventListAdapter (
         holder.setAddress(eventList[position].address)
         holder.getButton()
         Picasso.get().load(eventList[position].urlImage).into(holder.getImageView())
+        holder.itemView.findViewById<TextView>(R.id.detail_text).setOnClickListener{
+            holder.itemView.findNavController().navigate(R.id.detailsFragment)
+        }
     }
 
     override fun getItemCount(): Int {
