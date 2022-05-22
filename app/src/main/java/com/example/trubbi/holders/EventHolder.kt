@@ -21,23 +21,17 @@ class EventHolder (v:View) : RecyclerView.ViewHolder(v){
         txt.text = name
     }
     fun setDate(date: String){
-        val datetxt: TextView = view.findViewById(R.id.date_text)
-        datetxt.text = date
     }
 
     fun setTime(time: String){
-        val timetxt: TextView = view.findViewById(R.id.time_text)
-        timetxt.text = time
     }
 
     fun setDetail(detail: String){
-        val detailtxt: TextView = view.findViewById(R.id.detail_text)
-        detailtxt.text = detail
     }
 
     fun setAddress(address: String){
         val addresstxt: TextView = view.findViewById(R.id.address_text)
-        addresstxt.text = address
+        addresstxt.text = "Florida 2010, 1636, Olivos, Provincia de Buenos Aires"
     }
 
     fun getCardLayout():CardView{
