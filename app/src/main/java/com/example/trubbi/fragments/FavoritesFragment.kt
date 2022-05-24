@@ -16,7 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class FavoritesFragment : Fragment() {
 
-    lateinit var favorites_view: View
+    private lateinit var favorites_view: View
     lateinit var favoriteRecyclerView: RecyclerView
     var events: MutableList<Event> = ArrayList<Event>()
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -30,13 +30,13 @@ class FavoritesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         toolBarSearchView = requireActivity().findViewById(R.id.searchView)
         toolBarSearchView.isVisible = false
 
         if (activity != null) {
-            (activity as MainActivity).supportActionBar?.title = "Mis favoritos"
+            (activity as MainActivity).supportActionBar?.title = "Favoritos"
         }
         favorites_view = inflater.inflate(R.layout.fragment_favorites, container, false)
         favoriteRecyclerView = favorites_view.findViewById(R.id.recycler_view_favorites)
@@ -123,7 +123,7 @@ class FavoritesFragment : Fragment() {
         Snackbar.make(favorites_view, position.toString(), Snackbar.LENGTH_SHORT).show()
         return true
     }
-    //al destruirse la view se restaura la visibilidad de la searchView
+    //al detenerse la view se restaura la visibilidad de la searchView
     override fun onStop() {
         super.onStop()
         toolBarSearchView.isVisible = true

@@ -26,7 +26,7 @@ class InterestsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_interests, container, false)
     }
 
-    //al destruirse la view se restaura la visibilidad de la searchView
+    //al detenerse la view se restaura la visibilidad de la searchView
     override fun onStop() {
         super.onStop()
         toolBarSearchView.isVisible = true
