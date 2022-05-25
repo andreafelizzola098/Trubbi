@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +33,7 @@ class MainFragment : Fragment() {
         this.listener = listener
     }
 
-    val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Múica", "Otros", "Cercanos")
+    val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Música", "Otros", "Cercanos")
 
     //override fun onCreate(savedInstanceState: Bundle?) {
     //    super.onCreate(savedInstanceState)
@@ -65,6 +68,7 @@ class MainFragment : Fragment() {
         eventListAdapter = EventListAdapter(events){
             x -> onItemClick(x)
         }
+
         recyclerView.adapter = eventListAdapter
 
         extendedFab.setOnClickListener {
@@ -92,8 +96,10 @@ class MainFragment : Fragment() {
 
     }
 
-    fun onItemClick(position: Int):Boolean{
-        Snackbar.make(main_view, position.toString(), Snackbar.LENGTH_SHORT).show()
+    fun onItemClick(position: Int): Boolean{
+        //Snackbar.make(main_view, position.toString(), Snackbar.LENGTH_SHORT).show()
+        val actioncategory = MainFragmentDirections.actionMainFragmentToCategoriesFragment(items_categories[position])
+        main_view.findNavController().navigate(actioncategory)
         return true
     }
 

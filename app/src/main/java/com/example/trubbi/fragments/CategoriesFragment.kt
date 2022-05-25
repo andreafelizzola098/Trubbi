@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
@@ -22,8 +23,8 @@ class CategoriesFragment : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var extendedFabCategory : Button
-
-    val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Múica", "Otros", "Cercanos")
+    private lateinit var titlecategory : TextView
+    val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Música", "Otros", "Cercanos")
 
 
     //override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +39,7 @@ class CategoriesFragment : Fragment() {
         category_view = inflater.inflate(R.layout.fragment_categories, container, false)
         categoryRecyclerView = category_view.findViewById(R.id.recycler_view_categories)
         extendedFabCategory = category_view.findViewById(R.id.extended_fab_category)
+        titlecategory = category_view.findViewById(R.id.textcategory)
         return category_view
     }
 
@@ -51,10 +53,13 @@ class CategoriesFragment : Fragment() {
             events.add(Event("Evento.$i", "21-12-22", "12hs","Feria artesanal, con show de malabares y una ... Leer más...", "Vte. López", "https://picsum.photos/150?random=2"))
             events.add(Event("Evento.$i", "21-12-22", "12hs","Torneo de Voley, inscripción abierta, hasta  ... Leer más...", "Vte. López", "https://picsum.photos/150?random=8"))
         }
+
         categoryRecyclerView.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         categoryRecyclerView.layoutManager = linearLayoutManager
-
+        var text = CategoriesFragmentArgs.fromBundle(requireArguments()).namecategory
+        titlecategory?.setText(text.toString())
+        //titlecategory.elevation = 10.0F
         eventListAdapter = EventListAdapter(events){
                 x -> onItemClick(x)
         }
