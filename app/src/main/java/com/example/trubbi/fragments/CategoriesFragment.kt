@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.view.isVisible
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
@@ -41,7 +42,7 @@ class CategoriesFragment : Fragment() {
         toolBarSearchView.isVisible = false
         var text = CategoriesFragmentArgs.fromBundle(requireArguments()).namecategory
         if(activity != null){
-            (activity as MainActivity).supportActionBar?.title = text
+            (activity as MainActivity).supportActionBar?.title = " $text"
         }
         categoryView = inflater.inflate(R.layout.fragment_categories, container, false)
         categoryRecyclerView = categoryView.findViewById(R.id.recycler_view_categories)
@@ -72,14 +73,8 @@ class CategoriesFragment : Fragment() {
         categoryRecyclerView.adapter = eventListAdapter
 
         extendedFabCategory.setOnClickListener {
-            // Respond to Extended FAB click
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle(resources.getString(R.string.dialogs_title))
-                .setItems(items_categories) { dialog, which ->
-                    // Respond to item chosen
-
-                }
-                .show()
+            val action = CategoriesFragmentDirections.actionCategoriesFragmentToMainFragment()
+            categoryView.findNavController().navigate(action)
         }
     }
 

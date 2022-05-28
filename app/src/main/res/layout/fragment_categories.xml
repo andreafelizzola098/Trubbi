@@ -27,7 +27,7 @@
         android:layout_gravity="bottom|center"
         android:layout_margin="16dp"
         android:backgroundTint="@color/fondoDrawer"
-        android:text="@string/dialogs_title"
+        android:text="@string/volver"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="16sp"

@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         //APPBAR SETTINGS
         appBarConfiguration = AppBarConfiguration(
-            topLevelDestinationIds = setOf(),
+            topLevelDestinationIds = setOf(R.id.categoriesFragment),
             fallbackOnNavigateUpListener = ::onSupportNavigateUp
         )
 
