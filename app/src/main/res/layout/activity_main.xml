@@ -33,6 +33,7 @@
                 android:layout_height="?attr/actionBarSize">
 
                 <SearchView
+                    android:id="@+id/searchView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
@@ -44,18 +45,6 @@
                     android:queryBackground="@android:color/transparent"
                     app:showAsAction="collapseActionView|ifRoom"
                     />
-       <!-- <Button
-                app:icon="@drawable/ic_search"
-                android:text="Buscar..."
-                android:textColor="@color/light_grey"
-                app:iconTint="@color/fondoDrawer"
-                android:backgroundTint="@color/white"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                app:iconGravity="end"
-                android:textAlignment="textStart"/> -->
 
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
