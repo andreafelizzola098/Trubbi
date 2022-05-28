@@ -60,6 +60,13 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, _, _ ->
                       supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
         }
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            if (destination.id != R.id.categoriesFragment) {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            } else {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
+        }
 
         drawerLayout.addDrawerListener(toogle)
         toogle.syncState()
