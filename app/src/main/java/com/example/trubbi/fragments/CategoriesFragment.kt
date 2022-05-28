@@ -41,8 +41,9 @@ class CategoriesFragment : Fragment() {
         // Inflate the layout for this fragment
         toolBarSearchView = requireActivity().findViewById(R.id.searchView)
         toolBarSearchView.isVisible = false
+        var text = CategoriesFragmentArgs.fromBundle(requireArguments()).namecategory
         if(activity != null){
-            (activity as MainActivity).supportActionBar?.title = "Categorias"
+            (activity as MainActivity).supportActionBar?.title = text
         }
         category_view = inflater.inflate(R.layout.fragment_categories, container, false)
         categoryRecyclerView = category_view.findViewById(R.id.recycler_view_categories)
@@ -66,7 +67,7 @@ class CategoriesFragment : Fragment() {
         categoryRecyclerView.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         categoryRecyclerView.layoutManager = linearLayoutManager
-        var text = CategoriesFragmentArgs.fromBundle(requireArguments()).namecategory
+
         //titlecategory?.setText(text.toString())
         //titlecategory.elevation = 10.0F
         eventListAdapter = EventListAdapter(events){
