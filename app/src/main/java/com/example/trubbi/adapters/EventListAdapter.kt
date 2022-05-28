@@ -2,6 +2,7 @@ package com.example.trubbi.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
 import com.example.trubbi.entities.Event
@@ -32,6 +33,9 @@ class EventListAdapter (
         holder.setAddress(eventList[position].address)
         holder.getButton()
         Picasso.get().load(eventList[position].urlImage).into(holder.getImageView())
+        holder.itemView.setOnClickListener {
+            Navigation.createNavigateOnClickListener(R.id.favoritesFragment)
+        }
     }
 
     override fun getItemCount(): Int {
