@@ -11,7 +11,7 @@ import com.example.trubbi.activities.MainActivity
 
 class InterestsFragment : Fragment() {
 
-    lateinit var toolBarSearchView: View
+    private lateinit var toolBarSearchView: View
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

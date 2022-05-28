@@ -6,33 +6,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
 import com.example.trubbi.adapters.EventListAdapter
 import com.example.trubbi.entities.Event
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
-import java.text.FieldPosition
 
 class MainFragment : Fragment() {
 
-    lateinit var main_view : View
+    private lateinit var main_view : View
     lateinit var recyclerView: RecyclerView
-    var events : MutableList<Event> = ArrayList<Event>()
+    private var events : MutableList<Event> = ArrayList<Event>()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var extendedFab : Button
 
-    val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Música", "Otros", "Cercanos")
+    private val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Música", "Otros", "Cercanos")
 
-    //override fun onCreate(savedInstanceState: Bundle?) {
-    //    super.onCreate(savedInstanceState)
-    //}
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,7 +86,7 @@ class MainFragment : Fragment() {
 
     }
 
-    fun onItemClick(position: Int): Boolean{
+    private fun onItemClick(position: Int): Boolean{
         //Snackbar.make(main_view, position.toString(), Snackbar.LENGTH_SHORT).show()
         val actioncategory = MainFragmentDirections.actionMainFragmentToCategoriesFragment(items_categories[position])
         main_view.findNavController().navigate(actioncategory)

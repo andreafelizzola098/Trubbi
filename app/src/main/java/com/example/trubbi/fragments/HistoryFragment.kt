@@ -19,10 +19,10 @@ class HistoryFragment : Fragment(),LifecycleOwner {
 
     private lateinit var thisView:View
     private lateinit var recycler:RecyclerView
-    var events : MutableList<Event> = ArrayList<Event>()
+    private var events : MutableList<Event> = ArrayList<Event>()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
-    lateinit var toolBarSearchView: View
+    private lateinit var toolBarSearchView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

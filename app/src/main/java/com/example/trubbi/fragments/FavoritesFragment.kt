@@ -17,15 +17,15 @@ import com.google.android.material.snackbar.Snackbar
 class FavoritesFragment : Fragment() {
 
     private lateinit var favorites_view: View
-    lateinit var favoriteRecyclerView: RecyclerView
-    var events: MutableList<Event> = ArrayList<Event>()
+    private lateinit var favoriteRecyclerView: RecyclerView
+    private var events: MutableList<Event> = ArrayList<Event>()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
-    lateinit var toolBarSearchView: View
+    private lateinit var toolBarSearchView: View
 
-    //override fun onCreate(savedInstanceState: Bundle?) {
-    //    super.onCreate(savedInstanceState)
-    //}
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -119,7 +119,7 @@ class FavoritesFragment : Fragment() {
 
     }
 
-    fun onItemClick(position: Int):Boolean{
+    private fun onItemClick(position: Int):Boolean{
         Snackbar.make(favorites_view, position.toString(), Snackbar.LENGTH_SHORT).show()
         return true
     }

@@ -11,7 +11,7 @@ import com.example.trubbi.activities.MainActivity
 
 class SettingsFragment : Fragment() {
 
-    lateinit var toolBarSearchView : View
+    private lateinit var toolBarSearchView : View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
