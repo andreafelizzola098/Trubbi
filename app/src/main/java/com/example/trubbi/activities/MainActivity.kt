@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         toolbar = findViewById(R.id.main_toolbar)
         setSupportActionBar(toolbar) //Habilita la toolbar
-        //getSupportActionBar()?.setDisplayShowTitleEnabled(false) // Elimina el Title, de los fragments, en la toolbar
+        getSupportActionBar()?.setDisplayShowTitleEnabled(true) // Elimina el Title, de los fragments, en la toolbar
         drawerLayout = findViewById(R.id.drawer_layout) // menu drawer
         navigationView = findViewById(R.id.nav_view) //navegación
 
