@@ -7,22 +7,24 @@
     <string name="open_nav_drawer">Open</string>
     <string name="close_nav_drawer">Close</string>
     <string name="dialogs_title">Categorías</string>
+    <string name="settings_title">Configuración del usuario</string>
+    <string name="settings_name">Nombre</string>
+    <string name="settings_email">Email</string>
+    <string name="settings_pass">Password</string>
+    <string name="settings_address">Dirección</string>
+    <string name="settings_btn">Vincular mi Google Calendar</string>
+    <string name="login_email">Email*</string>
+    <string name="login_pass">Contraseña*</string>
+    <string name="register_pass">Repita contraseña*</string>
+    <string name="register_btn">Regístrese</string>
+    <string name="register_btn2">O acceda a su cuenta</string>
+    <string name="login_retrieve">Recuperar contraseña</string>
+    <string name="login_btn">Login</string>
+    <string name="login_registry">Regístrese gratis</string>
+    <string name="register_btn3">Acceda a su cuenta</string>
+    <string name="search_msg">No se encontraron resultados para su búsqueda</string>
+
     <string name="CLIENT_ID">109698972778-j68omrh6upvlrnus6a8bhlda4r1dksd0.apps.googleusercontent.com</string>
-    <!-- Events names  -->
-    <string-array name="event_array">
-        <item>Evento 1</item>
-        <item>Evento 2</item>
-        <item>Evento 3</item>
-        <item>Evento 4</item>
-        <item>Evento 5</item>
-        <item>Evento 6</item>
-        <item>Evento 7</item>
-        <item>Evento 8</item>
-        <item>Evento 9</item>
-        <item>Evento 10</item>
-        <item>Evento 11</item>
-        <item>Evento 12</item>
-    </string-array>
 
     <!-- categories names -->
     <string name="category_01">Familia y niños</string>
@@ -32,6 +34,7 @@
     <string name="category_05">Ferias y Conferencias</string>
     <string name="category_06">Artes Escénicas</string>
     <string name="category07">Otros eventos de interés</string>
+    <string name="volver">Volver</string>
 
 
 </resources>

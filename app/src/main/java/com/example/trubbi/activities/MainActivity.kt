@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         toolbar = findViewById(R.id.main_toolbar)
         setSupportActionBar(toolbar) //Habilita la toolbar
-        getSupportActionBar()?.setDisplayShowTitleEnabled(false) // Elimina el Title, de los fragments, en la toolbar
+        getSupportActionBar()?.setDisplayShowTitleEnabled(true) // Elimina el Title, de los fragments, en la toolbar
         drawerLayout = findViewById(R.id.drawer_layout) // menu drawer
         navigationView = findViewById(R.id.nav_view) //navegación
 
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         //APPBAR SETTINGS
         appBarConfiguration = AppBarConfiguration(
-            topLevelDestinationIds = setOf(),
+            topLevelDestinationIds = setOf(R.id.categoriesFragment),
             fallbackOnNavigateUpListener = ::onSupportNavigateUp
         )
 
@@ -59,6 +59,13 @@ class MainActivity : AppCompatActivity() {
         //MANTENGO LA HAMBURGUER EN LA TOOLBAR
         navController.addOnDestinationChangedListener { _, _, _ ->
                       supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
+        }
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            if (destination.id != R.id.categoriesFragment) {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            } else {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
         }
 
         drawerLayout.addDrawerListener(toogle)
