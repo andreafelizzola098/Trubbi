@@ -1,18 +1,17 @@
 package com.example.trubbi.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
 import com.google.android.material.navigation.NavigationView
 
@@ -51,23 +50,20 @@ class MainActivity : AppCompatActivity() {
 
         //APPBAR SETTINGS
         appBarConfiguration = AppBarConfiguration(
-            topLevelDestinationIds = setOf(R.id.categoriesFragment),
-            fallbackOnNavigateUpListener = ::onSupportNavigateUp
+            topLevelDestinationIds = setOf()
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         //MANTENGO LA HAMBURGUER EN LA TOOLBAR
-        navController.addOnDestinationChangedListener { _, _, _ ->
-                      supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
-        }
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            if (destination.id != R.id.categoriesFragment) {
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-            } else {
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
+            if(destination.id == R.id.mainFragment){
+                val fm: FragmentManager = this.supportFragmentManager
+                for (i in 0 until fm.backStackEntryCount) {
+                    fm.popBackStack()
+                }
             }
         }
-
         drawerLayout.addDrawerListener(toogle)
         toogle.syncState()
 

@@ -92,7 +92,6 @@ class MainFragment : Fragment() {
     }
 
     private fun onItemClick(position: Int): Boolean{
-        //Snackbar.make(main_view, position.toString(), Snackbar.LENGTH_SHORT).show()
         val actioncategory = MainFragmentDirections.actionMainFragmentToCategoriesFragment(items_categories[position])
         main_view.findNavController().navigate(actioncategory)
         return true

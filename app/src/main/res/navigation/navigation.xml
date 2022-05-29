@@ -12,7 +12,12 @@
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_categoriesFragment"
-            app:destination="@id/categoriesFragment" />
+            app:destination="@id/categoriesFragment"
+            app:enterAnim="@anim/anim_test_left" />
+        <action
+            android:id="@+id/action_mainFragment_to_detailsFragment2"
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/anim_test_left" />
     </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
@@ -26,7 +31,8 @@
             android:defaultValue="null" />
         <action
             android:id="@+id/action_categoriesFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/animation_test_right" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -58,6 +64,10 @@
         <argument
             android:name="picture"
             app:argType="reference" />
+        <action
+            android:id="@+id/action_detailsFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/animation_test_right" />
     </fragment>
 
 </navigation>

@@ -35,8 +35,8 @@ class EventListAdapter (
         holder.setAddress(eventList[position].address)
         holder.getButton()
         Picasso.get().load(eventList[position].urlImage).into(holder.getImageView())
-        holder.itemView.findViewById<TextView>(R.id.detail_text).setOnClickListener{
-            holder.itemView.findNavController().navigate(R.id.detailsFragment)
+        holder.itemView.setOnClickListener{
+            holder.itemView.findNavController().navigate(R.id.action_mainFragment_to_detailsFragment2)
         }
     }
 
