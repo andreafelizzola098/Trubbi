@@ -22,6 +22,11 @@ class MainFragment : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var extendedFab : Button
+    private var listener: ((item: Event) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (item: Event) -> Unit) {
+        this.listener = listener
+    }
 
     private val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Música", "Otros", "Cercanos")
 
@@ -87,7 +92,6 @@ class MainFragment : Fragment() {
     }
 
     private fun onItemClick(position: Int): Boolean{
-        //Snackbar.make(main_view, position.toString(), Snackbar.LENGTH_SHORT).show()
         val actioncategory = MainFragmentDirections.actionMainFragmentToCategoriesFragment(items_categories[position])
         main_view.findNavController().navigate(actioncategory)
         return true
