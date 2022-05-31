@@ -75,7 +75,6 @@
                     android:layout_weight="1"
                     android:backgroundTint="@android:color/transparent"
                     android:paddingLeft="0dp"
-                    android:paddingRight="0dp"
                     card_view:srcCompat="@drawable/ic_fav_border" />
 
                 <ImageButton
