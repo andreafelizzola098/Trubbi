@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
+import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.adapters.EventListAdapter
 import com.example.trubbi.entities.Event
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -95,6 +97,15 @@ class MainFragment : Fragment() {
         val actioncategory = MainFragmentDirections.actionMainFragmentToCategoriesFragment(items_categories[position])
         main_view.findNavController().navigate(actioncategory)
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val toolbar = (activity as MainActivity).findViewById<androidx.appcompat.widget.Toolbar>(R.id.main_toolbar)
+        toolbar.setNavigationOnClickListener {
+            (activity as MainActivity).drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN)
+            (activity as MainActivity).drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        }
     }
 
 }

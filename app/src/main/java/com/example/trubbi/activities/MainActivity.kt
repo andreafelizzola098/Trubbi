@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.trubbi.R
+import com.example.trubbi.fragments.LoginFragment
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -59,15 +60,19 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             if(destination.id != R.id.detailsFragment && destination.id != R.id.categoriesFragment){
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
-            } else {
+            } else if(destination.id == R.id.detailsFragment){
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                val navOptions = NavOptions.Builder().setEnterAnim(R.anim.animation_test_right).build()
                 toolbar.setNavigationOnClickListener {
-                    navController.navigate(R.id.mainFragment, null, navOptions)
                     val fm: FragmentManager = this.supportFragmentManager
-                    for (i in 0 until fm.backStackEntryCount) {
-                        fm.popBackStack()
-                    }
+                    val ft = fm.beginTransaction()
+                    ft.setCustomAnimations(R.anim.anim_test_left,R.anim.animation_test_right,R.anim.anim_test_left,R.anim.animation_test_right)
+                    navController.popBackStack()
+                    ft.commit()
+                }
+            } else if (destination.id == R.id.categoriesFragment){
+                toolbar.setNavigationOnClickListener {
+                    val navOptions = NavOptions.Builder().setEnterAnim(R.anim.animation_test_right).build()
+                    navController.navigate(R.id.mainFragment, null, navOptions)
                 }
             }
         }
