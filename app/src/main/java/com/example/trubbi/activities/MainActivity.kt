@@ -1,5 +1,6 @@
 package com.example.trubbi.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,7 @@ import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var toolbar : Toolbar
+    private lateinit var toolbar2 : Toolbar
     lateinit var drawerLayout: DrawerLayout
     lateinit var navigationView: NavigationView
     lateinit var toogle: ActionBarDrawerToggle //Boton hamburguesa
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         toolbar = findViewById(R.id.main_toolbar)
         setSupportActionBar(toolbar) //Habilita la toolbar
-        getSupportActionBar()?.setDisplayShowTitleEnabled(true) // Elimina el Title, de los fragments, en la toolbar
+        supportActionBar?.setDisplayShowTitleEnabled(true) // Elimina el Title, de los fragments, en la toolbar
         drawerLayout = findViewById(R.id.drawer_layout) // menu drawer
         navigationView = findViewById(R.id.nav_view) //navegación
 
@@ -56,11 +58,16 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         //MANTENGO LA HAMBURGUER EN LA TOOLBAR
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
-            if(destination.id == R.id.mainFragment){
-                val fm: FragmentManager = this.supportFragmentManager
-                for (i in 0 until fm.backStackEntryCount) {
-                    fm.popBackStack()
+            if(destination.id != R.id.detailsFragment){
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
+            } else {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                toolbar.setNavigationOnClickListener {
+                    navController.navigate(R.id.action_detailsFragment_to_mainFragment)
+                    val fm: FragmentManager = this.supportFragmentManager
+                    for (i in 0 until fm.backStackEntryCount) {
+                        fm.popBackStack()
+                    }
                 }
             }
         }

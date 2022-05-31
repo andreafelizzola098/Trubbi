@@ -32,7 +32,7 @@
         <action
             android:id="@+id/action_categoriesFragment_to_mainFragment"
             app:destination="@id/mainFragment"
-            app:enterAnim="@anim/animation_test_right" />
+            app:enterAnim="@anim/anim_test_left2" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -66,6 +66,10 @@
             app:argType="reference" />
         <action
             android:id="@+id/action_detailsFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/animation_test_right" />
+        <action
+            android:id="@+id/detailsFragment"
             app:destination="@id/mainFragment"
             app:enterAnim="@anim/animation_test_right" />
     </fragment>
