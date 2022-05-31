@@ -24,7 +24,7 @@ class CategoriesFragment : Fragment() {
     private var events : MutableList<Event> = ArrayList<Event>()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
-    private lateinit var extendedFabCategory : Button
+    //private lateinit var extendedFabCategory : Button
     private lateinit var toolBarSearchView: View
 
     private val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Música", "Otros", "Cercanos")
@@ -46,7 +46,7 @@ class CategoriesFragment : Fragment() {
         }
         categoryView = inflater.inflate(R.layout.fragment_categories, container, false)
         categoryRecyclerView = categoryView.findViewById(R.id.recycler_view_categories)
-        extendedFabCategory = categoryView.findViewById(R.id.extended_fab_category)
+        //extendedFabCategory = categoryView.findViewById(R.id.extended_fab_category)
 
         return categoryView
     }
@@ -72,10 +72,10 @@ class CategoriesFragment : Fragment() {
 
         categoryRecyclerView.adapter = eventListAdapter
 
-        extendedFabCategory.setOnClickListener {
-            val action = CategoriesFragmentDirections.actionCategoriesFragmentToMainFragment()
-            categoryView.findNavController().navigate(action)
-        }
+        //extendedFabCategory.setOnClickListener {
+        //    val action = CategoriesFragmentDirections.actionCategoriesFragmentToMainFragment()
+        //    categoryView.findNavController().navigate(action)
+        //}
     }
 
     private fun onItemClick(position: Int):Boolean{
