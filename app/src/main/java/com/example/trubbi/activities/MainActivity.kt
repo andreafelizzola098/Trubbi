@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -56,11 +57,17 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         //MANTENGO LA HAMBURGUER EN LA TOOLBAR
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
-            if(destination.id == R.id.mainFragment){
-                val fm: FragmentManager = this.supportFragmentManager
-                for (i in 0 until fm.backStackEntryCount) {
-                    fm.popBackStack()
+            if(destination.id != R.id.detailsFragment && destination.id != R.id.categoriesFragment){
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
+            } else {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                val navOptions = NavOptions.Builder().setEnterAnim(R.anim.animation_test_right).build()
+                toolbar.setNavigationOnClickListener {
+                    navController.navigate(R.id.mainFragment, null, navOptions)
+                    val fm: FragmentManager = this.supportFragmentManager
+                    for (i in 0 until fm.backStackEntryCount) {
+                        fm.popBackStack()
+                    }
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.example.trubbi.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -35,8 +36,9 @@ class EventListAdapter (
         holder.setAddress(eventList[position].address)
         holder.getButton()
         Picasso.get().load(eventList[position].urlImage).into(holder.getImageView())
+        val navOptions = NavOptions.Builder().setEnterAnim(R.anim.anim_test_left).build()
         holder.itemView.setOnClickListener{
-            holder.itemView.findNavController().navigate(R.id.action_mainFragment_to_detailsFragment2)
+            holder.itemView.findNavController().navigate(R.id.detailsFragment,null,navOptions)
         }
     }
 
