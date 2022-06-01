@@ -18,10 +18,10 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class RegisterFragment : Fragment() {
-    private lateinit var v : View
-    private lateinit var txtLogin : TextView
-    private lateinit var mailAuth : FirebaseAuth
-    private lateinit var btnRegister : Button
+    private lateinit var v: View
+    private lateinit var txtLogin: TextView
+    private lateinit var mailAuth: FirebaseAuth
+    private lateinit var btnRegister: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +30,7 @@ class RegisterFragment : Fragment() {
 
         v = inflater.inflate(R.layout.fragment_register, container, false)
         txtLogin = v.findViewById(R.id.txtLogin)
-        btnRegister= v.findViewById(R.id.btnRegister)
+        btnRegister = v.findViewById(R.id.btnRegister)
         mailAuth = Firebase.auth
 
         return v
@@ -46,25 +46,25 @@ class RegisterFragment : Fragment() {
         }
 
         btnRegister.setOnClickListener {
-            try{
-                val email : TextInputLayout = v.findViewById(R.id.emailRegister)
+            try {
+                val email: TextInputLayout = v.findViewById(R.id.emailRegister)
                 val password: TextInputLayout = v.findViewById(R.id.passRegister1)
                 val password2: TextInputLayout = v.findViewById(R.id.passRegister2)
 
-                val emailString : String = email.editText?.text.toString()
-                val passwordString : String = password.editText?.text.toString()
-                val password2String : String = password2.editText?.text.toString()
+                val emailString: String = email.editText?.text.toString()
+                val passwordString: String = password.editText?.text.toString()
+                val password2String: String = password2.editText?.text.toString()
 
-                if(passwordString.isNotEmpty() == password2String.isNotEmpty()) {
+                if (passwordString.isNotEmpty() == password2String.isNotEmpty()) {
                     createUser(emailString, passwordString)
 
-                } else if(passwordString.isNotEmpty() != password2String.isNotEmpty()){
+                } else if (passwordString.isNotEmpty() != password2String.isNotEmpty()) {
                     Toast.makeText(
                         context, "Password mismatch, please enter the same password",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            } catch(e: IllegalArgumentException) {
+            } catch (e: IllegalArgumentException) {
                 Toast.makeText(
                     context, "All fields must be completed",
                     Toast.LENGTH_SHORT
@@ -73,21 +73,25 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun createUser(email : String, password : String) {
+    private fun createUser(email: String, password: String) {
         mailAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
-                    Toast.makeText(context, "User created successfully",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context, "User created successfully",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
                     v.findNavController().navigate(action)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(context, "User creation failed, wrong email or password" ,
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context, "User creation failed, wrong email or password",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
     }

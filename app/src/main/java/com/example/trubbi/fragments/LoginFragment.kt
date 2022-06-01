@@ -30,7 +30,7 @@ class LoginFragment : Fragment() {
     private lateinit var txtRegister: TextView
     private lateinit var btnLogin: Button
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var btnGoogle : ImageButton
+    private lateinit var btnGoogle: ImageButton
     private lateinit var googleSignInClient: GoogleSignInClient
 
     companion object {
@@ -63,12 +63,12 @@ class LoginFragment : Fragment() {
         }
 
         btnLogin.setOnClickListener {
-            try{
-                val email : TextInputLayout = v.findViewById(R.id.emailLogin)
+            try {
+                val email: TextInputLayout = v.findViewById(R.id.emailLogin)
                 val password: TextInputLayout = v.findViewById(R.id.passLogin)
 
                 logUser(email.editText?.text.toString(), password.editText?.text.toString())
-            } catch(e: IllegalArgumentException) {
+            } catch (e: IllegalArgumentException) {
                 Toast.makeText(
                     context, "All fields must be completed",
                     Toast.LENGTH_SHORT
@@ -84,14 +84,12 @@ class LoginFragment : Fragment() {
             firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(it) { task ->
                     if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success")
                         val user = firebaseAuth.currentUser
                         if (user != null) {
                             updateUI(user)
                         }
                     } else {
-                        // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
                         Toast.makeText(
                             context, "Authentication failed, wrong email or password",
@@ -145,14 +143,12 @@ class LoginFragment : Fragment() {
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
                     val user = firebaseAuth.currentUser
                     if (user != null) {
                         updateUI(user)
                     }
                 } else {
-                    // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     Toast.makeText(
                         context, "Authentication failed",
@@ -164,7 +160,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun getGSO(): GoogleSignInOptions {
-        return  GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        return GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.CLIENT_ID))
             .requestEmail()
             .build()

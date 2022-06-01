@@ -11,16 +11,14 @@ import com.example.trubbi.R
 
 class SearchFragment : Fragment() {
 
-    private lateinit var searchV : View
-    private lateinit var recyclerSearch : RecyclerView
-    private lateinit var msgSearch : TextView
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var searchV: View
+    private lateinit var recyclerSearch: RecyclerView
+    private lateinit var msgSearch: TextView
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         searchV = inflater.inflate(R.layout.fragment_search, container, false)
         recyclerSearch = searchV.findViewById(R.id.recyclerViewSearch)
         msgSearch = searchV.findViewById(R.id.searchMsg)

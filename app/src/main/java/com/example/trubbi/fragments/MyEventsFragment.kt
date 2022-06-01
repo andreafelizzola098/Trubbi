@@ -12,45 +12,92 @@ import com.example.trubbi.R
 import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.adapters.EventListAdapter
 import com.example.trubbi.entities.Event
-import com.google.android.material.snackbar.Snackbar
 
 class MyEventsFragment : Fragment() {
 
-    private lateinit var thisView:View
-    private lateinit var recycler:RecyclerView
-    private var events : MutableList<Event> = ArrayList<Event>()
+    private lateinit var thisView: View
+    private lateinit var recycler: RecyclerView
+    private var events: MutableList<Event> = ArrayList()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var toolBarSearchView: View
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onStart() {
         super.onStart()
-        for (i in 1..5){
-            events.add(Event("Mi Evento.$i", "21-12-22", "12hs","Este evento es para toda la famiilia y niños ... Leer más...", "Vte. López", "https://picsum.photos/150?random=8"))
-            events.add(Event("Mi Evento.$i", "21-12-22", "12hs","Titeres y comida tradicional argentina, case ... Leer más...", "Vte. López", "https://picsum.photos/150?random=3"))
-            events.add(Event("Mi Evento.$i", "21-12-22", "12hs","Divertirte! Show gratuito de los Palmeras en ... Leer más...", "Vte. López", "https://picsum.photos/150?random=5"))
-            events.add(Event("Mi Evento.$i", "21-12-22", "12hs","Cine al aire libre y gratuito, comidas y más ... Leer más...", "Vte. López", "https://picsum.photos/150?random=1"))
-            events.add(Event("Mi Evento.$i", "21-12-22", "12hs","Feria artesanal, con show de malabares y una ... Leer más...", "Vte. López", "https://picsum.photos/150?random=7"))
-            events.add(Event("Mi Evento.$i", "21-12-22", "12hs","Torneo de Voley, inscripción abierta, hasta  ... Leer más...", "Vte. López", "https://picsum.photos/150?random=9"))
+        for (i in 1..5) {
+            events.add(
+                Event(
+                    "Mi Evento.$i",
+                    "21-12-22",
+                    "12hs",
+                    "Este evento es para toda la famiilia y niños ... Leer más...",
+                    "Vte. López",
+                    "https://picsum.photos/150?random=8"
+                )
+            )
+            events.add(
+                Event(
+                    "Mi Evento.$i",
+                    "21-12-22",
+                    "12hs",
+                    "Titeres y comida tradicional argentina, case ... Leer más...",
+                    "Vte. López",
+                    "https://picsum.photos/150?random=3"
+                )
+            )
+            events.add(
+                Event(
+                    "Mi Evento.$i",
+                    "21-12-22",
+                    "12hs",
+                    "Divertirte! Show gratuito de los Palmeras en ... Leer más...",
+                    "Vte. López",
+                    "https://picsum.photos/150?random=5"
+                )
+            )
+            events.add(
+                Event(
+                    "Mi Evento.$i",
+                    "21-12-22",
+                    "12hs",
+                    "Cine al aire libre y gratuito, comidas y más ... Leer más...",
+                    "Vte. López",
+                    "https://picsum.photos/150?random=1"
+                )
+            )
+            events.add(
+                Event(
+                    "Mi Evento.$i",
+                    "21-12-22",
+                    "12hs",
+                    "Feria artesanal, con show de malabares y una ... Leer más...",
+                    "Vte. López",
+                    "https://picsum.photos/150?random=7"
+                )
+            )
+            events.add(
+                Event(
+                    "Mi Evento.$i",
+                    "21-12-22",
+                    "12hs",
+                    "Torneo de Voley, inscripción abierta, hasta  ... Leer más...",
+                    "Vte. López",
+                    "https://picsum.photos/150?random=9"
+                )
+            )
         }
         recycler.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         recycler.layoutManager = linearLayoutManager
 
-        eventListAdapter = EventListAdapter(events){
-                x -> onItemClick(x)
-        }
+        eventListAdapter = EventListAdapter(events)
         recycler.adapter = eventListAdapter
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         toolBarSearchView = requireActivity().findViewById(R.id.searchView)
         toolBarSearchView.isVisible = false
 
@@ -63,11 +110,6 @@ class MyEventsFragment : Fragment() {
         return thisView
     }
 
-    private fun onItemClick(position: Int):Boolean{
-        Snackbar.make(thisView, position.toString(), Snackbar.LENGTH_SHORT).show()
-        return true
-    }
-    //al detenerse la view se restaura la visibilidad de la searchView
     override fun onStop() {
         super.onStop()
         toolBarSearchView.isVisible = true
