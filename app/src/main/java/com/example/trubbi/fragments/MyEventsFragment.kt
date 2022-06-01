@@ -89,7 +89,6 @@ class MyEventsFragment : Fragment() {
         recycler.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         recycler.layoutManager = linearLayoutManager
-
         eventListAdapter = EventListAdapter(events)
         recycler.adapter = eventListAdapter
     }
@@ -104,7 +103,6 @@ class MyEventsFragment : Fragment() {
         if (activity != null) {
             (activity as MainActivity).supportActionBar?.title = "Agendados"
         }
-
         thisView = inflater.inflate(R.layout.fragment_my_events, container, false)
         recycler = thisView.findViewById(R.id.myEventsRecycler)
         return thisView

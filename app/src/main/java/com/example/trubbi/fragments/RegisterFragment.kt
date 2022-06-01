@@ -32,7 +32,6 @@ class RegisterFragment : Fragment() {
         txtLogin = v.findViewById(R.id.txtLogin)
         btnRegister = v.findViewById(R.id.btnRegister)
         mailAuth = Firebase.auth
-
         return v
     }
 
@@ -40,7 +39,6 @@ class RegisterFragment : Fragment() {
         super.onStart()
 
         txtLogin.setOnClickListener {
-
             val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
             v.findNavController().navigate(action)
         }
@@ -50,11 +48,9 @@ class RegisterFragment : Fragment() {
                 val email: TextInputLayout = v.findViewById(R.id.emailRegister)
                 val password: TextInputLayout = v.findViewById(R.id.passRegister1)
                 val password2: TextInputLayout = v.findViewById(R.id.passRegister2)
-
                 val emailString: String = email.editText?.text.toString()
                 val passwordString: String = password.editText?.text.toString()
                 val password2String: String = password2.editText?.text.toString()
-
                 if (passwordString.isNotEmpty() == password2String.isNotEmpty()) {
                     createUser(emailString, passwordString)
 

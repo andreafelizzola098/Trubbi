@@ -37,7 +37,6 @@ class LoginFragment : Fragment() {
         const val GOOGLE_SIGN_IN = 3
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -90,7 +90,6 @@ class HistoryFragment : Fragment(), LifecycleOwner {
         recycler.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         recycler.layoutManager = linearLayoutManager
-
         eventListAdapter = EventListAdapter(events)
         recycler.adapter = eventListAdapter
     }

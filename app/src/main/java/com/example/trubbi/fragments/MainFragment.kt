@@ -52,6 +52,7 @@ class MainFragment : Fragment() {
         (activity as MainActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
         val toolbar =
             (activity as MainActivity).findViewById<androidx.appcompat.widget.Toolbar>(R.id.main_toolbar)
+
         toolbar.setNavigationOnClickListener {
             (activity as MainActivity).drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN)
             (activity as MainActivity).drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
@@ -122,11 +123,8 @@ class MainFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = linearLayoutManager
-
         eventListAdapter = EventListAdapter(events)
-
         recyclerView.adapter = eventListAdapter
-
         extendedFab.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(resources.getString(R.string.dialogs_title))

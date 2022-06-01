@@ -35,7 +35,6 @@ class CategoriesFragment : Fragment() {
         }
         categoryView = inflater.inflate(R.layout.fragment_categories, container, false)
         categoryRecyclerView = categoryView.findViewById(R.id.recycler_view_categories)
-
         return categoryView
     }
 
@@ -103,15 +102,11 @@ class CategoriesFragment : Fragment() {
                 )
             )
         }
-
         categoryRecyclerView.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         categoryRecyclerView.layoutManager = linearLayoutManager
-
         eventListAdapter = EventListAdapter(events)
-
         categoryRecyclerView.adapter = eventListAdapter
-
     }
 
     override fun onStop() {

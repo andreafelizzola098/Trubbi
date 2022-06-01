@@ -1,6 +1,8 @@
 package com.example.trubbi.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -71,6 +73,12 @@ class MainActivity : AppCompatActivity() {
         }
         drawerLayout.addDrawerListener(toogle)
         toogle.syncState()
+        navigationView.menu.findItem(R.id.logout).setOnMenuItemClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            this.finish()
+            true
+        }
 
     }
 

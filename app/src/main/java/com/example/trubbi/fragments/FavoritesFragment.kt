@@ -28,7 +28,6 @@ class FavoritesFragment : Fragment() {
     ): View {
         toolBarSearchView = requireActivity().findViewById(R.id.searchView)
         toolBarSearchView.isVisible = false
-
         if (activity != null) {
             (activity as MainActivity).supportActionBar?.title = "Favoritos"
         }
@@ -104,11 +103,8 @@ class FavoritesFragment : Fragment() {
         favoriteRecyclerView.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         favoriteRecyclerView.layoutManager = linearLayoutManager
-
         eventListAdapter = EventListAdapter(events)
-
         favoriteRecyclerView.adapter = eventListAdapter
-
     }
 
     override fun onStop() {
