@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
+import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.adapters.EventListAdapter
 import com.example.trubbi.entities.Event
 import com.google.android.material.snackbar.Snackbar
@@ -16,9 +18,10 @@ class MyEventsFragment : Fragment() {
 
     private lateinit var thisView:View
     private lateinit var recycler:RecyclerView
-    var events : MutableList<Event> = ArrayList<Event>()
+    private var events : MutableList<Event> = ArrayList<Event>()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
+    private lateinit var toolBarSearchView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +51,13 @@ class MyEventsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        toolBarSearchView = requireActivity().findViewById(R.id.searchView)
+        toolBarSearchView.isVisible = false
+
+        if (activity != null) {
+            (activity as MainActivity).supportActionBar?.title = "Agendados"
+        }
+
         thisView = inflater.inflate(R.layout.fragment_my_events, container, false)
         recycler = thisView.findViewById(R.id.myEventsRecycler)
         return thisView
@@ -57,5 +66,10 @@ class MyEventsFragment : Fragment() {
     private fun onItemClick(position: Int):Boolean{
         Snackbar.make(thisView, position.toString(), Snackbar.LENGTH_SHORT).show()
         return true
+    }
+    //al detenerse la view se restaura la visibilidad de la searchView
+    override fun onStop() {
+        super.onStop()
+        toolBarSearchView.isVisible = true
     }
 }

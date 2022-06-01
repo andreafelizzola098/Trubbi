@@ -42,8 +42,4 @@ class EventHolder (v:View) : RecyclerView.ViewHolder(v){
         return view.findViewById(R.id.img_item)
     }
 
-    fun getButton() : ImageButton {
-        return view.findViewById(R.id.button_card)
-    }
-
 }

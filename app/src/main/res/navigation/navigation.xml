@@ -9,12 +9,31 @@
         android:id="@+id/mainFragment"
         android:name="com.example.trubbi.fragments.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_categoriesFragment"
+            app:destination="@id/categoriesFragment"
+            app:enterAnim="@anim/anim_test_left" />
+        <action
+            android:id="@+id/action_mainFragment_to_detailsFragment2"
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/anim_test_left" />
+    </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
         android:name="com.example.trubbi.fragments.CategoriesFragment"
         android:label="fragment_categories"
-        tools:layout="@layout/fragment_categories" />
+        tools:layout="@layout/fragment_categories" >
+        <argument
+            android:name="namecategory"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
+        <action
+            android:id="@+id/action_categoriesFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/animation_test_right" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.trubbi.fragments.FavoritesFragment"
@@ -38,5 +57,35 @@
         android:name="com.example.trubbi.fragments.MyEventsFragment"
         android:label="fragment_my_events"
         tools:layout="@layout/fragment_my_events" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.trubbi.fragments.DetailsFragment"
+        android:label="DetailsFragment" >
+        <argument
+            android:name="picture"
+            app:argType="reference" />
+        <action
+            android:id="@+id/action_detailsFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/animation_test_right" />
+        <action
+            android:id="@+id/mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/anim_test_left"
+            app:exitAnim="@anim/animation_test_right"
+            app:popEnterAnim="@anim/anim_test_left"
+            app:popExitAnim="@anim/animation_test_right"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/mainFragment"/>
+        <action
+            android:id="@+id/categoriesFragment"
+            app:destination="@id/categoriesFragment"
+            app:enterAnim="@anim/anim_test_left"
+            app:exitAnim="@anim/animation_test_right"
+            app:popEnterAnim="@anim/anim_test_left"
+            app:popExitAnim="@anim/animation_test_right"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/categoriesFragment"/>
+    </fragment>
 
 </navigation>
