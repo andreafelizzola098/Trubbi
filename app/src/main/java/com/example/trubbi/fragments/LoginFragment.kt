@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -32,6 +33,7 @@ class LoginFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var btnGoogle: ImageButton
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var btnForgotPass: MaterialButton
 
     companion object {
         const val GOOGLE_SIGN_IN = 3
@@ -43,10 +45,11 @@ class LoginFragment : Fragment() {
     ): View {
 
         v = inflater.inflate(R.layout.fragment_login, container, false)
-        txtRegister = v.findViewById(R.id.txtRegister)
+        txtRegister = v.findViewById(R.id.txtBackLogin)
         btnLogin = v.findViewById(R.id.btnLogin)
         btnGoogle = v.findViewById(R.id.btnGoogle)
         firebaseAuth = Firebase.auth
+        btnForgotPass = v.findViewById(R.id.btnForgotPass)
 
         return v
     }
@@ -75,6 +78,11 @@ class LoginFragment : Fragment() {
             }
         }
 
+        btnForgotPass.setOnClickListener {
+            val action = LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment()
+            v.findNavController().navigate(action)
+        }
+
     }
 
     private fun logUser(email: String, password: String) {
@@ -91,7 +99,7 @@ class LoginFragment : Fragment() {
                     } else {
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
                         Toast.makeText(
-                            context, "Authentication failed, wrong email or password",
+                            context, task.exception!!.message.toString(),
                             Toast.LENGTH_SHORT
                         ).show()
                         updateUI(null)
@@ -150,7 +158,7 @@ class LoginFragment : Fragment() {
                 } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     Toast.makeText(
-                        context, "Authentication failed",
+                        context, task.exception!!.message.toString(),
                         Toast.LENGTH_SHORT
                     ).show()
                     updateUI(null)

@@ -42,6 +42,8 @@
     <string name="favoritos">Favoritos</string>
     <string name="agendados">Agendados</string>
     <string name="home">Home</string>
+    <string name="volver_al_login">Volver al Login</string>
+    <string name="enviar">Enviar</string>
 
 
 </resources>
