@@ -16,14 +16,17 @@ class InterestsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment
         toolBarSearchView = requireActivity().findViewById(R.id.searchView)
         toolBarSearchView.isVisible = false
+
         if (activity != null) {
             (activity as MainActivity).supportActionBar?.title = "Mis Intereses"
         }
         return inflater.inflate(R.layout.fragment_interests, container, false)
     }
 
+    //al detenerse la view se restaura la visibilidad de la searchView
     override fun onStop() {
         super.onStop()
         toolBarSearchView.isVisible = true

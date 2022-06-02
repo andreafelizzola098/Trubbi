@@ -24,6 +24,7 @@ class MainFragment : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var extendedFab: Button
+    private var listener: ((item: Event) -> Unit)? = null
 
     private val itemsCategories = arrayOf(
         "Artes Escénicas",
@@ -35,6 +36,15 @@ class MainFragment : Fragment() {
         "Otros",
         "Cercanos"
     )
+    fun setOnItemClickListener(listener: (item: Event) -> Unit) {
+        this.listener = listener
+    }
+
+    private val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Música", "Otros", "Cercanos")
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -125,7 +135,9 @@ class MainFragment : Fragment() {
         recyclerView.layoutManager = linearLayoutManager
         eventListAdapter = EventListAdapter(events)
         recyclerView.adapter = eventListAdapter
+
         extendedFab.setOnClickListener {
+            // Respond to Extended FAB click
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(resources.getString(R.string.dialogs_title))
                 .setItems(itemsCategories) { _, which ->
@@ -140,9 +152,12 @@ class MainFragment : Fragment() {
                         7 -> onItemClick(7)
                         8 -> onItemClick(8)
                     }
+                    
                 }
                 .show()
         }
+
+
     }
 
     private fun onItemClick(position: Int): Boolean {
@@ -151,4 +166,5 @@ class MainFragment : Fragment() {
         mainView.findNavController().navigate(actionCategory)
         return true
     }
+
 }

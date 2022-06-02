@@ -1,14 +1,12 @@
 package com.example.trubbi.activities
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
@@ -16,6 +14,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
 import com.example.trubbi.databinding.ActivityMainBinding
 import com.example.trubbi.viewmodel.EventViewModel
@@ -78,6 +78,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
         drawerLayout.addDrawerListener(toogle)
         toogle.syncState()
         navigationView.menu.findItem(R.id.logout).setOnMenuItemClickListener {
@@ -89,6 +90,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //Navegación por ID: en el menu drawer el id es = al nombre del fragmento que figura en el navigation
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, drawerLayout)
     }
