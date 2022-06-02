@@ -73,7 +73,6 @@ class RegisterFragment : Fragment() {
         mailAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
                     Toast.makeText(
                         context, "User created successfully",
@@ -82,7 +81,6 @@ class RegisterFragment : Fragment() {
                     val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
                     v.findNavController().navigate(action)
                 } else {
-                    // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
                     Toast.makeText(
                         context, "User creation failed, wrong email or password",

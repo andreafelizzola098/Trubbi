@@ -12,13 +12,14 @@ import com.example.trubbi.R
 import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.adapters.EventListAdapter
 import com.example.trubbi.entities.Event
+import com.example.trubbi.model.EventCard
 import com.example.trubbi.model.EventProvider
 
 class MyEventsFragment : Fragment() {
 
     private lateinit var thisView: View
     private lateinit var recycler: RecyclerView
-    private var events: MutableList<Event> = ArrayList()
+    private var events: MutableList<EventCard> = ArrayList()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var toolBarSearchView: View

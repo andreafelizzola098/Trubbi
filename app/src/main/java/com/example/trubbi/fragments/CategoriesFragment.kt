@@ -14,6 +14,7 @@ import com.example.trubbi.R
 import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.adapters.EventListAdapter
 import com.example.trubbi.entities.Event
+import com.example.trubbi.model.EventCard
 import com.example.trubbi.model.EventProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -22,25 +23,18 @@ class CategoriesFragment : Fragment() {
 
     private lateinit var categoryView : View
     private lateinit var categoryRecyclerView: RecyclerView
-    private var events : MutableList<Event> = ArrayList<Event>()
+    private var events : MutableList<EventCard> = ArrayList()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var toolBarSearchView: View
 
-    private val items_categories = arrayOf("Artes Escénicas", "Arte y Cultura", "Deportes", "Familia y Niños", "Ferias y Conferencias", "Música", "Otros", "Cercanos")
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         toolBarSearchView = requireActivity().findViewById(R.id.searchView)
         toolBarSearchView.isVisible = false
-        var text = CategoriesFragmentArgs.fromBundle(requireArguments()).namecategory
+        val text = CategoriesFragmentArgs.fromBundle(requireArguments()).namecategory
         if(activity != null){
             (activity as MainActivity).supportActionBar?.title = " $text"
         }
@@ -55,7 +49,7 @@ class CategoriesFragment : Fragment() {
         for (i in 1..20) {
             if (activity != null) {
                 val event = EventProvider.random()
-                    events.add(event)
+                events.add(event)
             }
         }
 
@@ -67,14 +61,8 @@ class CategoriesFragment : Fragment() {
 
     }
 
-    private fun onItemClick(position: Int):Boolean{
-        Snackbar.make(categoryView, position.toString(), Snackbar.LENGTH_SHORT).show()
-        return true
-    }
-
     override fun onStop() {
         super.onStop()
         toolBarSearchView.isVisible = true
     }
-
 }

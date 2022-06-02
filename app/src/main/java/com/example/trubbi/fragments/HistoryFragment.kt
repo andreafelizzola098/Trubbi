@@ -13,20 +13,17 @@ import com.example.trubbi.R
 import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.adapters.EventListAdapter
 import com.example.trubbi.entities.Event
+import com.example.trubbi.model.EventCard
 import com.example.trubbi.model.EventProvider
 
 class HistoryFragment : Fragment(), LifecycleOwner {
 
     private lateinit var thisView:View
     private lateinit var recycler:RecyclerView
-    var events : MutableList<Event> = ArrayList<Event>()
+    var events : MutableList<EventCard> = ArrayList()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var toolBarSearchView: View
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onStart() {
         super.onStart()
@@ -46,7 +43,7 @@ class HistoryFragment : Fragment(), LifecycleOwner {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         toolBarSearchView = requireActivity().findViewById(R.id.searchView)
         toolBarSearchView.isVisible = false
 

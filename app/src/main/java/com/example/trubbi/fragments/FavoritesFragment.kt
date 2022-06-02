@@ -12,26 +12,22 @@ import com.example.trubbi.R
 import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.adapters.EventListAdapter
 import com.example.trubbi.entities.Event
+import com.example.trubbi.model.EventCard
 import com.example.trubbi.model.EventProvider
 
 class FavoritesFragment : Fragment() {
 
     private lateinit var favorites_view: View
     private lateinit var favoriteRecyclerView: RecyclerView
-    private var events: MutableList<Event> = ArrayList<Event>()
+    private var events: MutableList<EventCard> = ArrayList()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var toolBarSearchView: View
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         toolBarSearchView = requireActivity().findViewById(R.id.searchView)
         toolBarSearchView.isVisible = false
 

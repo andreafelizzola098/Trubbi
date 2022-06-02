@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
-    lateinit var navigationView: NavigationView
+    private lateinit var navigationView: NavigationView
     lateinit var toogle: ActionBarDrawerToggle
     private lateinit var navController: NavController
     lateinit var binding: ActivityMainBinding
@@ -36,18 +36,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         toolbar = findViewById(R.id.main_toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(true)
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.nav_view)
-
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-
         navigationView.setupWithNavController(navController)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-
         toogle = ActionBarDrawerToggle(
             this,
             drawerLayout,
@@ -56,7 +52,6 @@ class MainActivity : AppCompatActivity() {
             R.string.close_nav_drawer
         )
 
-        //APPBAR SETTINGS
         appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf()
         )
@@ -87,12 +82,9 @@ class MainActivity : AppCompatActivity() {
             this.finish()
             true
         }
-
     }
 
-    //Navegación por ID: en el menu drawer el id es = al nombre del fragmento que figura en el navigation
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, drawerLayout)
     }
-
 }
