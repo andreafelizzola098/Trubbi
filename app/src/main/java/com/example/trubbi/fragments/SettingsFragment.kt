@@ -11,11 +11,7 @@ import com.example.trubbi.activities.MainActivity
 
 class SettingsFragment : Fragment() {
 
-    private lateinit var toolBarSearchView : View
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var toolBarSearchView: View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,12 +25,11 @@ class SettingsFragment : Fragment() {
         }
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
-    //al detenerse la view se restaura la visibilidad de la searchView
+
     override fun onStop() {
         super.onStop()
         toolBarSearchView.isVisible = true
     }
-
 
 
 }

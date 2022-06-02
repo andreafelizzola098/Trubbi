@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.trubbi.R
-import com.example.trubbi.activities.MainActivity
 
 class DetailsFragment : Fragment() {
 

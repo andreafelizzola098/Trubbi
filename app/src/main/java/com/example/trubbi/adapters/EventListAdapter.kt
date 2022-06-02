@@ -12,23 +12,16 @@ import com.example.trubbi.entities.Event
 import com.example.trubbi.holders.EventHolder
 import com.squareup.picasso.Picasso
 
-class EventListAdapter (
-    private  var eventList: MutableList<Event>,
-    val onItemClick:(Int) -> Boolean
-) : RecyclerView.Adapter<EventHolder>(){
+class EventListAdapter(
+    private var eventList: MutableList<Event>
+) : RecyclerView.Adapter<EventHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.event_item, parent, false)
         return (EventHolder(view))
     }
 
-    fun setData(newData: ArrayList<Event>) {
-        this.eventList = newData
-        this.notifyDataSetChanged()
-    }
-
     override fun onBindViewHolder(holder: EventHolder, position: Int) {
-        val img = eventList[position].urlImage
         holder.setName(eventList[position].name)
         holder.setDate(eventList[position].date)
         holder.setTime(eventList[position].time)

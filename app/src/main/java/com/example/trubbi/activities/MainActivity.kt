@@ -1,47 +1,48 @@
 package com.example.trubbi.activities
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
-import com.example.trubbi.fragments.LoginFragment
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var toolbar : Toolbar
+    private lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
     lateinit var navigationView: NavigationView
-    lateinit var toogle: ActionBarDrawerToggle //Boton hamburguesa
+    lateinit var toogle: ActionBarDrawerToggle
     private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration // SETTINGS HAMBURGUER
+    lateinit var binding: ActivityMainBinding
+    val eventViewModel: EventViewModel by viewModels()
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         toolbar = findViewById(R.id.main_toolbar)
-        setSupportActionBar(toolbar) //Habilita la toolbar
-        getSupportActionBar()?.setDisplayShowTitleEnabled(true) // Elimina el Title, de los fragments, en la toolbar
-        drawerLayout = findViewById(R.id.drawer_layout) // menu drawer
-        navigationView = findViewById(R.id.nav_view) //navegación
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(true)
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navigationView = findViewById(R.id.nav_view)
 
-        navController = Navigation.findNavController(this,R.id.nav_host_fragment)
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
         navigationView.setupWithNavController(navController)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
 
-        //Creación del Botón Hamburguesa
         toogle = ActionBarDrawerToggle(
             this,
             drawerLayout,
@@ -56,28 +57,31 @@ class MainActivity : AppCompatActivity() {
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
-        //MANTENGO LA HAMBURGUER EN LA TOOLBAR
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            if(destination.id != R.id.detailsFragment && destination.id != R.id.categoriesFragment){
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id != R.id.detailsFragment && destination.id != R.id.categoriesFragment) {
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
-            } else if(destination.id == R.id.detailsFragment){
+            } else if (destination.id == R.id.detailsFragment) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 toolbar.setNavigationOnClickListener {
-                    val fm: FragmentManager = this.supportFragmentManager
-                    val ft = fm.beginTransaction()
-                    ft.setCustomAnimations(R.anim.anim_test_left,R.anim.animation_test_right,R.anim.anim_test_left,R.anim.animation_test_right)
                     navController.popBackStack()
-                    ft.commit()
                 }
-            } else if (destination.id == R.id.categoriesFragment){
+            } else if (destination.id == R.id.categoriesFragment) {
                 toolbar.setNavigationOnClickListener {
-                    val navOptions = NavOptions.Builder().setEnterAnim(R.anim.animation_test_right).build()
+                    val navOptions =
+                        NavOptions.Builder().setEnterAnim(R.anim.animation_test_right).build()
                     navController.navigate(R.id.mainFragment, null, navOptions)
                 }
             }
         }
+
         drawerLayout.addDrawerListener(toogle)
         toogle.syncState()
+        navigationView.menu.findItem(R.id.logout).setOnMenuItemClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            this.finish()
+            true
+        }
 
     }
 

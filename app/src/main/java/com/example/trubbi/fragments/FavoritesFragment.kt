@@ -12,7 +12,7 @@ import com.example.trubbi.R
 import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.adapters.EventListAdapter
 import com.example.trubbi.entities.Event
-import com.google.android.material.snackbar.Snackbar
+import com.example.trubbi.model.EventProvider
 
 class FavoritesFragment : Fragment() {
 
@@ -45,85 +45,20 @@ class FavoritesFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        for (i in 1..5) {
-            events.add(
-                Event(
-                    "Favorito.$i",
-                    "21-12-22",
-                    "12hs",
-                    "Este evento es para toda la famiilia y niños ... Leer más...",
-                    "Vte. López",
-                    "https://picsum.photos/150?random=11"
-                )
-            )
-            events.add(
-                Event(
-                    "Favorito.$i",
-                    "21-12-22",
-                    "12hs",
-                    "Titeres y comida tradicional argentina, case ... Leer más...",
-                    "Vte. López",
-                    "https://picsum.photos/150?random=16"
-                )
-            )
-            events.add(
-                Event(
-                    "Favorito.$i",
-                    "21-12-22",
-                    "12hs",
-                    "Divertirte! Show gratuito de los Palmeras en ... Leer más...",
-                    "Vte. López",
-                    "https://picsum.photos/150?random=21"
-                )
-            )
-            events.add(
-                Event(
-                    "Favorito.$i",
-                    "21-12-22",
-                    "12hs",
-                    "Cine al aire libre y gratuito, comidas y más ... Leer más...",
-                    "Vte. López",
-                    "https://picsum.photos/150?random=10"
-                )
-            )
-            events.add(
-                Event(
-                    "Favorito.$i",
-                    "21-12-22",
-                    "12hs",
-                    "Feria artesanal, con show de malabares y una ... Leer más...",
-                    "Vte. López",
-                    "https://picsum.photos/150?random=2"
-                )
-            )
-            events.add(
-                Event(
-                    "Favorito.$i",
-                    "21-12-22",
-                    "12hs",
-                    "Torneo de Voley, inscripción abierta, hasta  ... Leer más...",
-                    "Vte. López",
-                    "https://picsum.photos/150?random=8"
-                )
-            )
+        for (i in 1..20) {
+            if (activity != null) {
+                val event = EventProvider.random()
+                events.add(event)
+            }
         }
         favoriteRecyclerView.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         favoriteRecyclerView.layoutManager = linearLayoutManager
-
-        eventListAdapter = EventListAdapter(events) { x ->
-            onItemClick(x)
-        }
-
+        eventListAdapter = EventListAdapter(events)
         favoriteRecyclerView.adapter = eventListAdapter
 
     }
 
-    private fun onItemClick(position: Int):Boolean{
-        Snackbar.make(favorites_view, position.toString(), Snackbar.LENGTH_SHORT).show()
-        return true
-    }
-    //al detenerse la view se restaura la visibilidad de la searchView
     override fun onStop() {
         super.onStop()
         toolBarSearchView.isVisible = true

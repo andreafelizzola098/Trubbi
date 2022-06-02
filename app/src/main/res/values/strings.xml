@@ -35,6 +35,15 @@
     <string name="category_06">Artes Escénicas</string>
     <string name="category07">Otros eventos de interés</string>
     <string name="volver">Volver</string>
+    <string name="cerrar_sesi_n">Cerrar sesión</string>
+    <string name="configuraci_n">Configuración</string>
+    <string name="mis_intereses">Mis Intereses</string>
+    <string name="historial">Historial</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="agendados">Agendados</string>
+    <string name="home">Home</string>
+    <string name="volver_al_login">Volver al Login</string>
+    <string name="enviar">Enviar</string>
 
 
 </resources>
