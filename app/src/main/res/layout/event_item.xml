@@ -57,8 +57,7 @@
                         android:backgroundTint="#faf3a2"
                         android:textColor="@color/black"
                         android:textStyle="bold"
-                        android:text="Publico"
-                        android:textSize="10sp"
+                        android:textSize="11sp"
                         tools:ignore="SmallSp" />
 
                 </com.google.android.material.chip.ChipGroup>
