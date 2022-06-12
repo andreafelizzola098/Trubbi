@@ -1,10 +1,10 @@
 package com.example.trubbi.activities
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.MenuItem
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -14,33 +14,36 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
+import com.example.trubbi.databinding.ActivityMainBinding
+import com.example.trubbi.viewmodel.EventViewModel
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
-    lateinit var navigationView: NavigationView
+    private lateinit var navigationView: NavigationView
     lateinit var toogle: ActionBarDrawerToggle
     private lateinit var navController: NavController
+    lateinit var binding: ActivityMainBinding
+    val eventViewModel: EventViewModel by viewModels()
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         toolbar = findViewById(R.id.main_toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(true)
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.nav_view)
-
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-
         navigationView.setupWithNavController(navController)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-
         toogle = ActionBarDrawerToggle(
             this,
             drawerLayout,
@@ -49,7 +52,6 @@ class MainActivity : AppCompatActivity() {
             R.string.close_nav_drawer
         )
 
-        //APPBAR SETTINGS
         appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf()
         )
@@ -71,6 +73,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
         drawerLayout.addDrawerListener(toogle)
         toogle.syncState()
         navigationView.menu.findItem(R.id.logout).setOnMenuItemClickListener {
@@ -79,11 +82,9 @@ class MainActivity : AppCompatActivity() {
             this.finish()
             true
         }
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, drawerLayout)
     }
-
 }

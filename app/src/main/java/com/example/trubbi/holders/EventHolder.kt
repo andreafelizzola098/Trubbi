@@ -1,51 +1,35 @@
 package com.example.trubbi.holders
 
 import android.view.View
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
+import com.google.android.material.chip.Chip
 
-class EventHolder(v: View) : RecyclerView.ViewHolder(v) {
-    private var view: View
+class EventHolder (v:View) : RecyclerView.ViewHolder(v){
+    private var view: View = v
 
-    init {
-        this.view = v
-    }
-
-    fun setName(name: String) {
+    fun setName(name: String){
         val txt: TextView = view.findViewById(R.id.event_text)
         txt.text = name
     }
-
-    fun setDate(date: String) {
-        val datetxt: TextView = view.findViewById(R.id.date_text)
-        datetxt.text = date
+    fun setDate(date: String){
+        val txt: TextView = view.findViewById(R.id.event_date)
+        txt.text = date
     }
 
-    fun setTime(time: String) {
-        val timetxt: TextView = view.findViewById(R.id.time_text)
-        timetxt.text = time
+    fun setChip(chip: String){
+        val txt: Chip = view.findViewById(R.id.chip_text)
+        txt.text = chip
     }
 
-    fun setDetail(detail: String) {
-        val detailtxt: TextView = view.findViewById(R.id.detail_text)
-        detailtxt.text = detail
+    fun setAddress(address: String){
+        val txt: TextView = view.findViewById(R.id.event_address)
+        txt.text = address
     }
 
-    fun setAddress(address: String) {
-        val addresstxt: TextView = view.findViewById(R.id.address_text)
-        addresstxt.text = address
-    }
-
-
-    fun getImageView(): ImageView {
+    fun getImageView() : ImageView{
         return view.findViewById(R.id.img_item)
     }
-
-    fun getButton(): ImageButton {
-        return view.findViewById(R.id.button_card)
-    }
-
 }

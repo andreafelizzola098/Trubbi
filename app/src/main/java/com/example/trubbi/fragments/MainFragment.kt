@@ -14,13 +14,15 @@ import com.example.trubbi.R
 import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.adapters.EventListAdapter
 import com.example.trubbi.entities.Event
+import com.example.trubbi.model.EventCard
+import com.example.trubbi.model.EventProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MainFragment : Fragment() {
 
     private lateinit var mainView: View
     lateinit var recyclerView: RecyclerView
-    private var events: MutableList<Event> = ArrayList()
+    private var events: MutableList<EventCard> = ArrayList()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var extendedFab: Button
@@ -58,73 +60,18 @@ class MainFragment : Fragment() {
             (activity as MainActivity).drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         }
 
-        for (i in 1..5) {
-            events.add(
-                Event(
-                    "Evento.$i",
-                    "21-12-22",
-                    "12hs",
-                    "Este evento es para toda la famiilia y niños ... Leer más...",
-                    "Vte. López",
-                    "https://picsum.photos/150?random=8"
-                )
-            )
-            events.add(
-                Event(
-                    "Evento.$i",
-                    "21-12-22",
-                    "12hs",
-                    "Titeres y comida tradicional argentina, case ... Leer más...",
-                    "Vte. López",
-                    "https://picsum.photos/150?random=3"
-                )
-            )
-            events.add(
-                Event(
-                    "Evento.$i",
-                    "21-12-22",
-                    "12hs",
-                    "Divertirte! Show gratuito de los Palmeras en ... Leer más...",
-                    "Vte. López",
-                    "https://picsum.photos/150?random=5"
-                )
-            )
-            events.add(
-                Event(
-                    "Evento.$i",
-                    "21-12-22",
-                    "12hs",
-                    "Cine al aire libre y gratuito, comidas y más ... Leer más...",
-                    "Vte. López",
-                    "https://picsum.photos/150?random=1"
-                )
-            )
-            events.add(
-                Event(
-                    "Evento.$i",
-                    "21-12-22",
-                    "12hs",
-                    "Feria artesanal, con show de malabares y una ... Leer más...",
-                    "Vte. López",
-                    "https://picsum.photos/150?random=7"
-                )
-            )
-            events.add(
-                Event(
-                    "Evento.$i",
-                    "21-12-22",
-                    "12hs",
-                    "Torneo de Voley, inscripción abierta, hasta  ... Leer más...",
-                    "Vte. López",
-                    "https://picsum.photos/150?random=9"
-                )
-            )
+        for (i in 1..20) {
+            if (activity != null) {
+                val event = EventProvider.random()
+                events.add(event)
+            }
         }
         recyclerView.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = linearLayoutManager
         eventListAdapter = EventListAdapter(events)
         recyclerView.adapter = eventListAdapter
+
         extendedFab.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(resources.getString(R.string.dialogs_title))

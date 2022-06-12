@@ -18,6 +18,7 @@ class InterestsFragment : Fragment() {
     ): View? {
         toolBarSearchView = requireActivity().findViewById(R.id.searchView)
         toolBarSearchView.isVisible = false
+
         if (activity != null) {
             (activity as MainActivity).supportActionBar?.title = "Mis Intereses"
         }
