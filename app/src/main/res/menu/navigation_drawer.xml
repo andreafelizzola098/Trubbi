@@ -32,6 +32,11 @@
                 android:title="@string/configuraci_n"
                 android:checkable="true"/>
             <item
+                android:id="@+id/opinionSurveyFragment"
+                android:icon="@drawable/ic_opinion"
+                android:title="Opiniones"
+                android:checkable="true"/>
+            <item
                 android:id="@+id/logout"
                 android:icon="@drawable/ic_key"
                 android:title="@string/cerrar_sesi_n"

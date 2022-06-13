@@ -87,5 +87,14 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/categoriesFragment"/>
     </fragment>
+    <fragment
+        android:id="@+id/opinionSurveyFragment"
+        android:name="com.example.trubbi.fragments.OpinionSurveyFragment"
+        android:label="fragment_opinion_survey"
+        tools:layout="@layout/fragment_opinion_survey" >
+        <action
+            android:id="@+id/action_opinionSurveyFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 
 </navigation>

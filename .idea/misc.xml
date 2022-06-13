@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/jero4/OneDrive/Documentos/GitHub/Trubbi/app/src/main/res/drawable/ic_key.xml" value="0.204" />
+        <entry key="..\:/Users/jero4/OneDrive/Documentos/GitHub/Trubbi/app/src/main/res/drawable/ic_opinion.xml" value="0.127" />
+        <entry key="..\:/Users/jero4/OneDrive/Documentos/GitHub/Trubbi/app/src/main/res/layout-v31/fragment_opinion_survey.xml" value="0.25" />
+        <entry key="..\:/Users/jero4/OneDrive/Documentos/GitHub/Trubbi/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/jero4/OneDrive/Documentos/GitHub/Trubbi/app/src/main/res/layout/fragment_categories.xml" value="0.25" />
+        <entry key="..\:/Users/jero4/OneDrive/Documentos/GitHub/Trubbi/app/src/main/res/layout/fragment_interests.xml" value="0.21481481481481482" />
+        <entry key="..\:/Users/jero4/OneDrive/Documentos/GitHub/Trubbi/app/src/main/res/layout/fragment_main.xml" value="0.25" />
+        <entry key="..\:/Users/jero4/OneDrive/Documentos/GitHub/Trubbi/app/src/main/res/layout/fragment_opinion_survey.xml" value="0.264" />
+        <entry key="..\:/Users/jero4/OneDrive/Documentos/GitHub/Trubbi/app/src/main/res/layout/fragment_settings.xml" value="0.1925925925925926" />
+        <entry key="..\:/Users/jero4/OneDrive/Documentos/GitHub/Trubbi/app/src/main/res/layout/header_navigation_drawer.xml" value="0.25" />
+        <entry key="..\:/Users/jero4/OneDrive/Documentos/GitHub/Trubbi/app/src/main/res/menu/navigation_drawer.xml" value="0.25" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
+</project>

@@ -11,5 +11,6 @@
     <color name="trubbiColor">#5a49e3</color>
     <color name="light_grey">#a9b1b7</color>
     <color name="dark_blue">#2b1a46</color>
+    <color name="blackText">#FF161C20</color>
     //5a49e3 - 9A90E8
 </resources>
