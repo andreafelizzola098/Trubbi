@@ -46,6 +46,14 @@
           }
         },
         {
+          "client_id": "109698972778-u61nrl6q9ah7qp1hli24658t716ou6ri.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.trubbi",
+            "certificate_hash": "da0c1f6e6adb168db22a84341456b33b386c117a"
+          }
+        },
+        {
           "client_id": "109698972778-j68omrh6upvlrnus6a8bhlda4r1dksd0.apps.googleusercontent.com",
           "client_type": 3
         }
