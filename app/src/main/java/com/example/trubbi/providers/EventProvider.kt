@@ -1,6 +1,6 @@
-package com.example.trubbi.model
+package com.example.trubbi.providers
 
-import com.example.trubbi.entities.Event
+import com.example.trubbi.model.EventCard
 
 class EventProvider {
 
