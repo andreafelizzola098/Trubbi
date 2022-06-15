@@ -3,7 +3,7 @@ package com.example.trubbi.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.trubbi.model.EventCard
-import com.example.trubbi.model.EventProvider
+import com.example.trubbi.providers.EventProvider
 
 class EventViewModel: ViewModel() {
 
