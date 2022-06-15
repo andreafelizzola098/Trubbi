@@ -16,13 +16,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.iid.FirebaseInstanceIdReceiver
+import com.google.firebase.iid.internal.FirebaseInstanceIdInternal
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import java.lang.IllegalArgumentException
 
 
@@ -95,6 +99,8 @@ class LoginFragment : Fragment() {
                         val user = firebaseAuth.currentUser
                         if (user != null) {
                             updateUI(user)
+                            getToken()
+                            subscribeToTopic()
                         }
                     } else {
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
@@ -154,6 +160,8 @@ class LoginFragment : Fragment() {
                     val user = firebaseAuth.currentUser
                     if (user != null) {
                         updateUI(user)
+                        getToken()
+                        subscribeToTopic()
                     }
                 } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
@@ -171,6 +179,23 @@ class LoginFragment : Fragment() {
             .requestIdToken(getString(R.string.CLIENT_ID))
             .requestEmail()
             .build()
+    }
+
+    private fun getToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            } else {
+                val token = task.result
+                println("Este es el token:$token")
+            }
+        })
+    }
+
+    private fun subscribeToTopic() {
+        FirebaseMessaging.getInstance().subscribeToTopic("evento1")
+        println("Te suscribiste al topico")
     }
 
 }
