@@ -11,9 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
 import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.adapters.EventListAdapter
-import com.example.trubbi.entities.Event
 import com.example.trubbi.model.EventCard
-import com.example.trubbi.model.EventProvider
+import com.example.trubbi.providers.EventProvider
 
 class FavoritesFragment : Fragment() {
 
