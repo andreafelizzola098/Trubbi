@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/echaz/AndroidStudioProjects/Trubbi/Trubbi/app/src/main/res/layout/fragment_settings.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/echaz/AndroidStudioProjects/Trubbi/Trubbi/app/src/main/res/layout/header_navigation_drawer.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/echaz/AndroidStudioProjects/Trubbi/Trubbi/app/src/main/res/menu/navigation_drawer.xml" value="0.36102564102564105" />
         <entry key="..\:/Users/jero4/OneDrive/Documentos/GitHub/Trubbi/app/src/main/res/drawable/ic_key.xml" value="0.204" />
         <entry key="..\:/Users/jero4/OneDrive/Documentos/GitHub/Trubbi/app/src/main/res/drawable/ic_opinion.xml" value="0.127" />
         <entry key="..\:/Users/jero4/OneDrive/Documentos/GitHub/Trubbi/app/src/main/res/layout-v31/fragment_opinion_survey.xml" value="0.25" />
