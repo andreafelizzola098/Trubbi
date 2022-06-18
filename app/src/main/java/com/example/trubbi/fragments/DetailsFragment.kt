@@ -31,18 +31,20 @@ class DetailsFragment : Fragment() {
         super.onStart()
         val eventId = arguments?.getLong("eventId")
         viewDetails.findViewById<TextView>(R.id.textView3).text = eventId.toString()
+        getEventById(eventId)
     }
 
-    private fun getEventById(id: Number, holder: EventHolder){
+    private fun getEventById(id: Long?){
         val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
-        val requestCall: Call<EventResponse> = apiService.getEventById(id)
+        val eventId = id as Number
+        val requestCall: Call<EventResponse> = apiService.getEventById(eventId)
 
         requestCall.enqueue(object: retrofit2.Callback<EventResponse>{
             override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>){
                 if(response.isSuccessful){
                     val eventResponse: EventResponse? = response.body()
                     eventResponse?.let {
-                        holder.itemView.findViewById<TextView>(R.id.textView3)
+                        viewDetails.findViewById<TextView>(R.id.textView3).text = eventResponse.title
                     }
                 }
             }
