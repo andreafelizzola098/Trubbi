@@ -8,9 +8,9 @@ data class EventResponse(
     @SerializedName("title") var title: String,
     @SerializedName("description") var description: String,
     @SerializedName("photo") var photo: String,
-    //@SerializedName("start_date") var start_date: Date,
-    //@SerializedName("end_date") var end_date: Date,
-    //@SerializedName("provider") var provider: ProviderResponse,
-    //@SerializedName("tourist") var tourist : List<TouristResponse>,
-    //@SerializedName("category") var category : List<CategoryResponse>
+    @SerializedName("start_date") var start_date: Long,
+    @SerializedName("public") var public: Boolean,
+    @SerializedName("address") var address: String,
+    @SerializedName("tourist") var tourist : List<TouristResponse>,
+    @SerializedName("category") var category : List<CategoryResponse>
 )

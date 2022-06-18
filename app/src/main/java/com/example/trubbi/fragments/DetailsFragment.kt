@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.trubbi.R
@@ -12,6 +13,9 @@ import com.example.trubbi.interfaces.APIEventService
 import com.example.trubbi.services.ServiceBuilder
 import retrofit2.Call
 import retrofit2.Response
+import android.net.Uri;
+import com.squareup.picasso.Picasso
+import java.util.*
 
 class DetailsFragment : Fragment() {
 
@@ -43,7 +47,9 @@ class DetailsFragment : Fragment() {
                     eventResponse?.let {
                         viewDetails.findViewById<TextView>(R.id.details_title).text = eventResponse.title
                         viewDetails.findViewById<TextView>(R.id.details_description).text = eventResponse.description
-                        viewDetails.findViewById<TextView>(R.id.details_image).text = eventResponse.photo
+                        Picasso.get().load(eventResponse.photo).into(viewDetails.findViewById<ImageView>(R.id.details_image))
+                        val startDate : String = java.time.format.DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.ofEpochSecond(eventResponse.start_date))
+                        viewDetails.findViewById<TextView>(R.id.details_date).text = startDate
                     }
                 }
             }
