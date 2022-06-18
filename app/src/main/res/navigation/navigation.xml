@@ -61,9 +61,6 @@
         android:id="@+id/detailsFragment"
         android:name="com.example.trubbi.fragments.DetailsFragment"
         android:label="DetailsFragment" >
-        <argument
-            android:name="picture"
-            app:argType="reference" />
         <action
             android:id="@+id/action_detailsFragment_to_mainFragment"
             app:destination="@id/mainFragment"
@@ -86,6 +83,9 @@
             app:popExitAnim="@anim/animation_test_right"
             app:popUpToInclusive="true"
             app:popUpTo="@id/categoriesFragment"/>
+        <argument
+            android:name="eventId"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/opinionSurveyFragment"
