@@ -15,8 +15,6 @@ import com.example.trubbi.interfaces.APIEventService
 import com.example.trubbi.model.EventCard
 import com.example.trubbi.services.ServiceBuilder
 import com.squareup.picasso.Picasso
-import retrofit2.Call
-import retrofit2.Response
 
 class EventListAdapter(
     private var eventList: MutableList<EventCard>
@@ -34,8 +32,8 @@ class EventListAdapter(
         holder.setAddress(eventList[position].address)
         Picasso.get().load(eventList[position].urlImage).into(holder.getImageView())
         val navOptions = NavOptions.Builder().setEnterAnim(R.anim.anim_test_left).build()
-
-        val bundle : Bundle = bundleOf("eventId" to 1L)
+        val eventId : Long = eventList[position].id
+        val bundle : Bundle = bundleOf("eventId" to eventId)
         holder.itemView.setOnClickListener{
             holder.itemView.findNavController().navigate(R.id.detailsFragment,bundle,navOptions)
         }

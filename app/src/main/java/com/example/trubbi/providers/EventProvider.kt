@@ -12,6 +12,7 @@ class EventProvider {
 
         private val events = listOf(
                 EventCard(
+                        1L,
                         "Evento.1",
                         "04/05/2022 19:00   -   4hs",
                         "Publico",
@@ -19,6 +20,7 @@ class EventProvider {
                         "https://picsum.photos/150?random=11"
                 ),
                 EventCard(
+                        2L,
                         "Evento.2",
                         "04/05/2022 19:00   -   4hs",
                         "Privado",
@@ -26,6 +28,7 @@ class EventProvider {
                         "https://picsum.photos/150?random=16"
                 ),
                 EventCard(
+                        3L,
                         "Evento.3",
                         "04/05/2022 19:00   -   4hs",
                         "Publico",
@@ -33,6 +36,7 @@ class EventProvider {
                         "https://picsum.photos/150?random=21"
                 ),
                 EventCard(
+                        4L,
                         "Evento.4",
                         "04/05/2022 19:00   -   4hs",
                         "Privado",
@@ -40,6 +44,7 @@ class EventProvider {
                         "https://picsum.photos/150?random=10"
                 ),
                 EventCard(
+                        5L,
                         "Evento.5",
                         "04/05/2022 19:00   -   4hs",
                         "Publico",
@@ -47,6 +52,7 @@ class EventProvider {
                         "https://picsum.photos/150?random=2"
                 ),
                 EventCard(
+                        6L,
                         "Evento.6",
                         "04/05/2022 19:00   -   4hs",
                         "Privado",

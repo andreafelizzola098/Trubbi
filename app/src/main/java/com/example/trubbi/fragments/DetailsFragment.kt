@@ -5,11 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.trubbi.R
 import com.example.trubbi.data.EventResponse
-import com.example.trubbi.holders.EventHolder
 import com.example.trubbi.interfaces.APIEventService
 import com.example.trubbi.services.ServiceBuilder
 import retrofit2.Call
@@ -30,7 +28,6 @@ class DetailsFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         val eventId = arguments?.getLong("eventId")
-        viewDetails.findViewById<TextView>(R.id.textView3).text = eventId.toString()
         getEventById(eventId)
     }
 
@@ -44,7 +41,9 @@ class DetailsFragment : Fragment() {
                 if(response.isSuccessful){
                     val eventResponse: EventResponse? = response.body()
                     eventResponse?.let {
-                        viewDetails.findViewById<TextView>(R.id.textView3).text = eventResponse.title
+                        viewDetails.findViewById<TextView>(R.id.details_title).text = eventResponse.title
+                        viewDetails.findViewById<TextView>(R.id.details_description).text = eventResponse.description
+                        viewDetails.findViewById<TextView>(R.id.details_image).text = eventResponse.photo
                     }
                 }
             }

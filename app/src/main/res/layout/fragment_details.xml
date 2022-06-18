@@ -24,7 +24,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/details_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/torneo"
@@ -37,7 +37,7 @@
                 android:layout_marginHorizontal="20dp">
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/details_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
@@ -157,6 +157,7 @@
                     android:hint="Descripcion">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/details_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="none"

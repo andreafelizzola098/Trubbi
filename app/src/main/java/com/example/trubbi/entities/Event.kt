@@ -2,6 +2,7 @@ package com.example.trubbi.entities
 
 
 class Event(
+    id: Long,
     name: String?,
     date: String?,
     time: String?,
@@ -9,6 +10,7 @@ class Event(
     address: String?,
     urlImage: String?
 ) {
+    var id: Long = 0
     var name: String = ""
     var date: String = ""
     var time: String = ""
@@ -17,6 +19,7 @@ class Event(
     var urlImage: String = ""
 
     init {
+        this.id = id
         this.name = name!!
         this.date = date!!
         this.time = time!!
