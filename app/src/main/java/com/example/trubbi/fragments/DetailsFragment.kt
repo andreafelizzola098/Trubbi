@@ -48,12 +48,13 @@ class DetailsFragment : Fragment() {
                         viewDetails.findViewById<TextView>(R.id.details_title).text = eventResponse.title
                         viewDetails.findViewById<TextView>(R.id.details_description).text = eventResponse.description
                         Picasso.get().load(eventResponse.photo).into(viewDetails.findViewById<ImageView>(R.id.details_image))
-                        val startDate : String = java.time.format.DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.ofEpochSecond(eventResponse.start_date))
-                        viewDetails.findViewById<TextView>(R.id.details_date).text = startDate
+                        //val startDate : String = java.time.format.DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.ofEpochSecond(eventResponse.start_date))
+                        //viewDetails.findViewById<TextView>(R.id.details_date).text = startDate
                     }
                 }
             }
-            override fun onFailure(call: Call<EventResponse>, t: Throwable){
+
+            override fun onFailure(call: Call<EventResponse>, error: Throwable){
                 println("FALLE!!!!!!!!!!!!!!!!!!!!!")
 
             }

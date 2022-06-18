@@ -17,10 +17,10 @@ interface APIEventService {
     suspend fun getSearchEvent(@Path("title")name:String):Call<EventResponse>
 
     @GET("/events")
-    fun getEvents(@Path("name")name:String):Call<EventResponse>
+    fun getEvents():Call<EventResponse>
 
-    @GET("/events/{category}")
-    fun getEventsByCategory(@Path("name")name:String):Call<EventResponse>
+    @GET("/categories/{id}/events")
+    fun getEventsByCategory(@Path("category")name:String):Call<EventResponse>
 
     @GET("/tourist/{id}/favorites")
     fun getFavoritesEvents(@Path("name")name:String):Call<EventResponse>
