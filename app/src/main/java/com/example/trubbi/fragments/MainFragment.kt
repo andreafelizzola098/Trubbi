@@ -138,25 +138,6 @@ class MainFragment : Fragment() {
         })
     }
 
-    /*private fun get
-
-    private fun searchByName(query:String){
-        CoroutineScope(Dispatchers.IO).launch {
-            val call = getRetrofit().create(APIService::class.java).getDogsByBreeds("$query/images")
-            val puppies = call.body()
-            runOnUiThread {
-                if(call.isSuccessful){
-                    val images = puppies?.images ?: emptyList()
-                    dogImages.clear()
-                    dogImages.addAll(images)
-                    adapter.notifyDataSetChanged()
-                }else{
-                    showError()
-                }
-            }
-        }
-    }*/
-
     fun buildEvent(event: EventResponse): EventCard {
         val startDate: String = DateTimeFormatter.ISO_INSTANT.format(
             java.time.Instant.ofEpochSecond(event.start_date)
