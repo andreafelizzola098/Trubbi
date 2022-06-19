@@ -99,8 +99,8 @@ class LoginFragment : Fragment() {
                         val user = firebaseAuth.currentUser
                         if (user != null) {
                             updateUI(user)
-                            getToken()
-                            subscribeToTopic()
+                            //getToken()
+                            //subscribeToTopic()
                         }
                     } else {
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
@@ -160,8 +160,8 @@ class LoginFragment : Fragment() {
                     val user = firebaseAuth.currentUser
                     if (user != null) {
                         updateUI(user)
-                        getToken()
-                        subscribeToTopic()
+                       // getToken()
+                       // subscribeToTopic()
                     }
                 } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
@@ -181,7 +181,7 @@ class LoginFragment : Fragment() {
             .build()
     }
 
-    private fun getToken() {
+ /*   private fun getToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 Log.w(TAG, "Fetching FCM registration token failed", task.exception)
@@ -196,6 +196,6 @@ class LoginFragment : Fragment() {
     private fun subscribeToTopic() {
         FirebaseMessaging.getInstance().subscribeToTopic("evento1")
         println("Te suscribiste al topico")
-    }
+    }*/
 
 }

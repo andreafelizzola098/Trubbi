@@ -15,6 +15,7 @@ import retrofit2.Call
 import retrofit2.Response
 import android.net.Uri;
 import com.squareup.picasso.Picasso
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class DetailsFragment : Fragment() {
@@ -48,8 +49,9 @@ class DetailsFragment : Fragment() {
                         viewDetails.findViewById<TextView>(R.id.details_title).text = eventResponse.title
                         viewDetails.findViewById<TextView>(R.id.details_description).text = eventResponse.description
                         Picasso.get().load(eventResponse.photo).into(viewDetails.findViewById<ImageView>(R.id.details_image))
-                        //val startDate : String = java.time.format.DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.ofEpochSecond(eventResponse.start_date))
-                        //viewDetails.findViewById<TextView>(R.id.details_date).text = startDate
+                        val startDate : String = java.time.format.DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.ofEpochSecond(eventResponse.start_date))
+                        val formattDate = dateFormatt(startDate)
+                        viewDetails.findViewById<TextView>(R.id.details_date).text = formattDate
                     }
                 }
             }
@@ -59,6 +61,13 @@ class DetailsFragment : Fragment() {
 
             }
         })
+    }
+
+    fun dateFormatt(date:String): String{
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssz")
+        val parsedDate = formatter.parse(date)
+        val formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:MM:SS")
+        return formatter2.format(parsedDate)
     }
 
 }
