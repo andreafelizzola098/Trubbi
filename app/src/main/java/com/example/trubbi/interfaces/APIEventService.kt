@@ -6,6 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface APIEventService {
+
     @GET("/events/{title}")
-    suspend fun getSearchEvent(@Path("title")query:String): Call<List<EventResponse>>
+    fun getSearchEvent(@Path("title")query:String): Call<List<EventResponse>>
 }
