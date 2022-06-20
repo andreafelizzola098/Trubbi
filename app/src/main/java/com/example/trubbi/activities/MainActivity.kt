@@ -3,8 +3,10 @@ package com.example.trubbi.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SearchView
@@ -20,12 +22,16 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
+import com.example.trubbi.data.EventResponse
 import com.example.trubbi.databinding.ActivityMainBinding
+import com.example.trubbi.interfaces.APIEventService
+import com.example.trubbi.services.ServiceBuilder
 import com.example.trubbi.viewmodel.EventViewModel
 import com.google.android.material.navigation.NavigationView
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Response
+import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
@@ -107,7 +113,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
-        val requestCall: Call<EventResponse> = apiService.getEventByName(query)
+        val requestCall: Call<EventResponse> = apiService.getSearchEvent(query)
 
         requestCall.enqueue(object: retrofit2.Callback<EventResponse>{
             override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>){
@@ -125,16 +131,16 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             }
 
             override fun onFailure(call: Call<EventResponse>, error: Throwable){
-                println("FALLE!!!!!!!!!!!!!!!!!!!!!")
-
+                Toast.makeText(applicationContext, "No existe el evento buscado", Toast.LENGTH_SHORT).show()
             }
         })
-        hideKeyBoard()
+        hideKeyboard()
         return true;
     }
 
-    private fun hideKeyBoard() {
-        TODO("Not yet implemented")
+    private fun hideKeyboard() {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.viewRoot.windowToken, 0)
     }
 
     fun dateFormatt(date:String): String{
