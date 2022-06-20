@@ -112,12 +112,12 @@ class RegisterFragment : Fragment() {
                 override fun onResponse(call: Call<RegisterTouristResponse>, response: Response<RegisterTouristResponse>) {
                     val loggedUser = response.body()
                     if(response.errorBody() == null){
-                        println(loggedUser)
+                        Toast.makeText(context, "Account successfully created", Toast.LENGTH_LONG).show()
                         val intent = Intent(activity, MainActivity::class.java)
                         startActivity(intent)
                         activity?.finish()
                     } else {
-                        Toast.makeText(context, "You didn't signed in", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "You didn't register", Toast.LENGTH_LONG).show()
                     }
                 }
             }

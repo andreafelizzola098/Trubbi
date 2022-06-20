@@ -14,7 +14,7 @@ interface APIEventService {
     fun getEventById(@Path("id")id:Number): Call<EventResponse>
 
     @GET("/events/{title}")
-    suspend fun getSearchEvent(@Path("title")name:String):Call<EventResponse>
+    fun getSearchEvent(@Path("title")name:String):Call<List<EventResponse>>
 
     @GET("/events")
     fun getEvents():Call<List<EventResponse>>

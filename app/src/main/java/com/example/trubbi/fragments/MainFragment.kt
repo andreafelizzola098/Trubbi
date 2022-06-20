@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import android.widget.SearchView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +29,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import retrofit2.Call
 import retrofit2.Response
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private lateinit var mainView: View
     lateinit var recyclerView: RecyclerView
@@ -60,6 +63,8 @@ class MainFragment : Fragment() {
             (activity as MainActivity).drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN)
             (activity as MainActivity).drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         }
+        val searchView =  (activity as MainActivity).findViewById<SearchView>(R.id.searchView)
+        searchView.setOnQueryTextListener(this)
 
         getEvents()
         getCategories()
@@ -172,5 +177,51 @@ class MainFragment : Fragment() {
                 }
                 .show()
         }
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if(!query.isNullOrEmpty()){
+            val query : String = query.toLowerCase()
+            searchEventByTitle(query)
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return true
+    }
+
+    private fun searchEventByTitle(query: String) {
+        val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
+        val requestCall: Call<List<EventResponse>> = apiService.getSearchEvent(query)
+
+        requestCall.enqueue(object: retrofit2.Callback<List<EventResponse>>{
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(call: Call<List<EventResponse>>, response: Response<List<EventResponse>>){
+                if(response.isSuccessful){
+                    val eventResponse: List<EventResponse>? = response.body()
+                    eventResponse?.let {
+                        for(i in it.indices){
+                            if (activity != null) {
+                                val event: EventResponse = it[i]
+                                val eventCard = commons.buildEvent(event)
+                                events.add(eventCard)
+                            }
+                        }
+                        eventListAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<EventResponse>>, error: Throwable){
+                Toast.makeText(context, "No existe el evento buscado", Toast.LENGTH_SHORT).show()
+            }
+        })
+        hideKeyboard()
+    }
+
+    private fun hideKeyboard() {
+        val imm = requireActivity().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(mainView.windowToken, 0)
     }
 }
