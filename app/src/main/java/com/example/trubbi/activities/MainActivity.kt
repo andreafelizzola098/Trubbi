@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Adapter
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -26,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
 import com.example.trubbi.data.EventResponse
 import com.example.trubbi.databinding.ActivityMainBinding
+import com.example.trubbi.entities.Event
 import com.example.trubbi.interfaces.APIEventService
 import com.example.trubbi.services.ServiceBuilder
 import com.example.trubbi.viewmodel.EventViewModel
@@ -47,8 +49,9 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     val eventViewModel: EventViewModel by viewModels()
     private lateinit var appBarConfiguration: AppBarConfiguration
     //start Search
-
+    private val eventsMutable = mutableListOf<Event>()
     private lateinit var searchView: SearchView
+    private lateinit var eventListAdapter: Adapter
     //end Search
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -124,19 +127,26 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private fun searchEventByTitle(query: String) {
         val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
-        val requestCall: Call<EventResponse> = apiService.getSearchEvent(query)
+        val requestCall: Call<List<EventResponse>> = apiService.getSearchEvent(query)
 
-        requestCall.enqueue(object: retrofit2.Callback<EventResponse>{
-            override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>){
+        requestCall.enqueue(object: retrofit2.Callback<List<EventResponse>>{
+            override fun onResponse(call: Call<List<EventResponse>>, response: Response<List<EventResponse>>){
                 if(response.isSuccessful){
-                    val eventResponse: EventResponse? = response.body()
+                    val eventResponse: List<EventResponse>? = response.body()
                     eventResponse?.let {
-
+                        for(i in it.indices){
+                            if (this != null) {
+                                val event: EventResponse = it[i]
+                                val eventCard = buildEvent(event)
+                                eventsMutable.add(eventCard)
+                                eventListAdapter.notifyDataSetChanged()
+                            }
+                        }
                     }
                 }
             }
 
-            override fun onFailure(call: Call<EventResponse>, error: Throwable){
+            override fun onFailure(call: Call<List<EventResponse>>, error: Throwable){
                 Toast.makeText(applicationContext, "No existe el evento buscado", Toast.LENGTH_SHORT).show()
             }
         })
@@ -146,13 +156,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private fun hideKeyboard() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(viewContainer.windowToken, 0)
-    }
-
-    fun dateFormatt(date:String): String{
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssz")
-        val parsedDate = formatter.parse(date)
-        val formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:MM:SS")
-        return formatter2.format(parsedDate)
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
