@@ -47,8 +47,10 @@ class SearchFragment : Fragment() {
         toolBarSearchView = requireActivity().findViewById(R.id.searchView)
         toolBarSearchView.isVisible = false
 
+        val searchEvent = arguments?.getString("searchEvent")
+
         if (activity != null) {
-            (activity as MainActivity).supportActionBar?.title = "Buscado"
+            (activity as MainActivity).supportActionBar?.title = searchEvent.toString()
         }
 
         searchV = inflater.inflate(R.layout.fragment_search, container, false)

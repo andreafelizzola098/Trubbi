@@ -131,12 +131,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                 if(response.isSuccessful){
                     val eventResponse: EventResponse? = response.body()
                     eventResponse?.let {
-                        viewDetails.findViewById<TextView>(R.id.details_title).text = eventResponse.title
-                        viewDetails.findViewById<TextView>(R.id.details_description).text = eventResponse.description
-                        Picasso.get().load(eventResponse.photo).into(viewDetails.findViewById<ImageView>(R.id.details_image))
-                        val startDate : String = java.time.format.DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.ofEpochSecond(eventResponse.start_date))
-                        val formattDate = dateFormatt(startDate)
-                        viewDetails.findViewById<TextView>(R.id.details_date).text = formattDate
+
                     }
                 }
             }
