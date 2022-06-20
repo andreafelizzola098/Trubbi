@@ -3,8 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ANDREA/AndroidStudioProjects/Trubbi/app/src/main/res/layout-w600dp/fragment_login.xml" value="0.25" />
         <entry key="..\:/Users/ANDREA/AndroidStudioProjects/Trubbi/app/src/main/res/layout/fragment_details.xml" value="0.25" />
+<<<<<<< HEAD
+        <entry key="..\:/Users/ANDREA/AndroidStudioProjects/Trubbi/app/src/main/res/layout/fragment_login.xml" value="0.25" />
+=======
         <entry key="..\:/Users/echaz/AndroidStudioProjects/Trubbi_Kotlin/Trubbi/app/src/main/res/drawable/ic_interests.xml" value="0.1" />
+        <entry key="..\:/Users/ANDREA/AndroidStudioProjects/Trubbi/app/src/main/res/layout/fragment_login.xml" value="0.15989583333333332" />
+>>>>>>> 6c144fbaba78ca675bc73a11fad33e17600f1b04
         <entry key="..\:/Users/echaz/AndroidStudioProjects/Trubbi_Kotlin/Trubbi/app/src/main/res/layout/activity_main.xml" value="0.28125" />
         <entry key="..\:/Users/echaz/AndroidStudioProjects/Trubbi_Kotlin/Trubbi/app/src/main/res/layout/fragment_categories.xml" value="0.28125" />
         <entry key="..\:/Users/echaz/AndroidStudioProjects/Trubbi_Kotlin/Trubbi/app/src/main/res/layout/fragment_favorites.xml" value="0.28125" />
