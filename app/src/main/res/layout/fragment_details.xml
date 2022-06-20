@@ -96,7 +96,7 @@
                     android:background="@drawable/button_round"
                     android:backgroundTint="@color/fondoDrawer"
                     android:textSize="10sp"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:src="@drawable/icmoney"/>
 
             </LinearLayout>

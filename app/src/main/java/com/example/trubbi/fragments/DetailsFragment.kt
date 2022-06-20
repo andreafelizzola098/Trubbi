@@ -55,18 +55,14 @@ class DetailsFragment : Fragment() {
 
         if(isFavorite){
             btnFavFill.isVisible = true
-            btnFav.isGone = true
         }else{
-            btnFavFill.isGone = true
             btnFav.isVisible = true
         }
 
         if(isSchedule){
-            btnSchedule.isVisible = false
             btnScheduleTint.isGone = true
         }else{
             btnSchedule.isVisible = true
-            btnScheduleTint.isGone = false
         }
 
     }
@@ -103,6 +99,14 @@ class DetailsFragment : Fragment() {
         val parsedDate = formatter.parse(date)
         val formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:MM:SS")
         return formatter2.format(parsedDate)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        btnFav.isGone = true
+        btnFavFill.isGone = true
+        btnSchedule.isGone = true
+        btnScheduleTint.isGone = true
     }
 
 }
