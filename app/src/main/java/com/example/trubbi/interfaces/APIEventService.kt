@@ -20,17 +20,17 @@ interface APIEventService {
     fun getEvents():Call<List<EventResponse>>
 
     @GET("/categories/{id}/events")
-    fun getEventsByCategory(@Path("category")name:String):Call<EventResponse>
+    fun getEventsByCategory(@Path("id")id:Number):Call<List<EventResponse>>
 
-    @GET("/tourist/{id}/favorites")
-    fun getFavoritesEvents(@Path("name")name:String):Call<EventResponse>
+    @GET("/favorites")
+    fun getFavoritesEvents(@Path("id")id:Number):Call<List<EventResponse>>
 
-    @GET("/events/{id}/schedule")
-    fun getScheduleEvents(@Path("name")name:String):Call<EventResponse>
+    @GET("/tourists/{id}/events")
+    fun getScheduleEvents(@Path("id")id:Number):Call<List<EventResponse>>
 
-    @GET("/events/{id}/history")
-    fun getHistoryEvents(@Path("name")name:String):Call<EventResponse>
+    @GET("/tourists/{id}/history")
+    fun getHistoryEvents(@Path("id")id:Number):Call<List<EventResponse>>
 
-    @GET("/events/{id}/nearby")
-    fun getNearbyEvents(@Path("name")name:String):Call<EventResponse>
+    @GET("/tourists/{id}/nearby")
+    fun getNearbyEvents(@Path("id")id:Number):Call<List<EventResponse>>
 }
