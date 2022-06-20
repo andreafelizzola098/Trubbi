@@ -3,6 +3,7 @@ package com.example.trubbi.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,6 +12,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import androidx.compose.ui.text.toLowerCase
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
@@ -35,6 +37,7 @@ import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
+    private lateinit var viewContainer: View
     private lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
@@ -112,6 +115,14 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
+        if(!query.isNullOrEmpty()){
+            var query : String = query.toLowerCase()
+            searchEventByTitle(query)
+        }
+        return true;
+    }
+
+    private fun searchEventByTitle(query: String) {
         val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
         val requestCall: Call<EventResponse> = apiService.getSearchEvent(query)
 
@@ -135,12 +146,11 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             }
         })
         hideKeyboard()
-        return true;
     }
 
     private fun hideKeyboard() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.viewRoot.windowToken, 0)
+        imm.hideSoftInputFromWindow(viewContainer.windowToken, 0)
     }
 
     fun dateFormatt(date:String): String{
