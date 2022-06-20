@@ -15,6 +15,7 @@ import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.adapters.EventListAdapter
 import com.example.trubbi.commons.Commons
 import com.example.trubbi.data.EventResponse
+import com.example.trubbi.data.Schedule
 import com.example.trubbi.interfaces.APIEventService
 import com.example.trubbi.model.EventCard
 import com.example.trubbi.providers.EventProvider
@@ -59,17 +60,17 @@ class MyEventsFragment : Fragment() {
 
     private fun getScheduleEvents(){
         val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
-        val requestCall: Call<List<EventResponse>> = apiService.getScheduleEvents()
+        val requestCall: Call<List<Schedule>> = apiService.getScheduleEvents()
 
-        requestCall.enqueue(object: retrofit2.Callback<List<EventResponse>>{
+        requestCall.enqueue(object: retrofit2.Callback<List<Schedule>>{
             @SuppressLint("NotifyDataSetChanged")
-            override fun onResponse(call: Call<List<EventResponse>>, response: Response<List<EventResponse>>){
+            override fun onResponse(call: Call<List<Schedule>>, response: Response<List<Schedule>>){
                 if(response.isSuccessful){
-                    val favoriteResponse: List<EventResponse>? = response.body()
-                    favoriteResponse?.let {
+                    val scheduleResponse: List<Schedule>? = response.body()
+                    scheduleResponse?.let {
                         for(i in it.indices){
                             if (activity != null) {
-                                val event: EventResponse = it[i]
+                                val event: EventResponse = it[i].event
                                 val eventCard = commons.buildEvent(event)
                                 events.add(eventCard)
                             }
@@ -79,7 +80,7 @@ class MyEventsFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<List<EventResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Schedule>>, t: Throwable) {
                 Toast.makeText(
                     context, "Error al cargar los eventos",
                     Toast.LENGTH_SHORT
