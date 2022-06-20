@@ -1,19 +1,28 @@
 package com.example.trubbi.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import com.example.trubbi.R
 import com.example.trubbi.activities.MainActivity
+import com.example.trubbi.data.CategoryList
+import com.example.trubbi.data.CategoryResponse
+import com.example.trubbi.data.EventResponse
+import com.example.trubbi.interfaces.APIEventService
+import com.example.trubbi.services.ServiceBuilder
+import retrofit2.Call
+import retrofit2.Response
 
 class InterestsFragment : Fragment() {
 
     private lateinit var categoryView : View
-
     private lateinit var toolBarSearchView: View
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,32 +41,35 @@ class InterestsFragment : Fragment() {
 
     }
 
-  /*  private fun getCategoriesByTourist(id: Long?){
+    private fun getTouristCategories(){
         val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
-        val touristId = id as Number
-        val requestCall: Call<TouristCategoryResponse> = apiService.getEventById(eventId)
+        val requestCall: Call<List<CategoryResponse>> = apiService.getTouristCategories()
 
-        requestCall.enqueue(object: retrofit2.Callback<EventResponse>{
-            override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>){
+        requestCall.enqueue(object: retrofit2.Callback<List<CategoryResponse>>{
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(call: Call<List<CategoryResponse>>, response: Response<List<CategoryResponse>>){
                 if(response.isSuccessful){
-                    val eventResponse: EventResponse? = response.body()
-                    eventResponse?.let {
-                        viewDetails.findViewById<TextView>(R.id.details_title).text = eventResponse.title
-                        viewDetails.findViewById<TextView>(R.id.details_description).text = eventResponse.description
-                        Picasso.get().load(eventResponse.photo).into(viewDetails.findViewById<ImageView>(R.id.details_image))
-                        val startDate : String = java.time.format.DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.ofEpochSecond(eventResponse.start_date))
-                        val formattDate = dateFormatt(startDate)
-                        viewDetails.findViewById<TextView>(R.id.details_date).text = formattDate
+                    val categoryResponse: List<CategoryResponse>? = response.body()
+                    categoryResponse?.let {
+                        for(i in it.indices){
+                            if (activity != null) {
+                                sw
+                            }
+                        }
                     }
                 }
             }
 
-            override fun onFailure(call: Call<EventResponse>, error: Throwable){
-                println("FALLE!!!!!!!!!!!!!!!!!!!!!")
 
+            override fun onFailure(call: Call<List<CategoryResponse>>, error: Throwable){
+                println("")
+                Toast.makeText(
+                    context, "Error al cargar los eventos",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
-    }*/
+    }
 
     override fun onStop() {
         super.onStop()
