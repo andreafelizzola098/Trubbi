@@ -19,6 +19,7 @@ import com.example.trubbi.data.EventResponse
 import com.example.trubbi.interfaces.APIEventService
 import com.example.trubbi.model.EventCard
 import com.example.trubbi.commons.Commons
+import com.example.trubbi.data.CategoryList
 import com.example.trubbi.data.CategoryResponse
 import com.example.trubbi.services.ServiceBuilder
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -73,22 +74,18 @@ class MainFragment : Fragment() {
     private fun onItemClick(position: Int): Boolean {
         val categoryId = getCategoryId(position)
         val actionCategory =
-            MainFragmentDirections.actionMainFragmentToCategoriesFragment(categoryTitles[position], categoryId)
+            MainFragmentDirections.actionMainFragmentToCategoriesFragment(categoryId, categoryTitles[position])
         mainView.findNavController().navigate(actionCategory)
         return true
     }
 
     private fun getCategoryId(position: Int): Long {
-        var i = 0
-        var categoryId = 0L
-        while(i <= categoriesResponse.size && categoryTitles[position] != categoriesResponse[i].name) {
-            if(categoryTitles[position] == categoriesResponse[i].name){
-                categoryId = categoriesResponse[i].id as Long
-            } else {
-                i++
-            }
+        var categoryId: Number = 0
+        for(i in 0 until categoriesResponse.size){
+            if(categoryTitles[position] == categoriesResponse[i].name)
+                categoryId = categoriesResponse[i].id
         }
-        return categoryId
+        return categoryId.toLong()
     }
 
     private fun getEvents(){
@@ -115,6 +112,7 @@ class MainFragment : Fragment() {
 
 
             override fun onFailure(call: Call<List<EventResponse>>, error: Throwable){
+                println("")
                 Toast.makeText(
                     context, "Error al cargar los eventos",
                     Toast.LENGTH_SHORT
@@ -125,18 +123,18 @@ class MainFragment : Fragment() {
 
     private fun getCategories(){
         val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
-        val requestCall: Call<List<CategoryResponse>> = apiService.getCategories()
+        val requestCall: Call<CategoryList> = apiService.getCategories()
 
-        requestCall.enqueue(object: retrofit2.Callback<List<CategoryResponse>>{
+        requestCall.enqueue(object: retrofit2.Callback<CategoryList>{
             @SuppressLint("NotifyDataSetChanged")
-            override fun onResponse(call: Call<List<CategoryResponse>>, response: Response<List<CategoryResponse>>){
+            override fun onResponse(call: Call<CategoryList>, response: Response<CategoryList>){
                 if(response.isSuccessful){
-                    val categoryResponse: List<CategoryResponse>? = response.body()
+                    val categoryResponse: CategoryList? = response.body()
                     categoryResponse?.let {
-                        for(i in it.indices){
+                        for(i in it.categoryList.indices){
                             if (activity != null) {
-                                categoriesResponse.add(categoryResponse[i])
-                                categoryTitles[i] = categoryResponse[i].name
+                                categoriesResponse.add( it.categoryList[i])
+                                categoryTitles[i] =  it.categoryList[i].name
                             }
                         }
                         fillCategoriesMenu(categoryTitles)
@@ -145,7 +143,8 @@ class MainFragment : Fragment() {
             }
 
 
-            override fun onFailure(call: Call<List<CategoryResponse>>, error: Throwable){
+            override fun onFailure(call: Call<CategoryList>, error: Throwable){
+                println("")
                 Toast.makeText(
                     context, "Error al cargar los eventos",
                     Toast.LENGTH_SHORT

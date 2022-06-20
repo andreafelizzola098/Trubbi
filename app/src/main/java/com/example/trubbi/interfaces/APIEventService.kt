@@ -1,5 +1,6 @@
 package com.example.trubbi.interfaces
 
+import com.example.trubbi.data.CategoryList
 import com.example.trubbi.data.CategoryResponse
 import com.example.trubbi.data.EventResponse
 import retrofit2.Call
@@ -18,7 +19,7 @@ interface APIEventService {
     fun getEvents():Call<List<EventResponse>>
 
     @GET("/categories/")
-    fun getCategories():Call<List<CategoryResponse>>
+    fun getCategories():Call<CategoryList>
 
     @GET("/categories/{id}/events")
     fun getEventsByCategory(@Path("id")id:Number):Call<List<EventResponse>>
