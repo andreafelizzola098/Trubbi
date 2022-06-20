@@ -152,10 +152,10 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
             }
 
             override fun onFailure(call: Call<List<EventResponse>>, error: Throwable){
-                Toast.makeText(applicationContext, "No existe el evento buscado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "No existe el evento buscado", Toast.LENGTH_SHORT).show()
             }
         })
-        hideKeyboard()
+       // hideKeyboard()
     }
 
     fun buildEvent(event: EventResponse): EventCard {
@@ -163,26 +163,24 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
             java.time.Instant.ofEpochSecond(event.start_date)
         )
         return EventCard(
-            event.id.toLong(),
             event.title,
-            dateFormatt(startDate),
+            //dateFormatt(startDate),
             isPublic(event.public),
-            "maipu 1020",
             event.photo
         )
     }
 
-    private fun hideKeyboard() {
+    /*private fun hideKeyboard() {
         val imm = getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(mainView.windowToken, 0)
-    }
+    }*/
 
-    fun dateFormatt(date:String): String{
+    /*fun dateFormatt(date:String): String{
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssz")
         val parsedDate = formatter.parse(date)
         val formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:MM:SS")
         return formatter2.format(parsedDate)
-    }
+    }*/
 
     fun isPublic(isPublic:Boolean): String{
         if (isPublic){
