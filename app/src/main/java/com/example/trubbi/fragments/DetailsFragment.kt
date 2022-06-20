@@ -1,5 +1,6 @@
 package com.example.trubbi.fragments
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,10 @@ import com.example.trubbi.services.ServiceBuilder
 import retrofit2.Call
 import retrofit2.Response
 import android.net.Uri;
+import android.widget.ImageButton
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
+import com.example.trubbi.data.Schedule
 import com.squareup.picasso.Picasso
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -21,12 +26,23 @@ import java.util.*
 class DetailsFragment : Fragment() {
 
     private lateinit var viewDetails: View
+    private lateinit var btnFav : ImageButton
+    private lateinit var btnFavFill : ImageButton
+    private lateinit var btnSchedule: ImageButton
+    private lateinit var btnScheduleTint: ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         viewDetails = inflater.inflate(R.layout.fragment_details, container, false)
+
+        btnFav = viewDetails.findViewById(R.id.imageButtonFav)
+        btnFavFill = viewDetails.findViewById(R.id.imageButtonFavFill)
+
+        btnSchedule = viewDetails.findViewById(R.id.imageButtonSchedule)
+        btnScheduleTint = viewDetails.findViewById(R.id.imageButtonScheduleColor)
+
         return viewDetails
     }
 
@@ -34,6 +50,25 @@ class DetailsFragment : Fragment() {
         super.onStart()
         val eventId = arguments?.getLong("eventId")
         getEventById(eventId)
+        val isFavorite = false
+        val isSchedule = false
+
+        if(isFavorite){
+            btnFavFill.isVisible = true
+            btnFav.isGone = true
+        }else{
+            btnFavFill.isGone = true
+            btnFav.isVisible = true
+        }
+
+        if(isSchedule){
+            btnSchedule.isVisible = false
+            btnScheduleTint.isGone = true
+        }else{
+            btnSchedule.isVisible = true
+            btnScheduleTint.isGone = false
+        }
+
     }
 
     private fun getEventById(id: Long?){

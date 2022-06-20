@@ -53,7 +53,7 @@ class InterestsFragment : Fragment() {
                     categoryResponse?.let {
                         for(i in it.indices){
                             if (activity != null) {
-                                sw
+
                             }
                         }
                     }
