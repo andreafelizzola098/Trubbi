@@ -123,11 +123,11 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
             var query : String = query.toLowerCase()
             searchEventByTitle(query)
         }
-        return true;
+        return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        return true;
+        return true
     }
 
     private fun searchEventByTitle(query: String) {
@@ -174,7 +174,7 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private fun hideKeyboard() {
         val imm = getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(viewContainer.windowToken, 0)
+        imm.hideSoftInputFromWindow(mainView.windowToken, 0)
     }
 
     fun dateFormatt(date:String): String{

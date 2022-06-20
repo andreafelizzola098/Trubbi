@@ -1,0 +1,159 @@
+Index: app/src/main/java/com/example/trubbi/services/ServiceBuilder.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.trubbi.services\r\n\r\nimport okhttp3.OkHttpClient\r\nimport okhttp3.Request\r\nimport retrofit2.Retrofit\r\nimport retrofit2.converter.gson.GsonConverterFactory\r\n\r\n\r\nobject ServiceBuilder {\r\n    private  const val URL = \"http://192.168.0.76:3060\"\r\n    private val okhttp: OkHttpClient.Builder = OkHttpClient.Builder()\r\n\r\n/*\r\n    var client = OkHttpClient.Builder().addInterceptor { chain ->\r\n        val newRequest: Request = chain.request().newBuilder()\r\n            .addHeader(\"Authorization\", \"Bearer $token\")\r\n            .build()\r\n        chain.proceed(newRequest)\r\n    }.build()\r\n\r\n */\r\n\r\n    private val builder: Retrofit.Builder = Retrofit.Builder()\r\n                                            .baseUrl(URL)\r\n                                            .addConverterFactory(GsonConverterFactory.create())\r\n                                            .client(okhttp.build())\r\n\r\n    private val retrofit: Retrofit = builder.build()\r\n\r\n    fun <T> buildService(serviceType: Class<T>): T{\r\n        return retrofit.create(serviceType)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/trubbi/services/ServiceBuilder.kt b/app/src/main/java/com/example/trubbi/services/ServiceBuilder.kt
+--- a/app/src/main/java/com/example/trubbi/services/ServiceBuilder.kt	
++++ b/app/src/main/java/com/example/trubbi/services/ServiceBuilder.kt	
+@@ -8,22 +8,18 @@
+ 
+ object ServiceBuilder {
+     private  const val URL = "http://192.168.0.76:3060"
+-    private val okhttp: OkHttpClient.Builder = OkHttpClient.Builder()
+-
+-/*
+     var client = OkHttpClient.Builder().addInterceptor { chain ->
+         val newRequest: Request = chain.request().newBuilder()
+-            .addHeader("Authorization", "Bearer $token")
++            .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZGlAZ21haWwuY29tIiwiaWQiOjEsInJvbGUiOiJ0b3VyaXN0IiwiaWF0IjoxNjU1NzQ3Mjc3LCJleHAiOjE2NTU3NjUyNzd9.1YyC6N5clS02FngY6gx21LyblSYlfBBarO8lgoh4sbc")
+             .build()
+         chain.proceed(newRequest)
+     }.build()
+ 
+- */
+ 
+     private val builder: Retrofit.Builder = Retrofit.Builder()
+                                             .baseUrl(URL)
+                                             .addConverterFactory(GsonConverterFactory.create())
+-                                            .client(okhttp.build())
++                                            .client(client)
+ 
+     private val retrofit: Retrofit = builder.build()
+ 
+Index: app/src/main/java/com/example/trubbi/fragments/MainFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.trubbi.fragments\r\n\r\nimport android.annotation.SuppressLint\r\nimport android.os.Bundle\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.Button\r\nimport android.widget.Toast\r\nimport androidx.drawerlayout.widget.DrawerLayout\r\nimport androidx.navigation.findNavController\r\nimport androidx.recyclerview.widget.LinearLayoutManager\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.example.trubbi.R\r\nimport com.example.trubbi.activities.MainActivity\r\nimport com.example.trubbi.adapters.EventListAdapter\r\nimport com.example.trubbi.data.EventResponse\r\nimport com.example.trubbi.interfaces.APIEventService\r\nimport com.example.trubbi.model.EventCard\r\nimport com.example.trubbi.commons.Commons\r\nimport com.example.trubbi.data.CategoryResponse\r\nimport com.example.trubbi.services.ServiceBuilder\r\nimport com.google.android.material.dialog.MaterialAlertDialogBuilder\r\nimport retrofit2.Call\r\nimport retrofit2.Response\r\n\r\nclass MainFragment : Fragment() {\r\n\r\n    private lateinit var mainView: View\r\n    lateinit var recyclerView: RecyclerView\r\n    private var events: MutableList<EventCard> = ArrayList()\r\n    private lateinit var linearLayoutManager: LinearLayoutManager\r\n    private lateinit var eventListAdapter: EventListAdapter\r\n    private lateinit var extendedFab: Button\r\n    private var commons: Commons = Commons()\r\n    private var categoryTitles = arrayOf(String())\r\n    private var categoriesResponse: MutableList<CategoryResponse> = ArrayList()\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View {\r\n        mainView = inflater.inflate(R.layout.fragment_main, container, false)\r\n        recyclerView = mainView.findViewById(R.id.recycler_view)\r\n        extendedFab = mainView.findViewById(R.id.extended_fab)\r\n\r\n        return mainView\r\n    }\r\n\r\n    override fun onStart() {\r\n        super.onStart()\r\n\r\n        (activity as MainActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)\r\n        val toolbar =\r\n            (activity as MainActivity).findViewById<androidx.appcompat.widget.Toolbar>(R.id.main_toolbar)\r\n\r\n        toolbar.setNavigationOnClickListener {\r\n            (activity as MainActivity).drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN)\r\n            (activity as MainActivity).drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)\r\n        }\r\n\r\n        getEvents()\r\n        getCategories()\r\n        recyclerView.setHasFixedSize(true)\r\n        linearLayoutManager = LinearLayoutManager(context)\r\n        recyclerView.layoutManager = linearLayoutManager\r\n        eventListAdapter = EventListAdapter(events)\r\n        recyclerView.adapter = eventListAdapter\r\n\r\n    }\r\n\r\n    private fun onItemClick(position: Int): Boolean {\r\n        val categoryId = getCategoryId(position)\r\n        val actionCategory =\r\n            MainFragmentDirections.actionMainFragmentToCategoriesFragment(categoryTitles[position], categoryId)\r\n        mainView.findNavController().navigate(actionCategory)\r\n        return true\r\n    }\r\n\r\n    private fun getCategoryId(position: Int): Long {\r\n        var i = 0\r\n        var categoryId = 0L\r\n        while(i <= categoriesResponse.size && categoryTitles[position] != categoriesResponse[i].name) {\r\n            if(categoryTitles[position] == categoriesResponse[i].name){\r\n                categoryId = categoriesResponse[i].id as Long\r\n            } else {\r\n                i++\r\n            }\r\n        }\r\n        return categoryId\r\n    }\r\n\r\n    private fun getEvents(){\r\n        val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)\r\n        val requestCall: Call<List<EventResponse>> = apiService.getEvents()\r\n\r\n        requestCall.enqueue(object: retrofit2.Callback<List<EventResponse>>{\r\n            @SuppressLint(\"NotifyDataSetChanged\")\r\n            override fun onResponse(call: Call<List<EventResponse>>, response: Response<List<EventResponse>>){\r\n                if(response.isSuccessful){\r\n                    val eventResponse: List<EventResponse>? = response.body()\r\n                    eventResponse?.let {\r\n                        for(i in it.indices){\r\n                            if (activity != null) {\r\n                                val event: EventResponse = it[i]\r\n                                val eventCard = commons.buildEvent(event)\r\n                                events.add(eventCard)\r\n                            }\r\n                        }\r\n                        eventListAdapter.notifyDataSetChanged()\r\n                    }\r\n                }\r\n            }\r\n\r\n\r\n            override fun onFailure(call: Call<List<EventResponse>>, error: Throwable){\r\n                Toast.makeText(\r\n                    context, \"Error al cargar los eventos\",\r\n                    Toast.LENGTH_SHORT\r\n                ).show()\r\n            }\r\n        })\r\n    }\r\n\r\n    private fun getCategories(){\r\n        val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)\r\n        val requestCall: Call<List<CategoryResponse>> = apiService.getCategories()\r\n\r\n        requestCall.enqueue(object: retrofit2.Callback<List<CategoryResponse>>{\r\n            @SuppressLint(\"NotifyDataSetChanged\")\r\n            override fun onResponse(call: Call<List<CategoryResponse>>, response: Response<List<CategoryResponse>>){\r\n                if(response.isSuccessful){\r\n                    val categoryResponse: List<CategoryResponse>? = response.body()\r\n                    categoryResponse?.let {\r\n                        for(i in it.indices){\r\n                            if (activity != null) {\r\n                                categoriesResponse.add(categoryResponse[i])\r\n                                categoryTitles[i] = categoryResponse[i].name\r\n                            }\r\n                        }\r\n                        fillCategoriesMenu(categoryTitles)\r\n                    }\r\n                }\r\n            }\r\n\r\n\r\n            override fun onFailure(call: Call<List<CategoryResponse>>, error: Throwable){\r\n                Toast.makeText(\r\n                    context, \"Error al cargar los eventos\",\r\n                    Toast.LENGTH_SHORT\r\n                ).show()\r\n            }\r\n        })\r\n    }\r\n\r\n    fun fillCategoriesMenu(categoryTitles: Array<String>) {\r\n        extendedFab.setOnClickListener {\r\n            MaterialAlertDialogBuilder(requireContext())\r\n                .setTitle(resources.getString(R.string.dialogs_title))\r\n                .setItems(categoryTitles) { _, which ->\r\n                    when (which) {\r\n                        0 -> onItemClick(0)\r\n                        1 -> onItemClick(1)\r\n                        2 -> onItemClick(2)\r\n                        3 -> onItemClick(3)\r\n                        4 -> onItemClick(4)\r\n                        5 -> onItemClick(5)\r\n                        6 -> onItemClick(6)\r\n                        7 -> onItemClick(7)\r\n                        8 -> onItemClick(8)\r\n                    }\r\n                }\r\n                .show()\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/trubbi/fragments/MainFragment.kt b/app/src/main/java/com/example/trubbi/fragments/MainFragment.kt
+--- a/app/src/main/java/com/example/trubbi/fragments/MainFragment.kt	
++++ b/app/src/main/java/com/example/trubbi/fragments/MainFragment.kt	
+@@ -73,7 +73,7 @@
+     private fun onItemClick(position: Int): Boolean {
+         val categoryId = getCategoryId(position)
+         val actionCategory =
+-            MainFragmentDirections.actionMainFragmentToCategoriesFragment(categoryTitles[position], categoryId)
++            MainFragmentDirections.actionMainFragmentToCategoriesFragment(categoryId, categoryTitles[position])
+         mainView.findNavController().navigate(actionCategory)
+         return true
+     }
+@@ -115,6 +115,7 @@
+ 
+ 
+             override fun onFailure(call: Call<List<EventResponse>>, error: Throwable){
++               println("")
+                 Toast.makeText(
+                     context, "Error al cargar los eventos",
+                     Toast.LENGTH_SHORT
+Index: app/src/main/java/com/example/trubbi/fragments/LoginFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.trubbi.fragments\r\n\r\nimport android.content.ContentValues.TAG\r\nimport android.content.Intent\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.*\r\nimport androidx.navigation.findNavController\r\nimport com.example.trubbi.activities.MainActivity\r\nimport com.example.trubbi.R\r\nimport com.example.trubbi.data.LoginTouristResponse\r\nimport com.example.trubbi.interfaces.APILoginService\r\nimport com.example.trubbi.services.ServiceBuilder\r\nimport com.google.android.gms.auth.api.signin.GoogleSignIn\r\nimport com.google.android.gms.auth.api.signin.GoogleSignInClient\r\nimport com.google.android.gms.auth.api.signin.GoogleSignInOptions\r\nimport com.google.android.gms.common.api.ApiException\r\nimport com.google.android.gms.tasks.OnCompleteListener\r\nimport com.google.android.material.button.MaterialButton\r\nimport com.google.android.material.textfield.TextInputLayout\r\nimport com.google.firebase.auth.FirebaseAuth\r\nimport com.google.firebase.auth.FirebaseUser\r\nimport com.google.firebase.auth.GoogleAuthProvider\r\nimport com.google.firebase.auth.ktx.auth\r\nimport com.google.firebase.iid.FirebaseInstanceIdReceiver\r\nimport com.google.firebase.iid.internal.FirebaseInstanceIdInternal\r\nimport com.google.firebase.ktx.Firebase\r\nimport com.google.firebase.messaging.FirebaseMessaging\r\nimport retrofit2.Call\r\nimport retrofit2.Response\r\nimport java.lang.IllegalArgumentException\r\n\r\n\r\nclass LoginFragment : Fragment() {\r\n    private lateinit var v: View\r\n    private lateinit var txtRegister: TextView\r\n    private lateinit var btnLogin: Button\r\n    private lateinit var firebaseAuth: FirebaseAuth\r\n    private lateinit var btnGoogle: ImageButton\r\n    private lateinit var googleSignInClient: GoogleSignInClient\r\n    private lateinit var btnForgotPass: MaterialButton\r\n\r\n    companion object {\r\n        const val GOOGLE_SIGN_IN = 3\r\n    }\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View {\r\n\r\n        v = inflater.inflate(R.layout.fragment_login, container, false)\r\n        txtRegister = v.findViewById(R.id.txtBackLogin)\r\n        btnLogin = v.findViewById(R.id.btnLogin)\r\n        btnGoogle = v.findViewById(R.id.btnGoogle)\r\n        firebaseAuth = Firebase.auth\r\n        btnForgotPass = v.findViewById(R.id.btnForgotPass)\r\n\r\n        return v\r\n    }\r\n\r\n    override fun onStart() {\r\n        super.onStart()\r\n\r\n\r\n        txtRegister.setOnClickListener {\r\n\r\n            val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()\r\n            v.findNavController().navigate(action)\r\n        }\r\n\r\n        btnLogin.setOnClickListener {\r\n            try {\r\n                val email: TextInputLayout = v.findViewById(R.id.emailLogin)\r\n                val password: TextInputLayout = v.findViewById(R.id.passLogin)\r\n                val user = LoginTouristResponse(email.editText?.text.toString(), password.editText?.text.toString())\r\n\r\n                //logIn(user)\r\n            } catch (e: IllegalArgumentException) {\r\n                Toast.makeText(\r\n                    context, \"All fields must be completed\",\r\n                    Toast.LENGTH_SHORT\r\n                ).show()\r\n            }\r\n        }\r\n\r\n        btnForgotPass.setOnClickListener {\r\n            val action = LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment()\r\n            v.findNavController().navigate(action)\r\n        }\r\n\r\n    }\r\n\r\n    private fun logIn(user: LoginTouristResponse, onResult: (LoginTouristResponse?) -> Unit){\r\n            val retrofit = ServiceBuilder.buildService(APILoginService::class.java)\r\n            retrofit.login(user).enqueue(\r\n                object : retrofit2.Callback<LoginTouristResponse> {\r\n                    override fun onFailure(call: Call<LoginTouristResponse>, t: Throwable) {\r\n                        onResult(null)\r\n                    }\r\n                    override fun onResponse( call: Call<LoginTouristResponse>, response: Response<LoginTouristResponse>) {\r\n                        val addedUser = response.body()\r\n                        onResult(addedUser)\r\n                    }\r\n                }\r\n            )\r\n        }\r\n\r\n    private fun logUser(email: String, password: String) {\r\n\r\n        activity?.let {\r\n            firebaseAuth.signInWithEmailAndPassword(email, password)\r\n                .addOnCompleteListener(it) { task ->\r\n                    if (task.isSuccessful) {\r\n                        Log.d(TAG, \"signInWithEmail:success\")\r\n                        val user = firebaseAuth.currentUser\r\n                        if (user != null) {\r\n                            updateUI(user)\r\n                            //getToken()\r\n                            //subscribeToTopic()\r\n                        }\r\n                    } else {\r\n                        Log.w(TAG, \"signInWithEmail:failure\", task.exception)\r\n                        Toast.makeText(\r\n                            context, task.exception!!.message.toString(),\r\n                            Toast.LENGTH_SHORT\r\n                        ).show()\r\n                        updateUI(null)\r\n                    }\r\n                }\r\n        }\r\n    }\r\n\r\n    private fun updateUI(account: FirebaseUser?) {\r\n        if (account != null) {\r\n            val intent = Intent(activity, MainActivity::class.java)\r\n            startActivity(intent)\r\n            activity?.finish()\r\n\r\n        } else {\r\n            Toast.makeText(context, \"You didn't signed in\", Toast.LENGTH_LONG).show()\r\n        }\r\n    }\r\n\r\n    override fun onActivityCreated(savedInstanceState: Bundle?) {\r\n        super.onActivityCreated(savedInstanceState)\r\n        firebaseAuth = Firebase.auth\r\n        googleSignInClient = GoogleSignIn.getClient(requireContext(), getGSO())\r\n        googleSignInClient.signOut()\r\n        btnGoogle.setOnClickListener { signIn() }\r\n    }\r\n\r\n    private fun signIn() {\r\n        val signInIntent = googleSignInClient.signInIntent\r\n        startActivityForResult(signInIntent, GOOGLE_SIGN_IN)\r\n    }\r\n\r\n    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {\r\n        super.onActivityResult(requestCode, resultCode, data)\r\n        if (requestCode == GOOGLE_SIGN_IN) {\r\n            val task = GoogleSignIn.getSignedInAccountFromIntent(data)\r\n            try {\r\n                val account = task.getResult(ApiException::class.java)!!\r\n                firebaseAuthWithGoogle(account.idToken!!)\r\n            } catch (e: ApiException) {\r\n                Log.d(TAG, \"signInWithEmail: error ${e.message}\")\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun firebaseAuthWithGoogle(idToken: String) {\r\n        val credential = GoogleAuthProvider.getCredential(idToken, null)\r\n        firebaseAuth.signInWithCredential(credential)\r\n            .addOnCompleteListener(requireActivity()) { task ->\r\n                if (task.isSuccessful) {\r\n                    Log.d(TAG, \"signInWithEmail:success\")\r\n                    val user = firebaseAuth.currentUser\r\n                    if (user != null) {\r\n                        updateUI(user)\r\n                       // getToken()\r\n                       // subscribeToTopic()\r\n                    }\r\n                } else {\r\n                    Log.w(TAG, \"signInWithEmail:failure\", task.exception)\r\n                    Toast.makeText(\r\n                        context, task.exception!!.message.toString(),\r\n                        Toast.LENGTH_SHORT\r\n                    ).show()\r\n                    updateUI(null)\r\n                }\r\n            }\r\n    }\r\n\r\n    private fun getGSO(): GoogleSignInOptions {\r\n        return GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)\r\n            .requestIdToken(getString(R.string.CLIENT_ID))\r\n            .requestEmail()\r\n            .build()\r\n    }\r\n\r\n /*   private fun getToken() {\r\n        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->\r\n            if (!task.isSuccessful) {\r\n                Log.w(TAG, \"Fetching FCM registration token failed\", task.exception)\r\n                return@OnCompleteListener\r\n            } else {\r\n                val token = task.result\r\n                println(\"Este es el token:$token\")\r\n            }\r\n        })\r\n    }\r\n\r\n    private fun subscribeToTopic() {\r\n        FirebaseMessaging.getInstance().subscribeToTopic(\"evento1\")\r\n        println(\"Te suscribiste al topico\")\r\n    }*/\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/trubbi/fragments/LoginFragment.kt b/app/src/main/java/com/example/trubbi/fragments/LoginFragment.kt
+--- a/app/src/main/java/com/example/trubbi/fragments/LoginFragment.kt	
++++ b/app/src/main/java/com/example/trubbi/fragments/LoginFragment.kt	
+@@ -77,9 +77,13 @@
+             try {
+                 val email: TextInputLayout = v.findViewById(R.id.emailLogin)
+                 val password: TextInputLayout = v.findViewById(R.id.passLogin)
+-                val user = LoginTouristResponse(email.editText?.text.toString(), password.editText?.text.toString())
++               // val user = LoginTouristResponse(email.editText?.text.toString(), password.editText?.text.toString())
+ 
+                 //logIn(user)
++                val intent = Intent(activity, MainActivity::class.java)
++                startActivity(intent)
++                activity?.finish()
++
+             } catch (e: IllegalArgumentException) {
+                 Toast.makeText(
+                     context, "All fields must be completed",
+Index: app/src/main/java/com/example/trubbi/services/LoginServiceBuilder.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/trubbi/services/LoginServiceBuilder.kt b/app/src/main/java/com/example/trubbi/services/LoginServiceBuilder.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/com/example/trubbi/services/LoginServiceBuilder.kt	
+@@ -0,0 +1,23 @@
++package com.example.trubbi.services
++
++import okhttp3.OkHttpClient
++import okhttp3.Request
++import retrofit2.Retrofit
++import retrofit2.converter.gson.GsonConverterFactory
++
++
++object LoginServiceBuilder {
++    private  const val URL = "http://192.168.0.76:3060"
++    private val okhttp: OkHttpClient.Builder = OkHttpClient.Builder()
++
++    private val builder: Retrofit.Builder = Retrofit.Builder()
++                                            .baseUrl(URL)
++                                            .addConverterFactory(GsonConverterFactory.create())
++                                            .client(okhttp.build())
++
++    private val retrofit: Retrofit = builder.build()
++
++    fun <T> buildService(serviceType: Class<T>): T{
++        return retrofit.create(serviceType)
++    }
++}
+\ No newline at end of file
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"GRADLE\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"11\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	
++++ b/.idea/gradle.xml	
+@@ -14,7 +14,6 @@
+             <option value="$PROJECT_DIR$/app" />
+           </set>
+         </option>
+-        <option name="resolveModulePerSourceSet" value="false" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: .idea/deploymentTargetDropDown.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"deploymentTargetDropDown\">\r\n    <targetSelectedWithDropDown>\r\n      <Target>\r\n        <type value=\"QUICK_BOOT_TARGET\" />\r\n        <deviceKey>\r\n          <Key>\r\n            <type value=\"VIRTUAL_DEVICE_PATH\" />\r\n            <value value=\"C:\\Users\\ANDREA\\.android\\avd\\Galaxy_Nexus_API_30.avd\" />\r\n          </Key>\r\n        </deviceKey>\r\n      </Target>\r\n    </targetSelectedWithDropDown>\r\n    <timeTargetWasSelectedWithDropDown value=\"2022-06-18T23:16:46.585968400Z\" />\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+--- a/.idea/deploymentTargetDropDown.xml	
++++ b/.idea/deploymentTargetDropDown.xml	
+@@ -7,11 +7,11 @@
+         <deviceKey>
+           <Key>
+             <type value="VIRTUAL_DEVICE_PATH" />
+-            <value value="C:\Users\ANDREA\.android\avd\Galaxy_Nexus_API_30.avd" />
++            <value value="C:\Users\ANDREA\.android\avd\Pixel_XL_API_30.avd" />
+           </Key>
+         </deviceKey>
+       </Target>
+     </targetSelectedWithDropDown>
+-    <timeTargetWasSelectedWithDropDown value="2022-06-18T23:16:46.585968400Z" />
++    <timeTargetWasSelectedWithDropDown value="2022-06-20T18:34:10.823074600Z" />
+   </component>
+ </project>
+\ No newline at end of file
