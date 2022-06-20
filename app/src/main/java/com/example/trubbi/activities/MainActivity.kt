@@ -3,6 +3,8 @@ package com.example.trubbi.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SearchView
@@ -21,6 +23,9 @@ import com.example.trubbi.R
 import com.example.trubbi.databinding.ActivityMainBinding
 import com.example.trubbi.viewmodel.EventViewModel
 import com.google.android.material.navigation.NavigationView
+import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
@@ -101,10 +106,42 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        if(query != null){
+        val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
+        val requestCall: Call<EventResponse> = apiService.getEventByName(query)
 
-        }
+        requestCall.enqueue(object: retrofit2.Callback<EventResponse>{
+            override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>){
+                if(response.isSuccessful){
+                    val eventResponse: EventResponse? = response.body()
+                    eventResponse?.let {
+                        viewDetails.findViewById<TextView>(R.id.details_title).text = eventResponse.title
+                        viewDetails.findViewById<TextView>(R.id.details_description).text = eventResponse.description
+                        Picasso.get().load(eventResponse.photo).into(viewDetails.findViewById<ImageView>(R.id.details_image))
+                        val startDate : String = java.time.format.DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.ofEpochSecond(eventResponse.start_date))
+                        val formattDate = dateFormatt(startDate)
+                        viewDetails.findViewById<TextView>(R.id.details_date).text = formattDate
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<EventResponse>, error: Throwable){
+                println("FALLE!!!!!!!!!!!!!!!!!!!!!")
+
+            }
+        })
+        hideKeyBoard()
         return true;
+    }
+
+    private fun hideKeyBoard() {
+        TODO("Not yet implemented")
+    }
+
+    fun dateFormatt(date:String): String{
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssz")
+        val parsedDate = formatter.parse(date)
+        val formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:MM:SS")
+        return formatter2.format(parsedDate)
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
