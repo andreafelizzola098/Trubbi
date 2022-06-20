@@ -1,5 +1,6 @@
 package com.example.trubbi.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
 import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.adapters.EventListAdapter
+import com.example.trubbi.commons.Commons
 import com.example.trubbi.data.EventResponse
 import com.example.trubbi.interfaces.APIEventService
 import com.example.trubbi.model.EventCard
@@ -29,17 +31,11 @@ class HistoryFragment : Fragment(), LifecycleOwner {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var toolBarSearchView: View
+    private var commons: Commons = Commons()
 
     override fun onStart() {
         super.onStart()
-        val historyId = arguments?.getLong("historyId")
-        getTouristHistoryEvents(historyId)
-        /*for (i in 1..20) {
-            if (activity != null) {
-                val event = EventProvider.random()
-                events.add(event)
-            }
-        }*/
+        getTouristHistoryEvents()
         recycler.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         recycler.layoutManager = linearLayoutManager
@@ -62,12 +58,12 @@ class HistoryFragment : Fragment(), LifecycleOwner {
         return thisView
     }
 
-    private fun getTouristHistoryEvents(id: Long?){
+    private fun getTouristHistoryEvents(){
         val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
-        val touristId = id as Number
-        val requestCall: Call<List<EventResponse>> = apiService.getFavoritesEvents(touristId)
+        val requestCall: Call<List<EventResponse>> = apiService.getHistoryEvents()
 
         requestCall.enqueue(object: retrofit2.Callback<List<EventResponse>>{
+            @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<List<EventResponse>>, response: Response<List<EventResponse>>){
                 if(response.isSuccessful){
                     val favoriteResponse: List<EventResponse>? = response.body()
@@ -75,11 +71,11 @@ class HistoryFragment : Fragment(), LifecycleOwner {
                         for(i in it.indices){
                             if (activity != null) {
                                 val event: EventResponse = it[i]
-                                val eventCard = buildEvent(event)
+                                val eventCard = commons.buildEvent(event)
                                 events.add(eventCard)
-                                eventListAdapter.notifyDataSetChanged()
                             }
                         }
+                        eventListAdapter.notifyDataSetChanged()
                     }
                 }
             }
@@ -88,35 +84,6 @@ class HistoryFragment : Fragment(), LifecycleOwner {
                 println("FALLE!!!!!!!!!!!!!!!!!!!!!")
             }
         })
-    }
-
-    fun buildEvent(event: EventResponse): EventCard {
-        val startDate: String = DateTimeFormatter.ISO_INSTANT.format(
-            java.time.Instant.ofEpochSecond(event.start_date)
-        )
-        return EventCard(
-            event.id.toLong(),
-            event.title,
-            dateFormatt(startDate),
-            isPublic(event.public),
-            "libertador 3000",
-            event.photo
-        )
-    }
-
-    fun isPublic(isPublic:Boolean): String{
-        if (isPublic){
-            return "publico"
-        }else{
-            return "privado"
-        }
-    }
-
-    fun dateFormatt(date:String): String{
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssz")
-        val parsedDate = formatter.parse(date)
-        val formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:MM:SS")
-        return formatter2.format(parsedDate)
     }
 
     override fun onStop() {

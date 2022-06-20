@@ -1,6 +1,6 @@
 package com.example.trubbi.data
 
-data class CategoryTouristResponse(
+data class CategoryResponse(
     var id: Number,
     var name : String
 )

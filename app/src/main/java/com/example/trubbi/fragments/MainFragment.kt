@@ -1,11 +1,13 @@
 package com.example.trubbi.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,15 +18,12 @@ import com.example.trubbi.adapters.EventListAdapter
 import com.example.trubbi.data.EventResponse
 import com.example.trubbi.interfaces.APIEventService
 import com.example.trubbi.model.EventCard
-import com.example.trubbi.providers.EventProvider
+import com.example.trubbi.commons.Commons
+import com.example.trubbi.data.CategoryResponse
 import com.example.trubbi.services.ServiceBuilder
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.coroutines.GlobalScope
 import retrofit2.Call
 import retrofit2.Response
-import java.time.format.DateTimeFormatter
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.delay
 
 class MainFragment : Fragment() {
 
@@ -34,18 +33,9 @@ class MainFragment : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var extendedFab: Button
-    private var events2: MutableList<EventCard> = ArrayList()
-
-    private val itemsCategories = arrayOf(
-        "Artes Escénicas",
-        "Arte y Cultura",
-        "Deportes",
-        "Familia y Niños",
-        "Ferias y Conferencias",
-        "Música",
-        "Otros",
-        "Cercanos"
-    )
+    private var commons: Commons = Commons()
+    private var categoryTitles = arrayOf(String())
+    private var categoriesResponse: MutableList<CategoryResponse> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,23 +60,105 @@ class MainFragment : Fragment() {
             (activity as MainActivity).drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         }
 
-        getEvents2()
-        /*for (i in 0..events2.size) {
-            if (activity != null) {
-                val event = events2[i]
-                events.add(event)
-            }
-        }*/
+        getEvents()
+        getCategories()
         recyclerView.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = linearLayoutManager
         eventListAdapter = EventListAdapter(events)
         recyclerView.adapter = eventListAdapter
 
+    }
+
+    private fun onItemClick(position: Int): Boolean {
+        val categoryId = getCategoryId(position)
+        val actionCategory =
+            MainFragmentDirections.actionMainFragmentToCategoriesFragment(categoryTitles[position], categoryId)
+        mainView.findNavController().navigate(actionCategory)
+        return true
+    }
+
+    private fun getCategoryId(position: Int): Long {
+        var i = 0
+        var categoryId = 0L
+        while(i <= categoriesResponse.size && categoryTitles[position] != categoriesResponse[i].name) {
+            if(categoryTitles[position] == categoriesResponse[i].name){
+                categoryId = categoriesResponse[i].id as Long
+            } else {
+                i++
+            }
+        }
+        return categoryId
+    }
+
+    private fun getEvents(){
+        val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
+        val requestCall: Call<List<EventResponse>> = apiService.getEvents()
+
+        requestCall.enqueue(object: retrofit2.Callback<List<EventResponse>>{
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(call: Call<List<EventResponse>>, response: Response<List<EventResponse>>){
+                if(response.isSuccessful){
+                    val eventResponse: List<EventResponse>? = response.body()
+                    eventResponse?.let {
+                        for(i in it.indices){
+                            if (activity != null) {
+                                val event: EventResponse = it[i]
+                                val eventCard = commons.buildEvent(event)
+                                events.add(eventCard)
+                            }
+                        }
+                        eventListAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+
+
+            override fun onFailure(call: Call<List<EventResponse>>, error: Throwable){
+                Toast.makeText(
+                    context, "Error al cargar los eventos",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
+    private fun getCategories(){
+        val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
+        val requestCall: Call<List<CategoryResponse>> = apiService.getCategories()
+
+        requestCall.enqueue(object: retrofit2.Callback<List<CategoryResponse>>{
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(call: Call<List<CategoryResponse>>, response: Response<List<CategoryResponse>>){
+                if(response.isSuccessful){
+                    val categoryResponse: List<CategoryResponse>? = response.body()
+                    categoryResponse?.let {
+                        for(i in it.indices){
+                            if (activity != null) {
+                                categoriesResponse.add(categoryResponse[i])
+                                categoryTitles[i] = categoryResponse[i].name
+                            }
+                        }
+                        fillCategoriesMenu(categoryTitles)
+                    }
+                }
+            }
+
+
+            override fun onFailure(call: Call<List<CategoryResponse>>, error: Throwable){
+                Toast.makeText(
+                    context, "Error al cargar los eventos",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
+    fun fillCategoriesMenu(categoryTitles: Array<String>) {
         extendedFab.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(resources.getString(R.string.dialogs_title))
-                .setItems(itemsCategories) { _, which ->
+                .setItems(categoryTitles) { _, which ->
                     when (which) {
                         0 -> onItemClick(0)
                         1 -> onItemClick(1)
@@ -101,69 +173,5 @@ class MainFragment : Fragment() {
                 }
                 .show()
         }
-    }
-
-    private fun onItemClick(position: Int): Boolean {
-        val actionCategory =
-            MainFragmentDirections.actionMainFragmentToCategoriesFragment(itemsCategories[position])
-        mainView.findNavController().navigate(actionCategory)
-        return true
-    }
-
-    private fun getEvents2(){
-
-        val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
-        val requestCall: Call<List<EventResponse>> = apiService.getEvents()
-
-        requestCall.enqueue(object: retrofit2.Callback<List<EventResponse>>{
-            override fun onResponse(call: Call<List<EventResponse>>, response: Response<List<EventResponse>>){
-                if(response.isSuccessful){
-                    val eventResponse: List<EventResponse>? = response.body()
-                    eventResponse?.let {
-                    for(i in it.indices){
-                        if (activity != null) {
-                            val event: EventResponse = it[i]
-                            val eventCard = buildEvent(event)
-                            events.add(eventCard)
-                            eventListAdapter.notifyDataSetChanged()
-                        }
-                    }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<List<EventResponse>>, error: Throwable){
-                println("FALLE!!!!!!!!!!!!!!!!!!!!!")
-            }
-        })
-    }
-
-    fun buildEvent(event: EventResponse): EventCard {
-        val startDate: String = DateTimeFormatter.ISO_INSTANT.format(
-            java.time.Instant.ofEpochSecond(event.start_date)
-        )
-        return EventCard(
-            event.id.toLong(),
-            event.title,
-            dateFormatt(startDate),
-            isPublic(event.public),
-            "maipu 1020",
-            event.photo
-        )
-    }
-
-    fun isPublic(isPublic:Boolean): String{
-        if (isPublic){
-            return "publico"
-        }else{
-            return "privado"
-        }
-    }
-
-    fun dateFormatt(date:String): String{
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssz")
-        val parsedDate = formatter.parse(date)
-        val formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:MM:SS")
-        return formatter2.format(parsedDate)
     }
 }

@@ -10,6 +10,5 @@ data class EventResponse(
     @SerializedName("start_date") var start_date: Long,
     @SerializedName("public") var public: Boolean,
     @SerializedName("address") var address: String,
-    @SerializedName("tourist") var tourist : List<TouristCategoryResponse>,
-    @SerializedName("category") var category : List<CategoryTouristResponse>
+    @SerializedName("category") var category : List<CategoryResponse>
 )

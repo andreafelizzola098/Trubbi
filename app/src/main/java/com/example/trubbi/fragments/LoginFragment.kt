@@ -12,6 +12,9 @@ import android.widget.*
 import androidx.navigation.findNavController
 import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.R
+import com.example.trubbi.data.LoginTouristResponse
+import com.example.trubbi.interfaces.APILoginService
+import com.example.trubbi.services.ServiceBuilder
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -27,6 +30,8 @@ import com.google.firebase.iid.FirebaseInstanceIdReceiver
 import com.google.firebase.iid.internal.FirebaseInstanceIdInternal
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
+import retrofit2.Call
+import retrofit2.Response
 import java.lang.IllegalArgumentException
 
 
@@ -72,8 +77,9 @@ class LoginFragment : Fragment() {
             try {
                 val email: TextInputLayout = v.findViewById(R.id.emailLogin)
                 val password: TextInputLayout = v.findViewById(R.id.passLogin)
+                val user = LoginTouristResponse(email.editText?.text.toString(), password.editText?.text.toString())
 
-                logUser(email.editText?.text.toString(), password.editText?.text.toString())
+                //logIn(user)
             } catch (e: IllegalArgumentException) {
                 Toast.makeText(
                     context, "All fields must be completed",
@@ -88,6 +94,21 @@ class LoginFragment : Fragment() {
         }
 
     }
+
+    private fun logIn(user: LoginTouristResponse, onResult: (LoginTouristResponse?) -> Unit){
+            val retrofit = ServiceBuilder.buildService(APILoginService::class.java)
+            retrofit.login(user).enqueue(
+                object : retrofit2.Callback<LoginTouristResponse> {
+                    override fun onFailure(call: Call<LoginTouristResponse>, t: Throwable) {
+                        onResult(null)
+                    }
+                    override fun onResponse( call: Call<LoginTouristResponse>, response: Response<LoginTouristResponse>) {
+                        val addedUser = response.body()
+                        onResult(addedUser)
+                    }
+                }
+            )
+        }
 
     private fun logUser(email: String, password: String) {
 

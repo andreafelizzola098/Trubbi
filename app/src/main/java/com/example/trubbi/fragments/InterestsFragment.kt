@@ -5,18 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.view.isVisible
 import com.example.trubbi.R
 import com.example.trubbi.activities.MainActivity
-import com.example.trubbi.data.EventResponse
-import com.example.trubbi.data.TouristCategoryResponse
-import com.example.trubbi.interfaces.APIEventService
-import com.example.trubbi.services.ServiceBuilder
-import com.squareup.picasso.Picasso
-import retrofit2.Call
-import retrofit2.Response
 
 class InterestsFragment : Fragment() {
 

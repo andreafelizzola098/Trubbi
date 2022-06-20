@@ -33,6 +33,9 @@
             android:id="@+id/action_categoriesFragment_to_mainFragment"
             app:destination="@id/mainFragment"
             app:enterAnim="@anim/animation_test_right" />
+        <argument
+            android:name="categoryId"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
