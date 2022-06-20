@@ -44,6 +44,7 @@
     <string name="home">Home</string>
     <string name="volver_al_login">Volver al Login</string>
     <string name="enviar">Enviar</string>
+    <string name="nombre">Nombre</string>
 
 
 </resources>

@@ -2,8 +2,6 @@ package com.example.trubbi.fragments
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.content.pm.PackageInstaller
-import android.media.Session2Token
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -16,22 +14,18 @@ import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.R
 import com.example.trubbi.data.LoginTouristResponse
 import com.example.trubbi.interfaces.APILoginService
-import com.example.trubbi.services.ServiceBuilder
+import com.example.trubbi.services.LoginServiceBuilder
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.iid.FirebaseInstanceIdReceiver
-import com.google.firebase.iid.internal.FirebaseInstanceIdInternal
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.FirebaseMessaging
 import retrofit2.Call
 import retrofit2.Response
 import java.lang.IllegalArgumentException
@@ -79,11 +73,8 @@ class LoginFragment : Fragment() {
             try {
                 val email: TextInputLayout = v.findViewById(R.id.emailLogin)
                 val password: TextInputLayout = v.findViewById(R.id.passLogin)
-                //val user = LoginTouristResponse(email.editText?.text.toString(), password.editText?.text.toString())
-                val intent = Intent(activity, MainActivity::class.java)
-                startActivity(intent)
-                activity?.finish()
-                //logIn(user)
+                val user = LoginTouristResponse(email.editText?.text.toString(), password.editText?.text.toString())
+                logIn(user)
             } catch (e: IllegalArgumentException) {
                 Toast.makeText(
                     context, "All fields must be completed",
@@ -99,16 +90,23 @@ class LoginFragment : Fragment() {
 
     }
 
-    private fun logIn(user: LoginTouristResponse, onResult: (LoginTouristResponse?) -> Unit){
-            val retrofit = ServiceBuilder.buildService(APILoginService::class.java)
-            retrofit.login(user).enqueue(
+    private fun logIn(user: LoginTouristResponse){
+        val apiService = LoginServiceBuilder.buildService(APILoginService::class.java)
+        apiService.login(user).enqueue(
                 object : retrofit2.Callback<LoginTouristResponse> {
                     override fun onFailure(call: Call<LoginTouristResponse>, t: Throwable) {
-                        onResult(null)
+                       println("")
                     }
-                    override fun onResponse( call: Call<LoginTouristResponse>, response: Response<LoginTouristResponse>) {
-                        val addedUser = response.body()
-                        onResult(addedUser)
+                    override fun onResponse(call: Call<LoginTouristResponse>, response: Response<LoginTouristResponse>) {
+                        val loggedUser = response.body()
+                        if(response.errorBody() == null){
+                            println(loggedUser)
+                            val intent = Intent(activity, MainActivity::class.java)
+                            startActivity(intent)
+                            activity?.finish()
+                        } else {
+                            Toast.makeText(context, "You didn't signed in", Toast.LENGTH_LONG).show()
+                        }
                     }
                 }
             )
@@ -124,8 +122,6 @@ class LoginFragment : Fragment() {
                         val user = firebaseAuth.currentUser
                         if (user != null) {
                             updateUI(user)
-                            //getToken()
-                            //subscribeToTopic()
                         }
                     } else {
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
@@ -185,8 +181,6 @@ class LoginFragment : Fragment() {
                     val user = firebaseAuth.currentUser
                     if (user != null) {
                         updateUI(user)
-                       // getToken()
-                       // subscribeToTopic()
                     }
                 } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
