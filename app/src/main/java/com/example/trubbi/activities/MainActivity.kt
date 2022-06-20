@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -21,7 +22,7 @@ import com.example.trubbi.databinding.ActivityMainBinding
 import com.example.trubbi.viewmodel.EventViewModel
 import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     val eventViewModel: EventViewModel by viewModels()
     private lateinit var appBarConfiguration: AppBarConfiguration
+    //start Search
+
+    private lateinit var searchView: SearchView
+    //end Search
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +44,11 @@ class MainActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.main_toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(true)
+
+        //start Search
+        searchView = findViewById(R.id.searchView)
+        //end Search
+
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.nav_view)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
@@ -82,9 +92,22 @@ class MainActivity : AppCompatActivity() {
             this.finish()
             true
         }
+        //SearchView
+        searchView.setOnQueryTextListener(this)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, drawerLayout)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if(query != null){
+
+        }
+        return true;
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return true;
     }
 }
