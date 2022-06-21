@@ -62,10 +62,6 @@ class InterestsFragment : Fragment() {
                     categoryResponse?.let {
                         for(i in it.indices){
                             if (activity != null) {
-<<<<<<< HEAD
-
-=======
->>>>>>> a2f311bc419305bbddd5db28e55b5e427b55d344
                             }
                         }
                     }
