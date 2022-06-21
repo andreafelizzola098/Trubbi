@@ -16,6 +16,7 @@ import retrofit2.Response
 import android.widget.ImageButton
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.commons.Commons
 import com.example.trubbi.data.ScheduleDetails
 import com.squareup.picasso.Picasso
@@ -28,12 +29,20 @@ class DetailsFragment : Fragment() {
     private lateinit var btnFavFill : ImageButton
     private lateinit var btnSchedule: ImageButton
     private lateinit var btnScheduleTint: ImageButton
+    private lateinit var toolBarSearchView: View
     private var commons: Commons = Commons()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        toolBarSearchView = requireActivity().findViewById(R.id.searchView)
+        toolBarSearchView.isVisible = false
+
+        if (activity != null) {
+            (activity as MainActivity).supportActionBar?.title = "Evento"
+        }
+
         viewDetails = inflater.inflate(R.layout.fragment_details, container, false)
 
         btnFav = viewDetails.findViewById(R.id.imageButtonFav)
@@ -145,6 +154,8 @@ class DetailsFragment : Fragment() {
         btnFavFill.isGone = true
         btnSchedule.isGone = true
         btnScheduleTint.isGone = true
+
+        toolBarSearchView.isVisible = true
     }
 
 }

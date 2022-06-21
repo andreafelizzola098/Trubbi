@@ -76,7 +76,7 @@
                         android:id="@+id/outlinedTextField"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-
+                        android:enabled="false"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:hint="@string/settings_email">
