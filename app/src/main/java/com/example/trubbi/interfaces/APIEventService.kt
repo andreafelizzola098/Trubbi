@@ -30,7 +30,7 @@ interface APIEventService {
     fun getScheduleEvents():Call<List<Schedule>>
 
     @GET("/schedule/history")
-    fun getHistoryEvents():Call<List<EventResponse>>
+    fun getHistoryEvents():Call<List<Schedule>>
 
     @GET("/tourists/categories")
     fun getTouristCategories():Call<List<CategoryResponse>>
