@@ -1,9 +1,6 @@
 package com.example.trubbi.interfaces
 
-import com.example.trubbi.data.CategoryList
-import com.example.trubbi.data.CategoryResponse
-import com.example.trubbi.data.EventResponse
-import com.example.trubbi.data.Schedule
+import com.example.trubbi.data.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -39,5 +36,5 @@ interface APIEventService {
     fun getTouristCategories():Call<List<CategoryResponse>>
 
     @POST("/tourists/categories")
-    fun scheduleEvent():Call<List<CategoryResponse>>
+    fun scheduleEvent(@Path("id")id:Number):Call<ScheduleDetails>
 }

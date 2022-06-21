@@ -94,6 +94,13 @@ class FavoritesFragment : Fragment() {
         })
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onPause() {
+        super.onPause()
+        events = ArrayList()
+        eventListAdapter.notifyDataSetChanged()
+    }
+
     override fun onStop() {
         super.onStop()
         toolBarSearchView.isVisible = true

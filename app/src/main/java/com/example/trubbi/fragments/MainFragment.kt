@@ -224,4 +224,11 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
         val imm = requireActivity().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(mainView.windowToken, 0)
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onPause() {
+        super.onPause()
+        events = ArrayList()
+        eventListAdapter.notifyDataSetChanged()
+    }
 }
