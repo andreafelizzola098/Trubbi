@@ -105,6 +105,7 @@ class LoginFragment : Fragment() {
                             startActivity(intent)
                             activity?.finish()
                         } else {
+                            println("")
                             Toast.makeText(context, "You didn't signed in", Toast.LENGTH_LONG).show()
                         }
                     }

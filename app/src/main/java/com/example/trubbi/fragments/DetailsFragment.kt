@@ -137,6 +137,10 @@ class DetailsFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
+        btnFav.isVisible = false
+        btnFavFill.isVisible = false
+        btnSchedule.isVisible = false
+        btnScheduleTint.isVisible = false
         btnFav.isGone = true
         btnFavFill.isGone = true
         btnSchedule.isGone = true
