@@ -50,21 +50,6 @@ class DetailsFragment : Fragment() {
         val eventId = arguments?.getLong("eventId")
         getEventById(eventId)
         getScheduleById(eventId)
-        val isFavorite = false
-        val isSchedule = false
-
-        if(isFavorite){
-            btnFavFill.isVisible = true
-        }else{
-            btnFav.isVisible = true
-        }
-
-        if(isSchedule){
-            btnScheduleTint.isGone = true
-        }else{
-            btnSchedule.isVisible = true
-        }
-
     }
 
     private fun getEventById(id: Long?){
@@ -104,6 +89,20 @@ class DetailsFragment : Fragment() {
                 if(response.isSuccessful){
                     val eventResponse: ScheduleDetails? = response.body()
                     eventResponse?.let {
+                        val isFavorite = eventResponse.favourite
+                        val isSchedule = eventResponse.scheduled
+
+                        if(isFavorite){
+                            btnFavFill.isVisible = true
+                        }else{
+                            btnFav.isVisible = true
+                        }
+
+                        if(isSchedule){
+                            btnScheduleTint.isVisible = true
+                        }else{
+                            btnSchedule.isVisible = true
+                        }
 
                     }
                 }

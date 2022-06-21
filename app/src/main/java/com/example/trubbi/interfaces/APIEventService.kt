@@ -35,6 +35,6 @@ interface APIEventService {
     @GET("/tourists/categories")
     fun getTouristCategories():Call<List<CategoryResponse>>
 
-    @POST("/tourists/categories")
+    @POST("/schedule/{id}")
     fun scheduleEvent(@Path("id")id:Number):Call<ScheduleDetails>
 }
