@@ -37,5 +37,4 @@ interface APIEventService {
 
     @POST("/schedule/{id}")
     fun scheduleEvent(@Path("id")id:Number):Call<ScheduleDetails>
-
 }
