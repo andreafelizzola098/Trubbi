@@ -38,7 +38,7 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var extendedFab: Button
     private var commons: Commons = Commons()
-    private var categoryTitles = arrayOf(String())
+    private var categoryTitles = arrayOfNulls<String>(0)
     private var categoriesResponse: MutableList<CategoryResponse> = ArrayList()
 
     override fun onCreateView(
@@ -137,6 +137,7 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
                 if(response.isSuccessful){
                     val categoryResponse: CategoryList? = response.body()
                     categoryResponse?.let {
+                        categoryTitles = arrayOfNulls(it.categoryList.size)
                         for(i in it.categoryList.indices){
                             if (activity != null) {
                                 categoriesResponse.add( it.categoryList[i])
@@ -159,7 +160,7 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
         })
     }
 
-    fun fillCategoriesMenu(categoryTitles: Array<String>) {
+    fun fillCategoriesMenu(categoryTitles: Array<String?>) {
         extendedFab.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(resources.getString(R.string.dialogs_title))
@@ -224,5 +225,12 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun hideKeyboard() {
         val imm = requireActivity().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(mainView.windowToken, 0)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onPause() {
+        super.onPause()
+        events = ArrayList()
+        eventListAdapter.notifyDataSetChanged()
     }
 }

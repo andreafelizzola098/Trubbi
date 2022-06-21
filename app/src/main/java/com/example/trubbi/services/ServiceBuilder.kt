@@ -13,7 +13,7 @@ object ServiceBuilder {
 
     var client = OkHttpClient.Builder().addInterceptor { chain ->
         val newRequest: Request = chain.request().newBuilder()
-            .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZGlAZ21haWwuY29tIiwiaWQiOjEsInJvbGUiOiJ0b3VyaXN0IiwiaWF0IjoxNjU1NzcyNjM1LCJleHAiOjE2NTU3OTA2MzV9.8jHXxYkHIDEBvfOshozrqueo0gh7Xn6lLUPxD9dkfEQ")
+            .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZGlAZ21haWwuY29tIiwiaWQiOjEsInJvbGUiOiJ0b3VyaXN0IiwiaWF0IjoxNjU1NzY1Nzg5LCJleHAiOjE2NTU3ODM3ODl9.UeK5Zrf991bWuoCPkCLFW_J8XtmO-hYc6WpVZPn2dys")
             .build()
         chain.proceed(newRequest)
     }.build()
