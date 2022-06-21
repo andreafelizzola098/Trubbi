@@ -50,6 +50,26 @@ class DetailsFragment : Fragment() {
         val eventId = arguments?.getLong("eventId")
         getEventById(eventId)
         getScheduleById(eventId)
+
+        btnFavFill.setOnClickListener {
+            btnFavFill.isVisible = false
+            btnFav.isVisible = true
+        }
+
+        btnFav.setOnClickListener {
+            btnFavFill.isVisible = true
+            btnFav.isVisible = false
+        }
+
+        btnScheduleTint.setOnClickListener {
+            btnScheduleTint.isVisible = false
+            btnSchedule.isVisible = true
+        }
+
+        btnSchedule.setOnClickListener {
+            btnScheduleTint.isVisible = true
+            btnSchedule.isVisible = false
+        }
     }
 
     private fun getEventById(id: Long?){
