@@ -154,7 +154,6 @@ class DetailsFragment : Fragment() {
         btnFavFill.isGone = true
         btnSchedule.isGone = true
         btnScheduleTint.isGone = true
-
         toolBarSearchView.isVisible = true
     }
 
