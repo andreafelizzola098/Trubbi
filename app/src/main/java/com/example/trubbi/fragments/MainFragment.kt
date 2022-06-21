@@ -48,13 +48,14 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
         mainView = inflater.inflate(R.layout.fragment_main, container, false)
         recyclerView = mainView.findViewById(R.id.recycler_view)
         extendedFab = mainView.findViewById(R.id.extended_fab)
-
         return mainView
     }
 
     override fun onStart() {
         super.onStart()
-
+        if (activity != null) {
+            (activity as MainActivity).supportActionBar?.title = "Trubbi"
+        }
         (activity as MainActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
         val toolbar =
             (activity as MainActivity).findViewById<androidx.appcompat.widget.Toolbar>(R.id.main_toolbar)
