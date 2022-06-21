@@ -1,6 +1,7 @@
 package com.example.trubbi.fragments
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,10 +13,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.example.trubbi.R
+import com.example.trubbi.activities.MainActivity
+import com.example.trubbi.data.LoginTouristResponse
+import com.example.trubbi.data.RegisterTouristResponse
+import com.example.trubbi.interfaces.APILoginService
+import com.example.trubbi.services.LoginServiceBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import retrofit2.Call
+import retrofit2.Response
 
 class RegisterFragment : Fragment() {
     private lateinit var v: View
@@ -45,14 +53,18 @@ class RegisterFragment : Fragment() {
 
         btnRegister.setOnClickListener {
             try {
+                val name: TextInputLayout = v.findViewById(R.id.nameRegister)
                 val email: TextInputLayout = v.findViewById(R.id.emailRegister)
                 val password: TextInputLayout = v.findViewById(R.id.passRegister1)
                 val password2: TextInputLayout = v.findViewById(R.id.passRegister2)
                 val emailString: String = email.editText?.text.toString()
                 val passwordString: String = password.editText?.text.toString()
                 val password2String: String = password2.editText?.text.toString()
+                val nameString: String = name.editText?.text.toString()
                 if (passwordString.isNotEmpty() == password2String.isNotEmpty()) {
-                    createUser(emailString, passwordString)
+                    //createUser(emailString, passwordString)
+                        val user = RegisterTouristResponse(emailString,passwordString,nameString)
+                        createTourist(user)
 
                 } else if (passwordString.isNotEmpty() != password2String.isNotEmpty()) {
                     Toast.makeText(
@@ -88,6 +100,28 @@ class RegisterFragment : Fragment() {
                     ).show()
                 }
             }
+    }
+
+    private fun createTourist(user: RegisterTouristResponse){
+        val apiService = LoginServiceBuilder.buildService(APILoginService::class.java)
+        apiService.createTourist(user).enqueue(
+            object : retrofit2.Callback<RegisterTouristResponse> {
+                override fun onFailure(call: Call<RegisterTouristResponse>, t: Throwable) {
+                    println("")
+                }
+                override fun onResponse(call: Call<RegisterTouristResponse>, response: Response<RegisterTouristResponse>) {
+                    val loggedUser = response.body()
+                    if(response.errorBody() == null){
+                        Toast.makeText(context, "Account successfully created", Toast.LENGTH_LONG).show()
+                        val intent = Intent(activity, MainActivity::class.java)
+                        startActivity(intent)
+                        activity?.finish()
+                    } else {
+                        Toast.makeText(context, "You didn't register", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        )
     }
 }
 

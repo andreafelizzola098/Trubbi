@@ -21,7 +21,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -41,9 +43,10 @@
                     android:id="@+id/linearUserSettingsFieldsContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
                     android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/frameToolbarMock">
 
                     <TextView
@@ -100,41 +103,12 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/TFuserAdress"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:hint="@string/settings_address">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/TFUserBirthday"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:hint="@string/settings_email">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="8dp"
-                        android:text="@string/settings_btn"
+                        android:text="@string/save"
                         android:theme="@style/ShapeAppearanceOverlay.Material3.Button" />
                 </LinearLayout>
 

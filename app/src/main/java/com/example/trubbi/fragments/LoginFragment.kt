@@ -12,21 +12,22 @@ import android.widget.*
 import androidx.navigation.findNavController
 import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.R
+import com.example.trubbi.data.LoginTouristResponse
+import com.example.trubbi.interfaces.APILoginService
+import com.example.trubbi.services.LoginServiceBuilder
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.iid.FirebaseInstanceIdReceiver
-import com.google.firebase.iid.internal.FirebaseInstanceIdInternal
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.FirebaseMessaging
+import retrofit2.Call
+import retrofit2.Response
 import java.lang.IllegalArgumentException
 
 
@@ -72,8 +73,8 @@ class LoginFragment : Fragment() {
             try {
                 val email: TextInputLayout = v.findViewById(R.id.emailLogin)
                 val password: TextInputLayout = v.findViewById(R.id.passLogin)
-
-                logUser(email.editText?.text.toString(), password.editText?.text.toString())
+                val user = LoginTouristResponse(email.editText?.text.toString(), password.editText?.text.toString())
+                logIn(user)
             } catch (e: IllegalArgumentException) {
                 Toast.makeText(
                     context, "All fields must be completed",
@@ -89,6 +90,28 @@ class LoginFragment : Fragment() {
 
     }
 
+    private fun logIn(user: LoginTouristResponse){
+        val apiService = LoginServiceBuilder.buildService(APILoginService::class.java)
+        apiService.login(user).enqueue(
+                object : retrofit2.Callback<LoginTouristResponse> {
+                    override fun onFailure(call: Call<LoginTouristResponse>, t: Throwable) {
+                       println("")
+                    }
+                    override fun onResponse(call: Call<LoginTouristResponse>, response: Response<LoginTouristResponse>) {
+                        val loggedUser = response.body()
+                        if(response.errorBody() == null){
+                            println(loggedUser)
+                            val intent = Intent(activity, MainActivity::class.java)
+                            startActivity(intent)
+                            activity?.finish()
+                        } else {
+                            Toast.makeText(context, "You didn't signed in", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+            )
+        }
+
     private fun logUser(email: String, password: String) {
 
         activity?.let {
@@ -99,8 +122,6 @@ class LoginFragment : Fragment() {
                         val user = firebaseAuth.currentUser
                         if (user != null) {
                             updateUI(user)
-                            getToken()
-                            subscribeToTopic()
                         }
                     } else {
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
@@ -160,8 +181,6 @@ class LoginFragment : Fragment() {
                     val user = firebaseAuth.currentUser
                     if (user != null) {
                         updateUI(user)
-                        getToken()
-                        subscribeToTopic()
                     }
                 } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
@@ -181,7 +200,7 @@ class LoginFragment : Fragment() {
             .build()
     }
 
-    private fun getToken() {
+ /*   private fun getToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 Log.w(TAG, "Fetching FCM registration token failed", task.exception)
@@ -196,6 +215,6 @@ class LoginFragment : Fragment() {
     private fun subscribeToTopic() {
         FirebaseMessaging.getInstance().subscribeToTopic("evento1")
         println("Te suscribiste al topico")
-    }
+    }*/
 
 }
