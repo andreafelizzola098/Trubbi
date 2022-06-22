@@ -47,6 +47,14 @@ class CategoriesFragment : Fragment() {
         return categoryView
     }
 
+    override fun onResume() {
+        super.onResume()
+        val text = CategoriesFragmentArgs.fromBundle(requireArguments()).namecategory
+        if(activity != null){
+            (activity as MainActivity).supportActionBar?.title = " $text"
+        }
+    }
+
     override fun onStart() {
         super.onStart()
         val categoryId = CategoriesFragmentArgs.fromBundle(requireArguments()).categoryId
