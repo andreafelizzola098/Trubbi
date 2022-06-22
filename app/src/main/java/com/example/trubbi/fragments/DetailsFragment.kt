@@ -23,8 +23,12 @@ import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.commons.Commons
 import com.example.trubbi.data.Schedule
 import com.example.trubbi.data.ScheduleDetails
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.squareup.picasso.Picasso
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 class DetailsFragment : Fragment() {
 
@@ -98,9 +102,12 @@ class DetailsFragment : Fragment() {
                         val startDate : String = DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.ofEpochSecond(eventResponse.start_date))
                         val formattDate = commons.dateFormatt(startDate)
                         viewDetails.findViewById<TextView>(R.id.details_date).text = formattDate
-
                         val endDate : String = DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.ofEpochSecond(eventResponse.end_date))
-
+                        val parsedEndDate = LocalDateTime.parse(commons.endDateFormatt(endDate))
+                        val currentDate = LocalDateTime.now()
+                        if(parsedEndDate < currentDate){
+                            viewDetails.findViewById<ExtendedFloatingActionButton>(R.id.btnOpinion).isVisible = true
+                        }
                     }
                 }
             }

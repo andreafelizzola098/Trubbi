@@ -30,4 +30,11 @@ class Commons {
         val formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:MM:SS")
         return formatter2.format(parsedDate)
     }
+
+    fun endDateFormatt(date:String): String{
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssz")
+        val parsedDate = formatter.parse(date)
+        val formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+        return formatter2.format(parsedDate)
+    }
 }

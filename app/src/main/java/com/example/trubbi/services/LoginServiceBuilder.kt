@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object LoginServiceBuilder {
-    private  const val URL = "http://192.168.0.76:3060"
+    private  const val URL = "http://192.168.0.13:3060"
     private val okhttp: OkHttpClient.Builder = OkHttpClient.Builder()
     private val builder: Retrofit.Builder = Retrofit.Builder()
                                             .baseUrl(URL)
