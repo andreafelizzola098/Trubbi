@@ -27,6 +27,7 @@ class SearchFragment : Fragment() {
     private lateinit var searchV: View
     private lateinit var recyclerSearch: RecyclerView
     private lateinit var msgSearch: TextView
+    private lateinit var linearLayoutManager: LinearLayoutManager
     private var commons: Commons = Commons()
     private var events: MutableList<EventCard> = ArrayList()
     private lateinit var eventListAdapter: EventListAdapter
@@ -87,8 +88,20 @@ class SearchFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        recyclerSearch.setHasFixedSize(true)
+        linearLayoutManager = LinearLayoutManager(context)
+        recyclerSearch.layoutManager = linearLayoutManager
+        eventListAdapter = EventListAdapter(events)
+        recyclerSearch.adapter = eventListAdapter
         val token = PreferenceManager.getDefaultSharedPreferences(activity?.applicationContext).getString("JWT","")
         val query = arguments?.getString("query")
         getEventsByTitle(query, token)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onPause() {
+        super.onPause()
+        events = ArrayList()
+        eventListAdapter.notifyDataSetChanged()
     }
 }
