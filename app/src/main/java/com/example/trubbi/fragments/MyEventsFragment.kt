@@ -2,6 +2,7 @@ package com.example.trubbi.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.preference.PreferenceManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,10 +33,12 @@ class MyEventsFragment : Fragment() {
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var toolBarSearchView: View
     private var commons: Commons = Commons()
+    private val key = "JWT"
 
     override fun onStart() {
         super.onStart()
-        getScheduleEvents()
+        val token = PreferenceManager.getDefaultSharedPreferences(this.context).getString(key,"")
+        getScheduleEvents(token)
         recycler.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         recycler.layoutManager = linearLayoutManager
@@ -58,8 +61,9 @@ class MyEventsFragment : Fragment() {
         return thisView
     }
 
-    private fun getScheduleEvents(){
-        val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
+    private fun getScheduleEvents(token: String?){
+        val serviceBuilder = ServiceBuilder(token)
+        val apiService: APIEventService = serviceBuilder.buildService(APIEventService::class.java)
         val requestCall: Call<List<Schedule>> = apiService.getScheduleEvents()
 
         requestCall.enqueue(object: retrofit2.Callback<List<Schedule>>{

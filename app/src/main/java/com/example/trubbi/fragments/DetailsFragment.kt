@@ -1,6 +1,7 @@
 package com.example.trubbi.fragments
 
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,7 @@ class DetailsFragment : Fragment() {
     private lateinit var btnScheduleTint: ImageButton
     private lateinit var toolBarSearchView: View
     private var commons: Commons = Commons()
+    private val key = "JWT"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,8 +59,9 @@ class DetailsFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         val eventId = arguments?.getLong("eventId")
-        getEventById(eventId)
-        getScheduleById(eventId)
+        val token = PreferenceManager.getDefaultSharedPreferences(this.context).getString(key,"")
+        getEventById(eventId, token)
+        getScheduleById(eventId, token)
 
         btnFavFill.setOnClickListener {
             btnFavFill.isVisible = false
@@ -81,8 +84,9 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun getEventById(id: Long?){
-        val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
+    private fun getEventById(id: Long?, token: String?){
+        val serviceBuilder = ServiceBuilder(token)
+        val apiService: APIEventService = serviceBuilder.buildService(APIEventService::class.java)
         val eventId = id as Number
         val requestCall: Call<EventResponse> = apiService.getEventById(eventId)
 
@@ -108,8 +112,9 @@ class DetailsFragment : Fragment() {
         })
     }
 
-    private fun getScheduleById(id: Long?){
-        val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
+    private fun getScheduleById(id: Long?,token: String?){
+        val serviceBuilder = ServiceBuilder(token)
+        val apiService: APIEventService = serviceBuilder.buildService(APIEventService::class.java)
         val eventId = id as Number
         val requestCall: Call<ScheduleDetails> = apiService.scheduleEvent(eventId)
 

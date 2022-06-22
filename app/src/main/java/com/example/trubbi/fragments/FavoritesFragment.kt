@@ -2,6 +2,7 @@ package com.example.trubbi.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.preference.PreferenceManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -36,6 +37,7 @@ class FavoritesFragment : Fragment() {
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var toolBarSearchView: View
     private var commons: Commons = Commons()
+    private val key = "JWT"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +56,8 @@ class FavoritesFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        getFavoriteEvents()
+        val token = PreferenceManager.getDefaultSharedPreferences(this.context).getString(key,"")
+        getFavoriteEvents(token)
         favoriteRecyclerView.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         favoriteRecyclerView.layoutManager = linearLayoutManager
@@ -63,8 +66,9 @@ class FavoritesFragment : Fragment() {
 
     }
 
-    private fun getFavoriteEvents(){
-        val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
+    private fun getFavoriteEvents(token: String?){
+        val serviceBuilder = ServiceBuilder(token)
+        val apiService: APIEventService = serviceBuilder.buildService(APIEventService::class.java)
         val requestCall: Call<List<Schedule>> = apiService.getScheduleEvents()
 
         requestCall.enqueue(object: retrofit2.Callback<List<Schedule>>{

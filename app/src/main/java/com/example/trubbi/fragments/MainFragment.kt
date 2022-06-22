@@ -2,6 +2,7 @@ package com.example.trubbi.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.preference.PreferenceManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -67,8 +68,9 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
         val searchView =  (activity as MainActivity).findViewById<SearchView>(R.id.searchView)
         searchView.setOnQueryTextListener(this)
 
-        getEvents()
-        getCategories()
+        val token = PreferenceManager.getDefaultSharedPreferences(activity?.applicationContext).getString("JWT","")
+        getEvents(token)
+        getCategories(token)
         recyclerView.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = linearLayoutManager
@@ -94,8 +96,9 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
         return categoryId.toLong()
     }
 
-    private fun getEvents(){
-        val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
+    private fun getEvents(token: String?){
+        val serviceBuilder = ServiceBuilder(token)
+        val apiService: APIEventService = serviceBuilder.buildService(APIEventService::class.java)
         val requestCall: Call<List<EventResponse>> = apiService.getEvents()
 
         requestCall.enqueue(object: retrofit2.Callback<List<EventResponse>>{
@@ -127,8 +130,9 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
         })
     }
 
-    private fun getCategories(){
-        val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
+    private fun getCategories(token: String?){
+        val serviceBuilder = ServiceBuilder(token)
+        val apiService: APIEventService = serviceBuilder.buildService(APIEventService::class.java)
         val requestCall: Call<CategoryList> = apiService.getCategories()
 
         requestCall.enqueue(object: retrofit2.Callback<CategoryList>{
@@ -184,7 +188,7 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onQueryTextSubmit(query: String?): Boolean {
         if(!query.isNullOrEmpty()){
             val query : String = query.toLowerCase()
-            searchEventByTitle(query)
+            //searchEventByTitle(query)
         }
         return true
     }
@@ -192,9 +196,10 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onQueryTextChange(newText: String?): Boolean {
         return true
     }
-
-    private fun searchEventByTitle(query: String) {
-        val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
+/*
+    private fun searchEventByTitle(query: String, token: String?) {
+        val serviceBuilder = ServiceBuilder(token)
+        val apiService: APIEventService = serviceBuilder.buildService(APIEventService::class.java)
         val requestCall: Call<List<EventResponse>> = apiService.getSearchEvent(query)
 
         requestCall.enqueue(object: retrofit2.Callback<List<EventResponse>>{
@@ -222,6 +227,8 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
         hideKeyboard()
     }
 
+
+ */
     private fun hideKeyboard() {
         val imm = requireActivity().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(mainView.windowToken, 0)
