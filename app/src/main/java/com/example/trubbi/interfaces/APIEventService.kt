@@ -2,10 +2,7 @@ package com.example.trubbi.interfaces
 
 import com.example.trubbi.data.*
 import retrofit2.Call
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface APIEventService {
 
@@ -50,4 +47,10 @@ interface APIEventService {
 
     @DELETE("/favorites/{id}")
     fun deleteFavoriteEvent(@Path("id")id:Number):Call<ScheduleDetails>
+
+    @PUT("/tourists")
+    fun updateTourist(@Body updateTouristRequest: UpdateTouristRequest):Call<UpdateTourist>
+
+    @GET("/tourists/me")
+    fun getTourist():Call<UpdateTourist>
 }

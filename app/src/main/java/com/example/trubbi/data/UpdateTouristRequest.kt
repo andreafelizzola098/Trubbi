@@ -1,4 +1,6 @@
 package com.example.trubbi.data
 
-class UpdateTouristRequest {
+import com.google.gson.annotations.SerializedName
+
+data class UpdateTouristRequest(@SerializedName("name") var name: String) {
 }
