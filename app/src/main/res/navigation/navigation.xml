@@ -103,6 +103,10 @@
         android:id="@+id/searchFragment"
         android:name="com.example.trubbi.fragments.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <argument
+            android:name="query"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

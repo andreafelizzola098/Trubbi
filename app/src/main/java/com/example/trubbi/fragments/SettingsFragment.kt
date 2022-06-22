@@ -95,6 +95,10 @@ class SettingsFragment : Fragment() {
                 if(response.isSuccessful){
                     val touristResponse: UpdateTourist? = response.body()
                     touristResponse?.let {
+                        Toast.makeText(
+                            context, "Cambios exitosos!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }

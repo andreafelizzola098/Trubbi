@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
@@ -48,7 +49,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var searchView: SearchView
     private val eventsMutable = mutableListOf<Event>()
-    private var commons: Commons = Commons()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                 if(destination.id == R.id.mainFragment){
                     searchView.isVisible = true
                 }
-            } else if (destination.id == R.id.detailsFragment || destination.id == R.id.favoritesFragment || destination.id == R.id.historyFragment || destination.id == R.id.myEventsFragment || destination.id == R.id.settingsFragment2 || destination.id == R.id.opinionSurveyFragment) {
+            } else if (destination.id == R.id.detailsFragment || destination.id == R.id.favoritesFragment || destination.id == R.id.historyFragment || destination.id == R.id.myEventsFragment || destination.id == R.id.settingsFragment2 || destination.id == R.id.opinionSurveyFragment || destination.id == R.id.searchFragment) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 searchView.isGone = true
                 toolbar.setNavigationOnClickListener {
@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                 if(destination.id == R.id.mainFragment){
                     searchView.isVisible = true
                 }
-            } else if (destination.id == R.id.detailsFragment || destination.id == R.id.favoritesFragment || destination.id == R.id.historyFragment || destination.id == R.id.myEventsFragment || destination.id == R.id.settingsFragment2 || destination.id == R.id.opinionSurveyFragment) {
+            } else if (destination.id == R.id.detailsFragment || destination.id == R.id.favoritesFragment || destination.id == R.id.historyFragment || destination.id == R.id.myEventsFragment || destination.id == R.id.settingsFragment2 || destination.id == R.id.opinionSurveyFragment || destination.id == R.id.searchFragment) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 searchView.isGone = true
                 if(destination.id == R.id.detailsFragment){supportActionBar?.title = "Evento"}
@@ -145,55 +145,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     }
 
-    private fun searchEventByTitle(query: String, token: String?) {
-        /*val serviceBuilder = ServiceBuilder(token)
-        val apiService: APIEventService = serviceBuilder.buildService(APIEventService::class.java)
-        val requestCall: Call<List<EventResponse>> = apiService.getSearchEvent(query)
-
-        requestCall.enqueue(object: retrofit2.Callback<List<EventResponse>>{
-             @SuppressLint("NotifyDataSetChanged")
-            override fun onResponse(call: Call<List<EventResponse>>, response: Response<List<EventResponse>>){
-                if(response.isSuccessful){
-                    val eventResponse: List<EventResponse>? = response.body()
-                    eventResponse?.let {
-                        for(i in it.indices){
-                            if (this != null) {
-                                val event: EventResponse = it[i]
-                                val eventCard = commons.buildEvent(event)
-                                events.add(eventCard)
-                            }
-                        }
-                        eventListAdapter.notifyDataSetChanged()
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<List<EventResponse>>, error: Throwable){
-                Toast.makeText(context, "No existe el evento buscado", Toast.LENGTH_SHORT).show()
-            }
-        })
-        hideKeyboard()*/
-    }
-
-    /*private fun searchEvent(query:String){
-        CoroutineScope(Dispatchers.IO).launch {
-            val call = getRetrofit().create(APIService::class.java).getSearchEvent("$query")
-            val allEvents = call.body() //el body donde esta la respuesta
-            runOnUiThread {
-                if(call.isSuccessful){
-                    //show recyclerView
-                    val eventsInfo = allEvents?.events ?: emptyList()
-                    eventsMutable.clear()
-                    eventsMutable.addAll(eventsInfo)
-                    adapter.notifyDataSetChanged()
-                }else{
-                    showError();
-                }
-                hideKeyBoard()
-            }
-        }
-    }*/
-
     private fun hideKeyboard() {
             val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(viewContainer.windowToken, 0)
@@ -209,7 +160,9 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         if(!query.isNullOrEmpty()){
-            val query : String = query.toLowerCase()
+            val query : String = query
+            val bundle : Bundle = bundleOf("query" to query)
+            navController.navigate(R.id.searchFragment, bundle)
             Toast.makeText(this, "Estas buscando OK!", Toast.LENGTH_SHORT).show()
             //searchEventByTitle(query)
         }
