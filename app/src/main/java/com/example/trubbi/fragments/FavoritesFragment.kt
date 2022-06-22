@@ -104,9 +104,4 @@ class FavoritesFragment : Fragment() {
         events = ArrayList()
         eventListAdapter.notifyDataSetChanged()
     }
-
-    override fun onStop() {
-        super.onStop()
-        toolBarSearchView.isVisible = true
-    }
 }

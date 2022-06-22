@@ -96,9 +96,4 @@ class HistoryFragment : Fragment(), LifecycleOwner {
         events = ArrayList()
         eventListAdapter.notifyDataSetChanged()
     }
-
-    override fun onStop() {
-        super.onStop()
-        toolBarSearchView.isVisible = true
-    }
 }

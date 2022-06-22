@@ -112,9 +112,4 @@ class InterestsFragment : Fragment() {
     }
 
  */
-
-    override fun onStop() {
-        super.onStop()
-        toolBarSearchView.isVisible = true
-    }
 }
