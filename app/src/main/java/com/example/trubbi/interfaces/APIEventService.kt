@@ -27,14 +27,8 @@ interface APIEventService {
     @GET("/schedule")
     fun getScheduleEvents():Call<List<Schedule>>
 
-    @GET("/schedule")
-    fun getFavoriteEvents():Call<List<Schedule>>
-
     @GET("/schedule/history")
     fun getHistoryEvents():Call<List<Schedule>>
-
-    @GET("/tourists/categories")
-    fun getTouristCategories():Call<List<CategoryResponse>>
 
     @POST("/schedule/{id}")
     fun scheduleEvent(@Path("id")id:Number):Call<ScheduleDetails>

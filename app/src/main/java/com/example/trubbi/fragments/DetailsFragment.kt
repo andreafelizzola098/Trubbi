@@ -17,17 +17,21 @@ import retrofit2.Call
 import retrofit2.Response
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.navigation.findNavController
 import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.commons.Commons
 import com.example.trubbi.data.Schedule
 import com.example.trubbi.data.ScheduleDetails
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.firebase.messaging.FirebaseMessaging
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import java.util.*
 
 class DetailsFragment : Fragment() {
@@ -57,19 +61,29 @@ class DetailsFragment : Fragment() {
 
         btnSchedule = viewDetails.findViewById(R.id.imageButtonSchedule)
         btnScheduleTint = viewDetails.findViewById(R.id.imageButtonScheduleColor)
+        btnOpinions = viewDetails.findViewById(R.id.btnOpinion)
 
         return viewDetails
     }
 
     override fun onStart() {
         super.onStart()
-        btnFav.isVisible = true
-        btnSchedule.isVisible = true
         val eventId = arguments?.getLong("eventId")
         val token = PreferenceManager.getDefaultSharedPreferences(this.context).getString(key,"")
         getEventById(eventId, token)
         getScheduleEvents(eventId, token)
         getFavoriteEvents(eventId, token)
+
+        btnOpinions.setOnClickListener {
+            val action = eventId?.let { it1 ->
+                DetailsFragmentDirections.actionDetailsFragmentToOpinionSurveyFragment(
+                    it1
+                )
+            }
+            if (action != null) {
+                viewDetails.findNavController().navigate(action)
+            }
+        }
 
         btnFavFill.setOnClickListener {
             deleteFavoriteEvent(eventId,token)
@@ -107,9 +121,9 @@ class DetailsFragment : Fragment() {
                         viewDetails.findViewById<TextView>(R.id.details_date).text = formattDate
                         val endDate : String = DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.ofEpochSecond(eventResponse.end_date))
                         val parsedEndDate = LocalDateTime.parse(commons.endDateFormatt(endDate))
-                        val currentDate = LocalDateTime.now()
+                        val currentDate = LocalDateTime.now().plusHours(3)
                         if(parsedEndDate < currentDate){
-                            viewDetails.findViewById<ExtendedFloatingActionButton>(R.id.btnOpinion).isVisible = true
+                            btnOpinions.isVisible = true
                         }
                     }
                 }
@@ -137,6 +151,7 @@ class DetailsFragment : Fragment() {
                 if(response.isSuccessful){
                     val scheduleResponse: List<Schedule>? = response.body()
                     scheduleResponse?.let {
+                        btnSchedule.isVisible = true
                         for(i in it.indices){
                             if(it[i].event.id.toLong() == eventId){
                                 val scheduleEvent = it[i]
@@ -166,7 +181,7 @@ class DetailsFragment : Fragment() {
         val serviceBuilder = ServiceBuilder(token)
         val eventId = id as Number
         val apiService: APIEventService = serviceBuilder.buildService(APIEventService::class.java)
-        val requestCall: Call<List<Schedule>> = apiService.getFavoriteEvents()
+        val requestCall: Call<List<Schedule>> = apiService.getFavoritesEvents()
 
         requestCall.enqueue(object: retrofit2.Callback<List<Schedule>>{
             @SuppressLint("NotifyDataSetChanged")
@@ -174,6 +189,7 @@ class DetailsFragment : Fragment() {
                 if(response.isSuccessful){
                     val scheduleResponse: List<Schedule>? = response.body()
                     scheduleResponse?.let {
+                        btnFav.isVisible = true
                         for(i in it.indices){
                             if(it[i].event.id.toLong() == eventId){
                                 val scheduleEvent = it[i]
@@ -192,7 +208,7 @@ class DetailsFragment : Fragment() {
             override fun onFailure(call: Call<List<Schedule>>, t: Throwable) {
                 println("")
                 Toast.makeText(
-                    context, "Error al cargar los eventos agendados",
+                    context, "Error al cargar los eventos favoritos",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -218,7 +234,7 @@ class DetailsFragment : Fragment() {
 
             override fun onFailure(call: Call<ScheduleDetails>, error: Throwable){
                 Toast.makeText(
-                    context, "Error al cargar los eventos agendados",
+                    context, "Error al agendar a un evento",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -244,7 +260,7 @@ class DetailsFragment : Fragment() {
 
             override fun onFailure(call: Call<ScheduleDetails>, error: Throwable){
                 Toast.makeText(
-                    context, "Error al cargar los eventos agendados",
+                    context, "Error al desagendar un evento",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -270,7 +286,7 @@ class DetailsFragment : Fragment() {
 
             override fun onFailure(call: Call<ScheduleDetails>, error: Throwable){
                 Toast.makeText(
-                    context, "Error al cargar los eventos agendados",
+                    context, "Error al agregar un favorito",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -297,7 +313,7 @@ class DetailsFragment : Fragment() {
             override fun onFailure(call: Call<ScheduleDetails>, error: Throwable){
                 println("")
                 Toast.makeText(
-                    context, "Error al cargar los eventos agendados",
+                    context, "Error al quitar un favorito",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -314,6 +330,11 @@ class DetailsFragment : Fragment() {
         btnFavFill.isGone = true
         btnSchedule.isGone = true
         btnScheduleTint.isGone = true
+    }
+
+    private fun subscribeToTopic() {
+        FirebaseMessaging.getInstance().subscribeToTopic("evento1")
+        println("Te suscribiste al topico")
     }
 
 }

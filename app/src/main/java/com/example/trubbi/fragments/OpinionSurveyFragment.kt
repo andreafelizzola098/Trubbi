@@ -7,9 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.FrameLayout
-import android.widget.ImageView
+import android.widget.*
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -37,6 +35,7 @@ class OpinionSurveyFragment : Fragment() {
     private lateinit var chk2: CheckBox
     private lateinit var chk3: CheckBox
     private lateinit var txt: TextInputEditText
+    private lateinit var skip: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +47,7 @@ class OpinionSurveyFragment : Fragment() {
         thisView = inflater.inflate(R.layout.fragment_opinion_survey, container, false)
         fab = thisView.findViewById(R.id.enviar)
         containerFrame = thisView.findViewById(R.id.contenedor)
+        skip = thisView.findViewById(R.id.skip)
 
         //chk1 = thisView.findViewById(R.id.chk1)
         //chk2 = thisView.findViewById(R.id.chk2)
@@ -79,7 +79,18 @@ class OpinionSurveyFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+
+        val eventId = arguments?.getLong("eventId")
         fab.setOnClickListener{
+            val action = OpinionSurveyFragmentDirections.actionOpinionSurveyFragmentToMainFragment()
+            thisView.findNavController().navigate(action)
+            Toast.makeText(
+                context, "Tu opinion ha sido enviada con exito!",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        skip.setOnClickListener {
             val action = OpinionSurveyFragmentDirections.actionOpinionSurveyFragmentToMainFragment()
             thisView.findNavController().navigate(action)
         }
