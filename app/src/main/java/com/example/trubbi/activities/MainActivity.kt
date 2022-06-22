@@ -1,11 +1,13 @@
 package com.example.trubbi.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SearchView
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -20,10 +22,16 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.trubbi.R
+import com.example.trubbi.commons.Commons
+import com.example.trubbi.data.EventResponse
 import com.example.trubbi.databinding.ActivityMainBinding
 import com.example.trubbi.entities.Event
+import com.example.trubbi.interfaces.APIEventService
+import com.example.trubbi.services.ServiceBuilder
 import com.example.trubbi.viewmodel.EventViewModel
 import com.google.android.material.navigation.NavigationView
+import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -40,6 +48,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var searchView: SearchView
     private val eventsMutable = mutableListOf<Event>()
+    private var commons: Commons = Commons()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,6 +134,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                 }
             } else if (destination.id == R.id.categoriesFragment ) {
                 searchView.isGone = true
+                if(destination.id == R.id.categoriesFragment){supportActionBar?.title = "Opiniones"}
                 toolbar.setNavigationOnClickListener {
                     val navOptions =
                         NavOptions.Builder().setEnterAnim(R.anim.animation_test_right).build()
@@ -133,6 +143,36 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             }
         }
 
+    }
+
+    private fun searchEventByTitle(query: String, token: String?) {
+        /*val serviceBuilder = ServiceBuilder(token)
+        val apiService: APIEventService = serviceBuilder.buildService(APIEventService::class.java)
+        val requestCall: Call<List<EventResponse>> = apiService.getSearchEvent(query)
+
+        requestCall.enqueue(object: retrofit2.Callback<List<EventResponse>>{
+             @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(call: Call<List<EventResponse>>, response: Response<List<EventResponse>>){
+                if(response.isSuccessful){
+                    val eventResponse: List<EventResponse>? = response.body()
+                    eventResponse?.let {
+                        for(i in it.indices){
+                            if (this != null) {
+                                val event: EventResponse = it[i]
+                                val eventCard = commons.buildEvent(event)
+                                events.add(eventCard)
+                            }
+                        }
+                        eventListAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<EventResponse>>, error: Throwable){
+                Toast.makeText(context, "No existe el evento buscado", Toast.LENGTH_SHORT).show()
+            }
+        })
+        hideKeyboard()*/
     }
 
     /*private fun searchEvent(query:String){
@@ -154,7 +194,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         }
     }*/
 
-    private fun hideKeyBoard() {
+    private fun hideKeyboard() {
             val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(viewContainer.windowToken, 0)
     }
@@ -170,6 +210,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     override fun onQueryTextSubmit(query: String?): Boolean {
         if(!query.isNullOrEmpty()){
             val query : String = query.toLowerCase()
+            Toast.makeText(this, "Estas buscando OK!", Toast.LENGTH_SHORT).show()
             //searchEventByTitle(query)
         }
         return true

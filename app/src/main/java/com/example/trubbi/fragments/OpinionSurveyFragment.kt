@@ -49,10 +49,10 @@ class OpinionSurveyFragment : Fragment() {
         fab = thisView.findViewById(R.id.enviar)
         containerFrame = thisView.findViewById(R.id.contenedor)
 
-        chk1 = thisView.findViewById(R.id.chk1)
-        chk2 = thisView.findViewById(R.id.chk2)
-        chk3 = thisView.findViewById(R.id.chk3)
-        txt = thisView.findViewById(R.id.openQuestion)
+        //chk1 = thisView.findViewById(R.id.chk1)
+        //chk2 = thisView.findViewById(R.id.chk2)
+        //chk3 = thisView.findViewById(R.id.chk3)
+        //txt = thisView.findViewById(R.id.openQuestion)
 
         return thisView
     }

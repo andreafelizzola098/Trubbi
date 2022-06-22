@@ -5,242 +5,125 @@
     android:id="@+id/frameLayout6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="75dp"
     tools:context=".fragments.OpinionSurveyFragment">
 
-    <FrameLayout
-        android:id="@+id/contenedor"
+    <ScrollView
+        android:id="@+id/scrollView2"
+        style="@android:style/Widget.Material.Light.ScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/enviar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:layout_margin="50dp"
-
-            android:text="@string/enviar"
-            app:icon="@android:drawable/ic_menu_send" />
-
-        <ScrollView
-            android:id="@+id/scrollView2"
-            style="@android:style/Widget.Material.Light.ScrollView"
+        <LinearLayout
+            android:id="@+id/contenedor"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:fillViewport="false">
+            android:layout_margin="30dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="Contanos acerca del evento"
+                android:textColor="@color/dark_blue"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/titleOpinion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="Titulo de Opinión"
+                android:textColor="@color/blackText"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/outlinedTextFieldTitle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Título para tu opinión">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/titleOpinionEdit"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:gravity="clip_vertical"
+                    android:minLines="1"
+                    android:singleLine="false"
+                    android:textColor="@color/blackText"
+                    android:textIsSelectable="true" />
 
-                    <FrameLayout
-                        android:id="@+id/frameToolbarMock"
-                        android:layout_width="match_parent"
-                        android:layout_height="85dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    </FrameLayout>
+            <TextView
+                android:id="@+id/tvQuestion4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dejanos tu comentario"
+                android:textColor="@color/blackText"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <LinearLayout
-                        android:id="@+id/linearUserSettingsFieldsContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginEnd="24dp"
-                        android:orientation="vertical"
-                        app:layout_constraintTop_toBottomOf="@+id/frameToolbarMock">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/outlinedTextField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="¿Qué te pareció el evento?">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="12dp"
-                            android:text="Contanos acerca del evento"
-                            android:textColor="@color/dark_blue"
-                            android:textSize="24sp"
-                            android:textStyle="bold" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/openQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="clip_vertical"
+                    android:minLines="6"
+                    android:singleLine="false"
+                    android:textColor="@color/blackText"
+                    android:textIsSelectable="true" />
 
+            </com.google.android.material.textfield.TextInputLayout>
 
-                        <TextView
-                            android:id="@+id/tvSubtitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="24dp"
-                            android:lineSpacingExtra="8sp"
-                            android:text="Marcá las afirmaciones con las que estés de acuerdo"
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/enviar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:layout_margin="50dp"
+                android:backgroundTint="@color/trubbiColor"
+                android:text="@string/enviar"
+                app:icon="@android:drawable/ic_menu_send" />
 
-                            android:textColor="@color/blackText"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            tools:text="Marcá las afirmaciones con las que estés de acuerdo" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Skip" />
 
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+        </LinearLayout>
 
-                            <androidx.constraintlayout.widget.ConstraintLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <TextView
-                                    android:id="@+id/tvQuestion1"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="8dp"
-                                    android:text="El lugar tenía un buen nivel de limpieza"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-
-                                <CheckBox
-                                    android:id="@+id/chk1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:checked="false"
-                                    android:text=""
-                                    app:layout_constraintEnd_toEndOf="parent" />
-
-
-                            </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <androidx.constraintlayout.widget.ConstraintLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <TextView
-                                    android:id="@+id/tvQuestion2"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="8dp"
-                                    android:text="Había cestos de residuos de fácil acceso"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-
-                                <CheckBox
-                                    android:id="@+id/chk2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:checked="false"
-                                    android:text=""
-                                    app:layout_constraintEnd_toEndOf="parent" />
-
-
-                            </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <androidx.constraintlayout.widget.ConstraintLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <TextView
-                                    android:id="@+id/tvQuestion3"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="8dp"
-                                    android:text="Habían baños/baños químicos apropiados"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-
-                                <CheckBox
-                                    android:id="@+id/chk3"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:checked="false"
-                                    android:text=""
-                                    app:layout_constraintEnd_toEndOf="parent" />
-
-
-                            </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="24dp">
-
-                            <androidx.constraintlayout.widget.ConstraintLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <TextView
-                                    android:id="@+id/tvQuestion4"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="8dp"
-                                    android:text="Dejanos un comentario"
-                                    android:textColor="@color/blackText"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                            </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        </FrameLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/outlinedTextField"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:hint="¿Qué te pareció el evento?">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/openQuestion"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="clip_vertical"
-                                android:minLines="6"
-                                android:singleLine="false"
-                                android:textColor="@color/blackText"
-                                android:textIsSelectable="true" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </LinearLayout>
-
-        </ScrollView>
-
-    </FrameLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
