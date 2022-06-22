@@ -125,6 +125,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                 }
             } else if (destination.id == R.id.categoriesFragment ) {
                 searchView.isGone = true
+                if(destination.id == R.id.categoriesFragment){supportActionBar?.title = "Opiniones"}
                 toolbar.setNavigationOnClickListener {
                     val navOptions =
                         NavOptions.Builder().setEnterAnim(R.anim.animation_test_right).build()
