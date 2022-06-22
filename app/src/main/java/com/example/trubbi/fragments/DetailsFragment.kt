@@ -31,7 +31,6 @@ class DetailsFragment : Fragment() {
     private lateinit var btnFavFill : ImageButton
     private lateinit var btnSchedule: ImageButton
     private lateinit var btnScheduleTint: ImageButton
-    private lateinit var toolBarSearchView: View
     private var commons: Commons = Commons()
     private val key = "JWT"
 
@@ -39,8 +38,6 @@ class DetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        toolBarSearchView = requireActivity().findViewById(R.id.searchView)
-        toolBarSearchView.isVisible = false
 
         if (activity != null) {
             (activity as MainActivity).supportActionBar?.title = "Evento"
@@ -165,7 +162,6 @@ class DetailsFragment : Fragment() {
         btnFavFill.isGone = true
         btnSchedule.isGone = true
         btnScheduleTint.isGone = true
-        toolBarSearchView.isVisible = true
     }
 
 }

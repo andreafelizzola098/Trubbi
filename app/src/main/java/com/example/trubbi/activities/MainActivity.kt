@@ -3,13 +3,14 @@ package com.example.trubbi.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.preference.PreferenceManager
+import android.widget.SearchView
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
@@ -26,7 +27,7 @@ import com.google.android.material.navigation.NavigationView
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private lateinit var viewContainer: View
     private lateinit var toolbar: Toolbar
@@ -50,9 +51,8 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(true)
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.nav_view)
-        //search
-        //searchView = findViewById(R.id.searchView)
-        //searchView.setOnQueryTextListener(this)
+        searchView = findViewById(R.id.searchView)
+        searchView.setOnQueryTextListener(this)
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         navigationView.setupWithNavController(navController)
@@ -73,12 +73,17 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id != R.id.detailsFragment && destination.id != R.id.categoriesFragment) {
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
+                if(destination.id == R.id.mainFragment){
+                    searchView.isVisible = true
+                }
             } else if (destination.id == R.id.detailsFragment) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                searchView.isGone = true
                 toolbar.setNavigationOnClickListener {
                     navController.popBackStack()
                 }
             } else if (destination.id == R.id.categoriesFragment) {
+                searchView.isGone = true
                 toolbar.setNavigationOnClickListener {
                     val navOptions =
                         NavOptions.Builder().setEnterAnim(R.anim.animation_test_right).build()
@@ -95,13 +100,6 @@ class MainActivity : AppCompatActivity() {
             this.finish()
             true
         }
-    }
-
-    private fun getRetrofit():Retrofit{
-        return Retrofit.Builder()
-            .baseUrl("http://localhost:3060")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
     }
 
     /*private fun searchEvent(query:String){
@@ -134,5 +132,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, drawerLayout)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if(!query.isNullOrEmpty()){
+            val query : String = query.toLowerCase()
+            //searchEventByTitle(query)
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return true
     }
 }

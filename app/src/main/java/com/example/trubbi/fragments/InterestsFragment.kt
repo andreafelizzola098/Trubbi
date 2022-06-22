@@ -24,7 +24,6 @@ import retrofit2.Response
 class InterestsFragment : Fragment() {
 
     private lateinit var categoryView : View
-    private lateinit var toolBarSearchView: View
     private lateinit var linearLayout: LinearLayout
     private lateinit var interestBox: ConstraintLayout
     private var categoriesResponse: MutableList<CategoryResponse> = ArrayList()
@@ -34,8 +33,6 @@ class InterestsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        toolBarSearchView = requireActivity().findViewById(R.id.searchView)
-        toolBarSearchView.isVisible = false
         categoryView = inflater.inflate(R.layout.fragment_interests, container, false)
         if (activity != null) {
             (activity as MainActivity).supportActionBar?.title = "Mis Intereses"

@@ -30,7 +30,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import retrofit2.Call
 import retrofit2.Response
 
-class MainFragment : Fragment(), SearchView.OnQueryTextListener {
+class MainFragment : Fragment() {
 
     private lateinit var mainView: View
     lateinit var recyclerView: RecyclerView
@@ -65,8 +65,6 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
             (activity as MainActivity).drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN)
             (activity as MainActivity).drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         }
-        val searchView =  (activity as MainActivity).findViewById<SearchView>(R.id.searchView)
-        searchView.setOnQueryTextListener(this)
 
         val token = PreferenceManager.getDefaultSharedPreferences(activity?.applicationContext).getString("JWT","")
         getEvents(token)
@@ -183,17 +181,6 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
         }
     }
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        if(!query.isNullOrEmpty()){
-            val query : String = query.toLowerCase()
-            //searchEventByTitle(query)
-        }
-        return true
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        return true
-    }
 /*
     private fun searchEventByTitle(query: String, token: String?) {
         val serviceBuilder = ServiceBuilder(token)

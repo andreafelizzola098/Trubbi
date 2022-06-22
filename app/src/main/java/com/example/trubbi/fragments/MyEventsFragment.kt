@@ -31,7 +31,6 @@ class MyEventsFragment : Fragment() {
     private var events: MutableList<EventCard> = ArrayList()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var eventListAdapter: EventListAdapter
-    private lateinit var toolBarSearchView: View
     private var commons: Commons = Commons()
     private val key = "JWT"
 
@@ -50,9 +49,6 @@ class MyEventsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        toolBarSearchView = requireActivity().findViewById(R.id.searchView)
-        toolBarSearchView.isVisible = false
-
         if (activity != null) {
             (activity as MainActivity).supportActionBar?.title = "Agendados"
         }

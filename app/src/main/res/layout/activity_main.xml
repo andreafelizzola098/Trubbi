@@ -39,7 +39,7 @@
                 app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
                 app:titleTextColor="@color/white">
 
-                <SearchView
+                <android.widget.SearchView
                     android:id="@+id/searchView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                     android:iconifiedByDefault="false"
                     android:queryBackground="@android:color/transparent"
                     android:queryHint="Buscar..."
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:showAsAction="collapseActionView|ifRoom" />
 
             </androidx.appcompat.widget.Toolbar>
