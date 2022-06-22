@@ -229,6 +229,7 @@ class DetailsFragment : Fragment() {
                     eventResponse?.let {
                             btnScheduleTint.isVisible = true
                             btnSchedule.isGone = true
+                            subscribeToTopic()
                     }
                 }
             }
@@ -335,7 +336,7 @@ class DetailsFragment : Fragment() {
 
     private fun subscribeToTopic() {
         FirebaseMessaging.getInstance().subscribeToTopic("evento1")
-        println("Te suscribiste al topico")
+        println("Te suscribiste al evento")
     }
 
 }
