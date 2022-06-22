@@ -67,12 +67,9 @@ class InterestsFragment : Fragment() {
                     }
                 }
             }
-
-
             override fun onFailure(call: Call<List<CategoryResponse>>, error: Throwable){
-                println("")
                 Toast.makeText(
-                    context, "Error al cargar los eventos",
+                    context, "Error al cargar sus categorías de interés",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -98,12 +95,9 @@ class InterestsFragment : Fragment() {
                     }
                 }
             }
-
-
             override fun onFailure(call: Call<CategoryList>, error: Throwable){
-                println("")
                 Toast.makeText(
-                    context, "Error al cargar los eventos",
+                    context, "Error al cargar las categorías",
                     Toast.LENGTH_SHORT
                 ).show()
             }

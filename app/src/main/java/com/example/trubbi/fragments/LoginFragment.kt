@@ -77,7 +77,7 @@ class LoginFragment : Fragment() {
                 logIn(user)
             } catch (e: IllegalArgumentException) {
                 Toast.makeText(
-                    context, "All fields must be completed",
+                    context, "Debe completar todos los campos",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -95,18 +95,20 @@ class LoginFragment : Fragment() {
         apiService.login(user).enqueue(
                 object : retrofit2.Callback<LoginTouristResponse> {
                     override fun onFailure(call: Call<LoginTouristResponse>, t: Throwable) {
-                       println("")
+                        Toast.makeText(
+                            context, "Error",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     override fun onResponse(call: Call<LoginTouristResponse>, response: Response<LoginTouristResponse>) {
                         val loggedUser = response.body()
                         if(response.errorBody() == null){
-                            println(loggedUser)
+                            //println(loggedUser)
                             val intent = Intent(activity, MainActivity::class.java)
                             startActivity(intent)
                             activity?.finish()
                         } else {
-                            println("")
-                            Toast.makeText(context, "You didn't signed in", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "No se ha ingresado correctamente", Toast.LENGTH_LONG).show()
                         }
                     }
                 }
@@ -119,13 +121,11 @@ class LoginFragment : Fragment() {
             firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(it) { task ->
                     if (task.isSuccessful) {
-                        Log.d(TAG, "signInWithEmail:success")
                         val user = firebaseAuth.currentUser
                         if (user != null) {
                             updateUI(user)
                         }
                     } else {
-                        Log.w(TAG, "signInWithEmail:failure", task.exception)
                         Toast.makeText(
                             context, task.exception!!.message.toString(),
                             Toast.LENGTH_SHORT
@@ -143,7 +143,7 @@ class LoginFragment : Fragment() {
             activity?.finish()
 
         } else {
-            Toast.makeText(context, "You didn't signed in", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "No ha ingresado", Toast.LENGTH_LONG).show()
         }
     }
 

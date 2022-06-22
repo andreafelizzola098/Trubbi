@@ -14,6 +14,7 @@ import com.example.trubbi.services.ServiceBuilder
 import retrofit2.Call
 import retrofit2.Response
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.example.trubbi.activities.MainActivity
@@ -102,7 +103,10 @@ class DetailsFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<EventResponse>, error: Throwable){
-                println("FALLE!!!!!!!!!!!!!!!!!!!!!")
+                Toast.makeText(
+                    context, "Error al cargar el evento",
+                    Toast.LENGTH_SHORT
+                ).show()
 
             }
         })
@@ -138,8 +142,10 @@ class DetailsFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<ScheduleDetails>, error: Throwable){
-                println("FALLE!!!!!!!!!!!!!!!!!!!!!")
-
+                Toast.makeText(
+                    context, "Error al cargar los eventos agendados",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }

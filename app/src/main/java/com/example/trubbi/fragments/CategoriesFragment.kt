@@ -82,7 +82,6 @@ class CategoriesFragment : Fragment() {
                 }
             }
 
-
             override fun onFailure(call: Call<List<EventResponse>>, error: Throwable){
                 Toast.makeText(
                     context, "Error al cargar los eventos",

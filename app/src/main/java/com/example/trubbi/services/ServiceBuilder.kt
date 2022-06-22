@@ -7,13 +7,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object ServiceBuilder {
-    private  const val URL = "http://192.168.0.13:3060"
+    private  const val URL = "http://192.168.0.76:3060"
     //private val okhttp: OkHttpClient.Builder = OkHttpClient.Builder()
 
 
     var client = OkHttpClient.Builder().addInterceptor { chain ->
         val newRequest: Request = chain.request().newBuilder()
-            .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWQiOjMsInJvbGUiOiJ0b3VyaXN0IiwiaWF0IjoxNjU1NzcxMDY3LCJleHAiOjE2NTU3ODkwNjd9.kXtC38olveiQMiqC04HR7b8EF1NCpkLh1NiDOyhz3xw")
+            .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZGlAZ21haWwuY29tIiwiaWQiOjEsInJvbGUiOiJ0b3VyaXN0IiwiaWF0IjoxNjU1ODUzNTMyLCJleHAiOjE2NTU4NzE1MzJ9.cL9d_AJI5ZYdPs4W0xf115aMKeIW4G516-QQllEnFzQ")
             .build()
         chain.proceed(newRequest)
     }.build()

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -81,7 +82,10 @@ class HistoryFragment : Fragment(), LifecycleOwner {
             }
 
             override fun onFailure(call: Call<List<Schedule>>, t: Throwable) {
-                println("FALLE!!!!!!!!!!!!!!!!!!!!!")
+                Toast.makeText(
+                    context, "Error al cargar el historial",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }

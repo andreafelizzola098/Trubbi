@@ -39,7 +39,7 @@ class ForgotPasswordFragment : Fragment() {
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(
-                                context, "email sent successfully to reset your password!",
+                                context, "email enviado para restaurar la contraseña!",
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -58,7 +58,7 @@ class ForgotPasswordFragment : Fragment() {
                     }
             } catch (e: IllegalArgumentException) {
                 Toast.makeText(
-                    context, "Please enter email address",
+                    context, "Por favor, ingrese un email",
                     Toast.LENGTH_SHORT
                 ).show()
             }
