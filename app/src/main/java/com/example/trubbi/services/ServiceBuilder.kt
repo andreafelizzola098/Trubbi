@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class ServiceBuilder(token: String?) {
-    private val URL = "http://192.168.0.13:3060"
+    private val URL = "http://192.168.0.76:3060"
 
     var client = OkHttpClient.Builder().addInterceptor { chain ->
         val newRequest: Request = chain.request().newBuilder()

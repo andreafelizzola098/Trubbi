@@ -71,18 +71,18 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id != R.id.detailsFragment && destination.id != R.id.categoriesFragment) {
+            if (destination.id == R.id.mainFragment) {
                 supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
                 if(destination.id == R.id.mainFragment){
                     searchView.isVisible = true
                 }
-            } else if (destination.id == R.id.detailsFragment) {
+            } else if (destination.id == R.id.detailsFragment || destination.id == R.id.favoritesFragment || destination.id == R.id.historyFragment || destination.id == R.id.myEventsFragment || destination.id == R.id.settingsFragment2 || destination.id == R.id.opinionSurveyFragment) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 searchView.isGone = true
                 toolbar.setNavigationOnClickListener {
                     navController.popBackStack()
                 }
-            } else if (destination.id == R.id.categoriesFragment) {
+            } else if (destination.id == R.id.categoriesFragment ) {
                 searchView.isGone = true
                 toolbar.setNavigationOnClickListener {
                     val navOptions =
@@ -100,6 +100,39 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             this.finish()
             true
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.mainFragment) {
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
+                if(destination.id == R.id.mainFragment){
+                    searchView.isVisible = true
+                }
+            } else if (destination.id == R.id.detailsFragment || destination.id == R.id.favoritesFragment || destination.id == R.id.historyFragment || destination.id == R.id.myEventsFragment || destination.id == R.id.settingsFragment2 || destination.id == R.id.opinionSurveyFragment) {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                searchView.isGone = true
+                if(destination.id == R.id.detailsFragment){supportActionBar?.title = "Evento"}
+                if(destination.id == R.id.favoritesFragment){supportActionBar?.title = "Favoritos"}
+                if(destination.id == R.id.historyFragment){supportActionBar?.title = "Historial"}
+                if(destination.id == R.id.myEventsFragment){supportActionBar?.title = "Agendados"}
+                if(destination.id == R.id.settingsFragment2){supportActionBar?.title = "Configuración"}
+                if(destination.id == R.id.opinionSurveyFragment){supportActionBar?.title = "Opiniones"}
+                toolbar.setNavigationOnClickListener {
+                    navController.popBackStack()
+                }
+            } else if (destination.id == R.id.categoriesFragment ) {
+                searchView.isGone = true
+                toolbar.setNavigationOnClickListener {
+                    val navOptions =
+                        NavOptions.Builder().setEnterAnim(R.anim.animation_test_right).build()
+                    navController.navigate(R.id.mainFragment, null, navOptions)
+                }
+            }
+        }
+
     }
 
     /*private fun searchEvent(query:String){
