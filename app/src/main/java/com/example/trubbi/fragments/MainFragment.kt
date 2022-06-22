@@ -118,8 +118,6 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener {
                     }
                 }
             }
-
-
             override fun onFailure(call: Call<List<EventResponse>>, error: Throwable){
                 println("")
                 Toast.makeText(

@@ -85,8 +85,6 @@ class OpinionSurveyFragment : Fragment() {
         }
     }
 
-
-
     fun showAlertDialog(view:View){
          MaterialAlertDialogBuilder(requireContext())
              .setTitle("Tu opinión es importante!")

@@ -91,7 +91,7 @@ class FavoritesFragment : Fragment() {
 
             override fun onFailure(call: Call<List<Schedule>>, t: Throwable) {
                 Toast.makeText(
-                    context, "Error al cargar los eventos",
+                    context, "Error al cargar los Favoritos",
                     Toast.LENGTH_SHORT
                 ).show()
             }

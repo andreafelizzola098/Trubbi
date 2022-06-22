@@ -68,13 +68,13 @@ class RegisterFragment : Fragment() {
 
                 } else if (passwordString.isNotEmpty() != password2String.isNotEmpty()) {
                     Toast.makeText(
-                        context, "Password mismatch, please enter the same password",
+                        context, "Las contraseñas no coinciden, por favor reingrese la contraseña",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             } catch (e: IllegalArgumentException) {
                 Toast.makeText(
-                    context, "All fields must be completed",
+                    context, "Debe completar todos los campos",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -85,17 +85,15 @@ class RegisterFragment : Fragment() {
         mailAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    Log.d(TAG, "createUserWithEmail:success")
                     Toast.makeText(
-                        context, "User created successfully",
+                        context, "Usuario creado correctamente!",
                         Toast.LENGTH_SHORT
                     ).show()
                     val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
                     v.findNavController().navigate(action)
                 } else {
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
                     Toast.makeText(
-                        context, "User creation failed, wrong email or password",
+                        context, "Falló registro, formato de email o contraseña incorrecto",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -107,17 +105,20 @@ class RegisterFragment : Fragment() {
         apiService.createTourist(user).enqueue(
             object : retrofit2.Callback<RegisterTouristResponse> {
                 override fun onFailure(call: Call<RegisterTouristResponse>, t: Throwable) {
-                    println("")
+                    Toast.makeText(
+                        context, "Error!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 override fun onResponse(call: Call<RegisterTouristResponse>, response: Response<RegisterTouristResponse>) {
                     val loggedUser = response.body()
                     if(response.errorBody() == null){
-                        Toast.makeText(context, "Account successfully created", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Cuenta creada correctamente!", Toast.LENGTH_LONG).show()
                         val intent = Intent(activity, MainActivity::class.java)
                         startActivity(intent)
                         activity?.finish()
                     } else {
-                        Toast.makeText(context, "You didn't register", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "No estas registrado", Toast.LENGTH_LONG).show()
                     }
                 }
             }
