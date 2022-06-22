@@ -2,6 +2,7 @@ package com.example.trubbi.interfaces
 
 import com.example.trubbi.data.*
 import retrofit2.Call
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -29,6 +30,9 @@ interface APIEventService {
     @GET("/schedule")
     fun getScheduleEvents():Call<List<Schedule>>
 
+    @GET("/schedule")
+    fun getFavoriteEvents():Call<List<Schedule>>
+
     @GET("/schedule/history")
     fun getHistoryEvents():Call<List<Schedule>>
 
@@ -37,4 +41,13 @@ interface APIEventService {
 
     @POST("/schedule/{id}")
     fun scheduleEvent(@Path("id")id:Number):Call<ScheduleDetails>
+
+    @DELETE("/schedule/{id}")
+    fun deleteScheduleEvent(@Path("id")id:Number):Call<ScheduleDetails>
+
+    @POST("/favorites/{id}")
+    fun favoriteEvent(@Path("id")id:Number):Call<ScheduleDetails>
+
+    @DELETE("/favorites/{id}")
+    fun deleteFavoriteEvent(@Path("id")id:Number):Call<ScheduleDetails>
 }

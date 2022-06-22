@@ -65,7 +65,7 @@ class FavoritesFragment : Fragment() {
     private fun getFavoriteEvents(token: String?){
         val serviceBuilder = ServiceBuilder(token)
         val apiService: APIEventService = serviceBuilder.buildService(APIEventService::class.java)
-        val requestCall: Call<List<Schedule>> = apiService.getScheduleEvents()
+        val requestCall: Call<List<Schedule>> = apiService.getFavoritesEvents()
 
         requestCall.enqueue(object: retrofit2.Callback<List<Schedule>>{
             @SuppressLint("NotifyDataSetChanged")
