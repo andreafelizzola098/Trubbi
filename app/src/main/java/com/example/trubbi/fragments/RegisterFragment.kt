@@ -114,9 +114,6 @@ class RegisterFragment : Fragment() {
                     val loggedUser = response.body()
                     if(response.errorBody() == null){
                         Toast.makeText(context, "Cuenta creada correctamente!", Toast.LENGTH_LONG).show()
-                        val intent = Intent(activity, MainActivity::class.java)
-                        startActivity(intent)
-                        activity?.finish()
                     } else {
                         Toast.makeText(context, "No estas registrado", Toast.LENGTH_LONG).show()
                     }

@@ -87,4 +87,11 @@ class MyEventsFragment : Fragment() {
             }
         })
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onPause() {
+        super.onPause()
+        events = ArrayList()
+        eventListAdapter.notifyDataSetChanged()
+    }
 }

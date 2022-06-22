@@ -98,6 +98,9 @@
         <action
             android:id="@+id/action_opinionSurveyFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <argument
+            android:name="eventId"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"

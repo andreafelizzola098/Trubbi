@@ -39,6 +39,7 @@ class DetailsFragment : Fragment() {
     private lateinit var btnScheduleTint: ImageButton
     private var commons: Commons = Commons()
     private val key = "JWT"
+    private lateinit var btnOpinions: ExtendedFloatingActionButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,6 +63,8 @@ class DetailsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        btnFav.isVisible = true
+        btnSchedule.isVisible = true
         val eventId = arguments?.getLong("eventId")
         val token = PreferenceManager.getDefaultSharedPreferences(this.context).getString(key,"")
         getEventById(eventId, token)
@@ -139,11 +142,11 @@ class DetailsFragment : Fragment() {
                                 val scheduleEvent = it[i]
                                 if(scheduleEvent.scheduled){
                                     btnScheduleTint.isVisible = true
+                                    btnSchedule.isGone = true
                                 } else {
                                     btnSchedule.isVisible = true
+                                    btnScheduleTint.isGone = true
                                 }
-                            } else {
-                                btnSchedule.isVisible = true
                             }
                         }
                     }
@@ -176,11 +179,11 @@ class DetailsFragment : Fragment() {
                                 val scheduleEvent = it[i]
                                 if(scheduleEvent.favourite){
                                    btnFavFill.isVisible = true
+                                    btnFav.isGone = true
                                 } else {
                                     btnFav.isVisible = true
+                                    btnFavFill.isGone = true
                                 }
-                            } else {
-                                btnFav.isVisible = true
                             }
                         }
                     }
