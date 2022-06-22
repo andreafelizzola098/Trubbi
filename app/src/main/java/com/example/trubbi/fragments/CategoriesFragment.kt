@@ -2,6 +2,7 @@ package com.example.trubbi.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.preference.PreferenceManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,7 @@ class CategoriesFragment : Fragment() {
     private lateinit var eventListAdapter: EventListAdapter
     private lateinit var toolBarSearchView: View
     private var commons: Commons = Commons()
+    private val key = "JWT"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +53,8 @@ class CategoriesFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         val categoryId = CategoriesFragmentArgs.fromBundle(requireArguments()).categoryId
-        getCategoryEvents(categoryId)
+        val token = PreferenceManager.getDefaultSharedPreferences(activity?.applicationContext).getString(key,"")
+        getCategoryEvents(categoryId,token)
         categoryRecyclerView.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(context)
         categoryRecyclerView.layoutManager = linearLayoutManager
@@ -60,8 +63,9 @@ class CategoriesFragment : Fragment() {
 
     }
 
-    private fun getCategoryEvents(categoryId: Long) {
-        val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
+    private fun getCategoryEvents(categoryId: Long, token: String?) {
+        val serviceBuilder = ServiceBuilder(token)
+        val apiService: APIEventService = serviceBuilder.buildService(APIEventService::class.java)
         val requestCall: Call<List<EventResponse>> = apiService.getEventsByCategory(categoryId)
 
         requestCall.enqueue(object: retrofit2.Callback<List<EventResponse>>{

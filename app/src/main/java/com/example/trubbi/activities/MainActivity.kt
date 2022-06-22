@@ -3,6 +3,7 @@ package com.example.trubbi.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels

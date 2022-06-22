@@ -66,7 +66,5 @@
         android:fitsSystemWindows="true"
         app:menu="@menu/navigation_drawer"
         app:headerLayout="@layout/header_navigation_drawer"/>
-        //app:menu y app headerLayout -> le pasamos los componentes del menu
-
 </androidx.drawerlayout.widget.DrawerLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,6 +28,7 @@ class InterestsFragment : Fragment() {
     private lateinit var linearLayout: LinearLayout
     private lateinit var interestBox: ConstraintLayout
     private var categoriesResponse: MutableList<CategoryResponse> = ArrayList()
+    private val key = "JWT"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,15 +42,15 @@ class InterestsFragment : Fragment() {
         }
         linearLayout = categoryView.findViewById(R.id.linearListContainer)
         interestBox = categoryView.findViewById(R.id.interestBox)
-        getCategories()
+        //getCategories()
         return categoryView
     }
 
     override fun onStart() {
         super.onStart()
-        getTouristCategories()
+        //getTouristCategories()
     }
-
+/*
     private fun getTouristCategories(){
         val apiService: APIEventService = ServiceBuilder.buildService(APIEventService::class.java)
         val requestCall: Call<List<CategoryResponse>> = apiService.getTouristCategories()
@@ -103,6 +104,8 @@ class InterestsFragment : Fragment() {
             }
         })
     }
+
+ */
 
     override fun onStop() {
         super.onStop()
