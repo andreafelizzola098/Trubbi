@@ -121,7 +121,7 @@ class DetailsFragment : Fragment() {
                         viewDetails.findViewById<TextView>(R.id.details_date).text = formattDate
                         val endDate : String = DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.ofEpochSecond(eventResponse.end_date))
                         val parsedEndDate = LocalDateTime.parse(commons.endDateFormatt(endDate))
-                        val currentDate = LocalDateTime.now().plusHours(3)
+                        val currentDate = LocalDateTime.now()
                         if(parsedEndDate < currentDate){
                             btnOpinions.isVisible = true
                         }
