@@ -9,7 +9,7 @@ interface APIEventService {
     @GET("/events/{id}")
     fun getEventById(@Path("id")id:Number): Call<EventResponse>
 
-    @GET("/events/byname")
+    @GET("/events/byName")
     fun getEventByTitle(@Query("name")name:String?):Call<List<EventResponse>>
 
     @GET("/events")
