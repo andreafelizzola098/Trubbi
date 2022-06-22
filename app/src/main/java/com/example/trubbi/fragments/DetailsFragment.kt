@@ -98,6 +98,9 @@ class DetailsFragment : Fragment() {
                         val startDate : String = DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.ofEpochSecond(eventResponse.start_date))
                         val formattDate = commons.dateFormatt(startDate)
                         viewDetails.findViewById<TextView>(R.id.details_date).text = formattDate
+
+                        val endDate : String = DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.ofEpochSecond(eventResponse.end_date))
+
                     }
                 }
             }

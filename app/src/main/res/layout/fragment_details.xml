@@ -120,26 +120,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:paddingLeft="30dp"
-                android:paddingRight="30dp"
-                android:orientation="vertical">
+                android:paddingRight="30dp">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/fechaDetails"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="20dp"
                     android:enabled="false"
-                    android:hint="Fecha">
+                    android:hint="Fecha"
+                    android:paddingTop="20dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/details_date"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="none"
-                        android:textColor="@color/material_on_surface_emphasis_medium"
                         android:text="21 de agosto - 21:30hs"
+                        android:textColor="@color/material_on_surface_emphasis_medium"
                         android:textIsSelectable="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -149,16 +149,16 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="20dp"
                     android:enabled="false"
-                    android:hint="Direccion">
+                    android:hint="Direccion"
+                    android:paddingTop="20dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="none"
-                        android:textColor="@color/material_on_surface_emphasis_medium"
                         android:text="Zufriategui 1234"
+                        android:textColor="@color/material_on_surface_emphasis_medium"
                         android:textIsSelectable="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -178,8 +178,8 @@
                         android:layout_height="wrap_content"
                         android:inputType="none"
                         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et elit id sapien bibendum volutpat ac sit amet est. Integer eget turpis a massa placerat cursus ut gravida dui.Nullam commodo, nulla sit amet consectetur cursus, risus est egestas nunc, nec iaculis libero mi non justo."
-                        android:textIsSelectable="true"
                         android:textColor="@color/material_on_surface_emphasis_medium"
+                        android:textIsSelectable="true"
                         android:textSize="16dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -187,4 +187,22 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btnOpinion"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="16dp"
+        android:backgroundTint="#faf3a2"
+        android:text="@string/opinar"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:elevation="15dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.cardview.widget.CardView>

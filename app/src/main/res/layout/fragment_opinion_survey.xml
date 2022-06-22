@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
                 android:layout_margin="50dp"
-                android:backgroundTint="@color/trubbiColor"
+                android:backgroundTint="@color/fondoDrawer"
                 android:text="@string/enviar"
                 app:icon="@android:drawable/ic_menu_send" />
 
