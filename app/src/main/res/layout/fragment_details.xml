@@ -40,7 +40,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
-                    android:text="HOLA!"
                     android:enabled="false"
                     android:textColor="@color/material_on_surface_emphasis_medium"
                     android:textSize="24sp" />
@@ -153,6 +152,7 @@
                     android:paddingTop="20dp">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/details_address"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="none"

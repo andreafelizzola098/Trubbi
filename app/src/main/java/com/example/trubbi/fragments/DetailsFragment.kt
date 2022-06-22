@@ -115,6 +115,7 @@ class DetailsFragment : Fragment() {
                     eventResponse?.let {
                         viewDetails.findViewById<TextView>(R.id.details_title).text = eventResponse.title
                         viewDetails.findViewById<TextView>(R.id.details_description).text = eventResponse.description
+                        viewDetails.findViewById<TextView>(R.id.details_address).text = eventResponse.address
                         Picasso.get().load(eventResponse.photo).into(viewDetails.findViewById<ImageView>(R.id.details_image))
                         val startDate : String = DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.ofEpochSecond(eventResponse.start_date))
                         val formattDate = commons.dateFormatt(startDate)
