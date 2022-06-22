@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trubbi.R
+import com.example.trubbi.activities.MainActivity
 import com.example.trubbi.adapters.EventListAdapter
 import com.example.trubbi.commons.Commons
 import com.example.trubbi.data.EventResponse
@@ -37,7 +38,10 @@ class SearchFragment : Fragment() {
         searchV = inflater.inflate(R.layout.fragment_search, container, false)
         recyclerSearch = searchV.findViewById(R.id.recyclerViewSearch)
         msgSearch = searchV.findViewById(R.id.searchMsg)
-        //val text = CategoriesFragmentArgs.fromBundle(requireArguments()).namecategory
+        val text = arguments?.getString("query")
+        if(activity != null){
+            (activity as MainActivity).supportActionBar?.title = " $text"
+        }
         return searchV
     }
 
@@ -71,6 +75,14 @@ class SearchFragment : Fragment() {
                 ).show()
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val text = arguments?.getString("query")
+        if(activity != null){
+            (activity as MainActivity).supportActionBar?.title = " $text"
+        }
     }
 
     override fun onStart() {
