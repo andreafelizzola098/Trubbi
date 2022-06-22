@@ -15,7 +15,7 @@ class Commons {
                 event.title,
                 dateFormatt(startDate),
                 isPublic(event.public),
-        "maipu 1020",
+         event.address,
                 event.photo
         )
     }
